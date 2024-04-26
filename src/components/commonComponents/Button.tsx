@@ -48,8 +48,10 @@ const buttonCSS = {
 const Wrapper = styled.button<{ $type: string }>`
   ${({ $type }) => {
     switch ($type) {
+      //재료 선택, 수정, 레시피 추천 버튼 등
       case "confirmBtn":
         return buttonCSS.confirmBtn;
+      //추천 그만두기, 재료 삭제 버튼 등
       case "disproveBtn":
         return buttonCSS.disproveBtn;
       default:

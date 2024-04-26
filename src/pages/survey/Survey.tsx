@@ -9,14 +9,14 @@ const Survey = () => {
         <SurveySection>
           <h1>어떤 셰프의 레시피가 더 만족스러우셨나요?</h1>
           <h2>서비스 개선에 큰 도움이 됩니다.</h2>
-          <Button>Chat GPT</Button>
-          <Button>Gemini</Button>
+          <Button typeState={"confirmBtn"}>Chat GPT</Button>
+          <Button typeState={"confirmBtn"}>Gemini</Button>
           <h1>기타 의견을 작성해주세요.</h1>
           <textarea />
         </SurveySection>
         <ButtonSection>
           <Link to="/">
-            <Button>홈으로</Button>
+            <Button typeState={"confirmBtn"}>홈으로</Button>
           </Link>
         </ButtonSection>
       </Wrapper>
