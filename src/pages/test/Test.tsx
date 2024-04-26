@@ -1,3 +1,4 @@
+import Button from "@/components/commonComponents/Button";
 import styled from "styled-components";
 
 const Test = () => {
@@ -19,10 +20,10 @@ const Test = () => {
         <Grey1 />
         <Grey2 />
       </div>
+      <Button typeState={"confirmBtn"}>재료 선택 완료</Button>
     </div>
   );
 };
-
 const Head1 = styled.div`
   font-family: "Pretendard Variable";
   font-weight: 700;
