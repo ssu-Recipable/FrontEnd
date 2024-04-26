@@ -77,7 +77,7 @@ const fonts = {
   button2: FONT({
     family: "Pretendard Variable",
     weight: 600,
-    size: 1.3,
+    size: 1.2,
     lineHeight: 2,
   }),
 };

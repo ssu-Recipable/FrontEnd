@@ -33,7 +33,7 @@ const buttonDefaultCSS = {
 };
 
 const buttonCSS = {
-  confirmBtn: css`
+  completeBtn: css`
     ${buttonDefaultCSS.basicCss};
     background-color: ${({ theme }) => theme.colors.main1};
     color: ${({ theme }) => theme.colors.black};
@@ -43,19 +43,29 @@ const buttonCSS = {
     background-color: ${({ theme }) => theme.colors.main2};
     color: ${({ theme }) => theme.colors.black};
   `,
+  confirmBtn: css`
+    ${buttonDefaultCSS.basicCss};
+    background-color: ${({ theme }) => theme.colors.main1};
+    color: ${({ theme }) => theme.colors.black};
+    width: 4.7rem;
+    height: 2rem;
+    padding: 1.2rem;
+  `,
 };
 
 const Wrapper = styled.button<{ $type: string }>`
   ${({ $type }) => {
     switch ($type) {
       //재료 선택, 수정, 레시피 추천 버튼 등
-      case "confirmBtn":
-        return buttonCSS.confirmBtn;
+      case "completeBtn":
+        return buttonCSS.completeBtn;
       //추천 그만두기, 재료 삭제 버튼 등
       case "disproveBtn":
         return buttonCSS.disproveBtn;
+      //확인 버튼
+      case "confirmBtn":
+        return buttonCSS.confirmBtn;
       default:
-        return "";
     }
   }}
 `;
