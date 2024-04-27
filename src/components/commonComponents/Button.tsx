@@ -22,10 +22,10 @@ const buttonDefaultCSS = {
     align-items: center;
     justify-content: center;
 
-    border-radius: 2.5rem;
+    border-radius: 0.5rem;
     padding: 1.6rem;
-    width: 33.5rem;
-    height: 5.4rem;
+    width: 25rem;
+    height: 4rem;
     letter-spacing: -0.032rem;
 
     pointer-events: auto;
@@ -51,6 +51,12 @@ const buttonCSS = {
     height: 2rem;
     padding: 1.2rem;
   `,
+  defaultBtn: css`
+    ${buttonDefaultCSS.basicCss};
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.black};
+    border: 0.1rem solid ${({ theme }) => theme.colors.grey2};
+  `,
 };
 
 const Wrapper = styled.button<{ $type: string }>`
@@ -65,7 +71,10 @@ const Wrapper = styled.button<{ $type: string }>`
       //확인 버튼
       case "confirmBtn":
         return buttonCSS.confirmBtn;
+      //로그인, 로그아웃, 프로필 수정 버튼 등
+      case "defaultBtn":
+        return buttonCSS.defaultBtn;
       default:
     }
-  }}
+  }};
 `;

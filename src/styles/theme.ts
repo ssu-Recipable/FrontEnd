@@ -20,64 +20,64 @@ const fonts = {
   head1: FONT({
     family: "Pretendard Variable",
     weight: 700,
-    size: 2.8,
+    size: 2.5,
     lineHeight: 3.4,
   }),
   head2: FONT({
     family: "Pretendard Variable",
     weight: 700,
-    size: 2.2,
+    size: 1.9,
     lineHeight: 3,
   }),
 
   title1: FONT({
     family: "Pretendard Variable",
     weight: 700,
-    size: 2.2,
+    size: 1.9,
     lineHeight: 3.4,
   }),
   title2: FONT({
     family: "Pretendard Variable",
     weight: 400,
-    size: 2.2,
+    size: 1.9,
     lineHeight: 2.8,
   }),
   title3: FONT({
     family: "Pretendard Variable",
     weight: 700,
-    size: 1.7,
+    size: 1.4,
     lineHeight: 2.8,
   }),
   title4: FONT({
     family: "Pretendard Variable",
     weight: 700,
-    size: 1.4,
+    size: 1.1,
     lineHeight: 2.4,
   }),
 
   body1: FONT({
     family: "Pretendard Variable",
     weight: 400,
-    size: 1.4,
+    size: 1.1,
     lineHeight: 2.4,
   }),
   body2: FONT({
     family: "Pretendard Variable",
     weight: 400,
-    size: 1.3,
+    size: 1,
     lineHeight: 2.4,
   }),
 
   button1: FONT({
     family: "Pretendard Variable",
     weight: 600,
-    size: 1.7,
+    size: 1.3,
     lineHeight: 2,
   }),
   button2: FONT({
     family: "Pretendard Variable",
     weight: 600,
-    size: 1.2,
+    size: 1.1,
     lineHeight: 2,
   }),
 };
