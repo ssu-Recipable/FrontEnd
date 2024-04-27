@@ -52,20 +52,20 @@ const fonts = {
     family: "Pretendard Variable",
     weight: 700,
     size: 1.1,
-    lineHeight: 2.4,
+    lineHeight: 2.6,
   }),
 
   body1: FONT({
     family: "Pretendard Variable",
     weight: 400,
     size: 1.1,
-    lineHeight: 2.4,
+    lineHeight: 2,
   }),
   body2: FONT({
     family: "Pretendard Variable",
     weight: 400,
     size: 1,
-    lineHeight: 2.4,
+    lineHeight: 0.4,
   }),
 
   button1: FONT({

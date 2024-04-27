@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import RecommendRecipe from "./components/RecommendRecipe";
+import RecentSearchRecipe from "./components/RecentSearchRecipe";
+import Advertise from "./components/Advertise";
+import Footer from "./components/Footer";
 
 const Main = () => {
   return (
     <MainContainer>
       <Header />
       <RecommendRecipe />
-      <section></section>
-      <footer></footer>
+      <RecentSearchRecipe />
+      <Advertise />
+      <Footer />
     </MainContainer>
   );
 };

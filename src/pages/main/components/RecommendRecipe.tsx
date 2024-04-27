@@ -20,7 +20,7 @@ const RecommendRecipeWrapper = styled.section`
   margin-top: 1.2rem;
   img {
     width: 100%;
-    height: 17rem;
+    height: 15rem;
   }
 `;
 
