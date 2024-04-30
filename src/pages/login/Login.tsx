@@ -1,5 +1,5 @@
 import Text from "@/components/commonComponents/Text";
-import MainLogo from "@/assets/images/MainLogo.jpeg";
+import MainLogo from "@/assets/images/Recipable_MainLogo.png";
 import KakaoLogin from "@/assets/images/kakao_login_large_wide.png";
 import styled from "styled-components";
 import Button from "@/components/commonComponents/Button";
