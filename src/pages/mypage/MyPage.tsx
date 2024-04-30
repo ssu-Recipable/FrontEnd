@@ -5,11 +5,16 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [reason, setReason] = useState<string>("");
+  const navigate = useNavigate();
 
+  const gotoEditProfile = () => {
+    navigate("/editprofile");
+  };
   const handleConfirm = () => {
     if (reason.trim() === "") {
       alert("탈퇴 사유를 입력해주세요.");
@@ -54,7 +59,7 @@ const MyPage = () => {
           <Text font={"title3"}>차현수</Text>
         </UserInfo>
         <MyPageMenu>
-          <div>
+          <div onClick={gotoEditProfile}>
             <Text font={"body1"}>프로필 수정</Text>
           </div>
           <span

@@ -31,6 +31,11 @@ const FooterWrapper = styled.footer`
   margin-top: 3rem;
   padding: 1rem 3rem;
   border-top: 1px solid ${theme.colors.grey2};
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const LogoBox = styled.div`
   position: absolute;
