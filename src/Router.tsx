@@ -5,6 +5,8 @@ import Login from "./pages/login/Login";
 import Main from "./pages/main/Main";
 import MyPage from "./pages/mypage/MyPage";
 import EditProfile from "./pages/editProfile/EditProfile";
+import AddIngredient from "./pages/addIngredient/AddIngredient";
+import ScanReceipt from "./pages/scanReceipt/ScanReceipt";
 
 const Router = () => {
   return (
@@ -16,6 +18,8 @@ const Router = () => {
         <Route path="/main" element={<Main />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/editprofile" element={<EditProfile />} />
+        <Route path="/addingredient" element={<AddIngredient />} />
+        <Route path="/scanreceipt" element={<ScanReceipt />} />
       </Routes>
     </BrowserRouter>
   );
