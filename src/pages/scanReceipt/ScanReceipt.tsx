@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import { FaFolderPlus } from "react-icons/fa";
 import { theme } from "@/styles/theme";
+import Button from "@/components/commonComponents/Button";
 
 type UploadFile = {
   file: File;
@@ -58,9 +59,13 @@ const ScanReceipt = () => {
           accept="image/jpg, image/jpeg, image/png"
           ref={fileInputRef}
           onChange={uploadFile}
+          style={{ display: "none" }}
         ></input>
         <button type="button" onClick={handleClickFileInput}></button>
       </form>
+      <Button typeState={"completeBtn"}>
+        <Text font={"button1"}>영수증 분석하기</Text>
+      </Button>
     </ScanReceiptContainer>
   );
 };
@@ -70,13 +75,13 @@ const ScanReceiptContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10rem;
+  margin-top: 12rem;
 `;
 const NoSelecetedImage = styled.div`
   position: relative;
   width: 25rem;
   height: 27rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
   background-color: ${theme.colors.grey2};
   span {
     position: absolute;
@@ -87,6 +92,6 @@ const NoSelecetedImage = styled.div`
 const ShowFileImage = styled.img`
   width: 25rem;
   height: 27rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
 `;
 export default ScanReceipt;
