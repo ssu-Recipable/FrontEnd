@@ -1,12 +1,14 @@
 import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-const Category = () => {
+interface CategoryType {
+  selectedCategory: string | null;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
+}
+const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
   const [isDropDown, setIsDropDown] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
-
   const onClickOption = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedCategory(e.currentTarget.innerText);
     setIsDropDown(false);
@@ -77,7 +79,7 @@ const DropDownArea = styled.div`
   width: 31.5rem;
   background-color: ${theme.colors.grey1};
   border-radius: 0.6rem;
-  top: 23rem;
+  top: 15rem;
   height: 12rem;
   overflow-y: auto;
   @keyframes dropdown {

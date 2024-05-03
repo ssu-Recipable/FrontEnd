@@ -3,16 +3,28 @@ import { theme } from "@/styles/theme";
 import { useRef } from "react";
 import styled from "styled-components";
 
-const Input = () => {
+interface InputType {
+  inputIngredient: string | null;
+  setInputIngredient: React.Dispatch<React.SetStateAction<string | null>>;
+}
+const Input = ({ inputIngredient, setInputIngredient }: InputType) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const deleteInput = () => {
     inputRef.current!.value = "";
+  };
+  const handleInputValue = () => {
+    setInputIngredient(inputRef.current!.value);
   };
   return (
     <InputContainer>
       <Text font={"title3"}>재료명</Text>
       <InputBox>
-        <InputContent type="text" ref={inputRef} />
+        <InputContent
+          type="text"
+          ref={inputRef}
+          onChange={handleInputValue}
+          value={inputIngredient ? inputIngredient : ""}
+        />
         <DeleteButton type="button" onClick={deleteInput} />
       </InputBox>
     </InputContainer>
@@ -21,6 +33,7 @@ const Input = () => {
 
 const InputContainer = styled.div`
   margin-top: 2rem;
+  margin-bottom: 5rem;
 `;
 const InputBox = styled.div`
   position: relative;
