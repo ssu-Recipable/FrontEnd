@@ -2,11 +2,8 @@ import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
 import { useRef } from "react";
 import styled from "styled-components";
+import { InputType } from "../types/type";
 
-interface InputType {
-  inputIngredient: string | null;
-  setInputIngredient: React.Dispatch<React.SetStateAction<string | null>>;
-}
 const Input = ({ inputIngredient, setInputIngredient }: InputType) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const deleteInput = () => {
@@ -33,7 +30,7 @@ const Input = ({ inputIngredient, setInputIngredient }: InputType) => {
 
 const InputContainer = styled.div`
   margin-top: 2rem;
-  margin-bottom: 5rem;
+  margin-bottom: 10rem;
 `;
 const InputBox = styled.div`
   position: relative;

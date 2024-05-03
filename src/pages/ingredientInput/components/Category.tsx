@@ -2,11 +2,8 @@ import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { CategoryType } from "../types/type";
 
-interface CategoryType {
-  selectedCategory: string | null;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
-}
 const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
   const [isDropDown, setIsDropDown] = useState(false);
   const onClickOption = (e: React.MouseEvent<HTMLButtonElement>) => {
