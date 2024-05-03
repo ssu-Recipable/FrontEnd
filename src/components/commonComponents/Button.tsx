@@ -47,7 +47,7 @@ const buttonCSS = {
   `,
   confirmBtn: css`
     ${buttonDefaultCSS.basicCss};
-    background-color: ${({ theme }) => theme.colors.main1};
+    background-color: ${({ theme }) => theme.colors.main2};
     color: ${({ theme }) => theme.colors.black};
     width: 4.7rem;
     height: 2rem;

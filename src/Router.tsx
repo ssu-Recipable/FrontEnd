@@ -7,6 +7,7 @@ import MyPage from "./pages/mypage/MyPage";
 import EditProfile from "./pages/editProfile/EditProfile";
 import AddIngredient from "./pages/addIngredient/AddIngredient";
 import ScanReceipt from "./pages/scanReceipt/ScanReceipt";
+import IngredientInput from "./pages/ingredientInput/IngredientInput";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
         <Route path="/editprofile" element={<EditProfile />} />
         <Route path="/addingredient" element={<AddIngredient />} />
         <Route path="/scanreceipt" element={<ScanReceipt />} />
+        <Route path="/ingredientinput" element={<IngredientInput />} />
       </Routes>
     </BrowserRouter>
   );

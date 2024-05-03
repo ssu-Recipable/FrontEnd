@@ -8,6 +8,9 @@ const AddIngredient = () => {
   const gotoScanReceipt = () => {
     navigate("/scanreceipt");
   };
+  const gotoIngredientInput = () => {
+    navigate("/ingredientinput");
+  };
   return (
     <AddIngredientContainer>
       <Title>
@@ -17,7 +20,7 @@ const AddIngredient = () => {
         <Button typeState={"completeBtn"} onClick={gotoScanReceipt}>
           <Text font={"button1"}>영수증 스캔하기</Text>
         </Button>
-        <Button typeState={"disproveBtn"}>
+        <Button typeState={"disproveBtn"} onClick={gotoIngredientInput}>
           <Text font={"button1"}>직접 입력하기</Text>
         </Button>
       </ActionState>
