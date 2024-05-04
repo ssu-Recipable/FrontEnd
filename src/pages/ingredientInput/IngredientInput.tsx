@@ -6,6 +6,7 @@ import Button from "@/components/commonComponents/Button";
 import { useEffect, useState } from "react";
 import { theme } from "@/styles/theme";
 import { AddIngredientType } from "./types/type";
+import IngredientList from "./components/IngredientList";
 
 const IngredientInput = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -21,6 +22,7 @@ const IngredientInput = () => {
       return;
     }
     const newIngredient = {
+      id: Math.random(),
       category: selectedCategory,
       ingredient: inputIngredient,
     };
@@ -30,6 +32,12 @@ const IngredientInput = () => {
     });
     setSelectedCategory("");
     setInputIngredient("");
+  };
+
+  const handleRemoveIngredient = (id: number) => {
+    setIngredientList((prevState) => {
+      return prevState.filter((ingreList) => ingreList.id !== id);
+    });
   };
 
   useEffect(() => {
@@ -48,23 +56,23 @@ const IngredientInput = () => {
           inputIngredient={inputIngredient}
           setInputIngredient={setInputIngredient}
         />
-        <ButtonSection>
+        <TopButtonSection>
           <Button typeState={"confirmBtn"} onClick={handleSaveIngredient}>
             <Text font={"button2"}>확인</Text>
           </Button>
-        </ButtonSection>
+        </TopButtonSection>
       </TopContainer>
       <BottomContainer>
         <Text font={"title3"}>다음과 같은 재료를 냉장고에 추가합니다</Text>
-        <div>
-          {ingredientList &&
-            ingredientList.map((item) => (
-              <IngredientItem>
-                <Text font={"title4"}>{item.category}</Text>
-                <Text font={"body1"}>{item.ingredient}</Text>
-              </IngredientItem>
-            ))}
-        </div>
+        <IngredientList
+          onRemove={handleRemoveIngredient}
+          ingredientList={ingredientList}
+        />
+        <BottomButtonSection>
+          <Button typeState="completeBtn">
+            <Text font={"button1"}>냉장고에 재료 추가하기</Text>
+          </Button>
+        </BottomButtonSection>
       </BottomContainer>
     </InputContainer>
   );
@@ -77,19 +85,27 @@ const InputContainer = styled.div`
   margin-top: 8rem;
   padding: 1rem;
 `;
-const ButtonSection = styled.section`
-  position: absolute;
-  bottom: 3rem;
-  left: 13rem;
-`;
+
 const TopContainer = styled.section`
   position: relative;
   border-bottom: 1px solid ${theme.colors.grey2};
 `;
+
+const TopButtonSection = styled.section`
+  position: absolute;
+  bottom: 3rem;
+  left: 13.4rem;
+`;
+
 const BottomContainer = styled.section`
+  position: relative;
   margin-top: 4rem;
 `;
-const IngredientItem = styled.div`
-  display: flex;
+
+const BottomButtonSection = styled.section`
+  position: absolute;
+  bottom: -2rem;
+  left: 3.25rem;
 `;
+
 export default IngredientInput;
