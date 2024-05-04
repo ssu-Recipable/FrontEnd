@@ -69,7 +69,11 @@ const IngredientInput = () => {
           ingredientList={ingredientList}
         />
         <BottomButtonSection>
-          <Button typeState="completeBtn">
+          <Button
+            typeState={
+              ingredientList.length > 0 ? "completeBtn" : "disabledBtn"
+            }
+          >
             <Text font={"button1"}>냉장고에 재료 추가하기</Text>
           </Button>
         </BottomButtonSection>

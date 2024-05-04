@@ -59,6 +59,12 @@ const buttonCSS = {
     color: ${({ theme }) => theme.colors.black};
     border: 0.1rem solid ${({ theme }) => theme.colors.grey2};
   `,
+  disabledBtn: css`
+    ${buttonDefaultCSS.basicCss};
+    background-color: ${({ theme }) => theme.colors.grey1};
+    color: ${({ theme }) => theme.colors.black};
+    border-radius: 1.3rem;
+  `,
 };
 
 const Wrapper = styled.button<{ $type: string }>`
@@ -76,6 +82,8 @@ const Wrapper = styled.button<{ $type: string }>`
       //로그인, 로그아웃, 프로필 수정 버튼 등
       case "defaultBtn":
         return buttonCSS.defaultBtn;
+      case "disabledBtn":
+        return buttonCSS.disabledBtn;
       default:
     }
   }};
