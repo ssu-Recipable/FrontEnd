@@ -1,12 +1,17 @@
 import Text from "@/components/commonComponents/Text";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
-import { IngredientListType } from "../types/type";
+import { IngredientListType } from "../../pages/ingredientInput/types/type";
+import { FaPencil } from "react-icons/fa6";
 
-const IngredientList = ({ ingredientList, onRemove }: IngredientListType) => {
+const IngredientList = ({
+  isEdit,
+  ingredientList,
+  onRemove,
+}: IngredientListType) => {
   return (
     <ItemContainer>
-      {ingredientList && ingredientList.length > 0 ? (
+      {ingredientList &&
         ingredientList.map((item) => (
           <IngredientItem key={item.id}>
             <div>
@@ -15,16 +20,14 @@ const IngredientList = ({ ingredientList, onRemove }: IngredientListType) => {
               </Text>
             </div>
             <Text font={"body1"}>{item.ingredient}</Text>
+            {isEdit ? (
+              <EditButton>
+                <FaPencil size={16} color={theme.colors.black} />
+              </EditButton>
+            ) : null}
             <DeleteButton type="button" onClick={() => onRemove(item.id)} />
           </IngredientItem>
-        ))
-      ) : (
-        <DefalutMessage>
-          <Text font={"title4"}>
-            이곳에 원하는 식재료의 이름과 카테고리를 추가해보세요!
-          </Text>
-        </DefalutMessage>
-      )}
+        ))}
     </ItemContainer>
   );
 };
@@ -34,12 +37,6 @@ const ItemContainer = styled.div`
   height: 20rem;
   overflow-y: auto;
   margin-bottom: 5rem;
-`;
-const DefalutMessage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 8rem;
 `;
 const IngredientItem = styled.div`
   position: relative;
@@ -51,6 +48,12 @@ const IngredientItem = styled.div`
   div {
     width: 5rem;
   }
+`;
+const EditButton = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 1.4rem;
+  right: 0;
 `;
 const DeleteButton = styled.button`
   position: absolute;

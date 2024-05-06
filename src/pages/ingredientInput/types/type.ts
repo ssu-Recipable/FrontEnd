@@ -15,6 +15,7 @@ export interface CategoryType {
 }
 
 export interface IngredientListType {
+  isEdit: boolean;
   ingredientList: AddIngredientType[];
   onRemove: (id: number) => void;
 }

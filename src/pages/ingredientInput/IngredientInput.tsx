@@ -6,7 +6,7 @@ import Button from "@/components/commonComponents/Button";
 import { useEffect, useState } from "react";
 import { theme } from "@/styles/theme";
 import { AddIngredientType } from "./types/type";
-import IngredientList from "./components/IngredientList";
+import IngredientList from "../../components/commonComponents/IngredientList";
 
 const IngredientInput = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -64,10 +64,19 @@ const IngredientInput = () => {
       </TopContainer>
       <BottomContainer>
         <Text font={"title3"}>다음과 같은 재료를 냉장고에 추가합니다</Text>
-        <IngredientList
-          onRemove={handleRemoveIngredient}
-          ingredientList={ingredientList}
-        />
+        {ingredientList.length > 0 ? (
+          <IngredientList
+            isEdit={false}
+            onRemove={handleRemoveIngredient}
+            ingredientList={ingredientList}
+          />
+        ) : (
+          <DefalutMessage>
+            <Text font={"title4"}>
+              이곳에 원하는 식재료의 이름과 카테고리를 추가해보세요!
+            </Text>
+          </DefalutMessage>
+        )}
         <BottomButtonSection>
           <Button
             typeState={
@@ -110,6 +119,14 @@ const BottomButtonSection = styled.section`
   position: absolute;
   bottom: -2rem;
   left: 3.25rem;
+`;
+
+const DefalutMessage = styled.div`
+  display: flex;
+  height: 20rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
 `;
 
 export default IngredientInput;
