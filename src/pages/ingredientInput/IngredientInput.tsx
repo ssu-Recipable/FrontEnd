@@ -65,11 +65,13 @@ const IngredientInput = () => {
       <BottomContainer>
         <Text font={"title3"}>다음과 같은 재료를 냉장고에 추가합니다</Text>
         {ingredientList.length > 0 ? (
-          <IngredientList
-            isEdit={false}
-            onRemove={handleRemoveIngredient}
-            ingredientList={ingredientList}
-          />
+          <ItemContainer>
+            <IngredientList
+              isEdit={false}
+              onRemove={handleRemoveIngredient}
+              ingredientList={ingredientList}
+            />
+          </ItemContainer>
         ) : (
           <DefalutMessage>
             <Text font={"title4"}>
@@ -113,6 +115,13 @@ const TopButtonSection = styled.section`
 const BottomContainer = styled.section`
   position: relative;
   margin-top: 4rem;
+`;
+
+const ItemContainer = styled.div`
+  width: 100%;
+  height: 20rem;
+  overflow-y: auto;
+  margin-bottom: 5rem;
 `;
 
 const BottomButtonSection = styled.section`

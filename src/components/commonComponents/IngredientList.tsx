@@ -10,7 +10,7 @@ const IngredientList = ({
   onRemove,
 }: IngredientListType) => {
   return (
-    <ItemContainer>
+    <>
       {ingredientList &&
         ingredientList.map((item) => (
           <IngredientItem key={item.id}>
@@ -28,16 +28,10 @@ const IngredientList = ({
             <DeleteButton type="button" onClick={() => onRemove(item.id)} />
           </IngredientItem>
         ))}
-    </ItemContainer>
+    </>
   );
 };
 
-const ItemContainer = styled.div`
-  width: 100%;
-  height: 20rem;
-  overflow-y: auto;
-  margin-bottom: 5rem;
-`;
 const IngredientItem = styled.div`
   position: relative;
   display: flex;
