@@ -6,21 +6,19 @@ const LoginHandler = () => {
     window.location.search
   ).get("code");
 
-  const kakaoLogin = async () => {
-    try {
-      const { data } = await kakaoAuthCodeApi(AUTHORIZE_CODE);
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    kakaoLogin();
-  }, []);
-
   useEffect(() => {
     console.log(AUTHORIZE_CODE);
+
+    const kakaoLogin = async () => {
+      try {
+        const { data } = await kakaoAuthCodeApi(AUTHORIZE_CODE);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    kakaoLogin();
   }, [AUTHORIZE_CODE]);
 
   return <div>로그인중입니다.</div>;
