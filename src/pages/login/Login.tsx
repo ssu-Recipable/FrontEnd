@@ -6,13 +6,23 @@ import Button from "@/components/commonComponents/Button";
 import { theme } from "@/styles/theme";
 
 const Login = () => {
+  const REST_API_KEY: string = import.meta.env.VITE_REST_API_KEY;
+  const REDIRECT_URI: string = import.meta.env.VITE_REDIRECT_URI;
+  const link: string = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
+
+  const loginWithKakao = () => {
+    window.location.href = link;
+  };
+
   return (
     <LoginContainer>
       <MainLogoImg src={MainLogo} alt="Recipable 만들어 먹는 재미!" />
-      <section>
+      <TitleSection>
         <Text font={"title3"}>로그인하고 원하는 레시피를 추천 받아봐요</Text>
-      </section>
-      <KakaoLoginImg src={KakaoLogin} alt="KaKao Login" />
+      </TitleSection>
+      <KakaoLoginSection onClick={loginWithKakao}>
+        <KakaoLoginImg src={KakaoLogin} alt="KaKao Login" />
+      </KakaoLoginSection>
       <Button typeState={"defaultBtn"}>
         <Text font={"button1"}>이메일로 로그인하기</Text>
       </Button>
@@ -33,22 +43,30 @@ const LoginContainer = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  section {
-    width: 16rem;
-    text-align: center;
-    margin-top: 8rem;
-  }
 `;
+
+const TitleSection = styled.section`
+  width: 16rem;
+  text-align: center;
+  margin-top: 8rem;
+`;
+
+const KakaoLoginSection = styled.div`
+  cursor: pointer;
+`;
+
 const MainLogoImg = styled.img`
   width: 25rem;
   margin-top: 15rem;
 `;
+
 const KakaoLoginImg = styled.img`
   width: 25rem;
   height: 4rem;
   margin-top: 5rem;
   margin-bottom: 2rem;
 `;
+
 const HelpContainer = styled.div`
   width: 25rem;
   padding: 1rem;
@@ -56,4 +74,5 @@ const HelpContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 export default Login;
