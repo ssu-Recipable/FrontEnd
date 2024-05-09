@@ -9,6 +9,8 @@ import AddIngredient from "./pages/addIngredient/AddIngredient";
 import ScanReceipt from "./pages/scanReceipt/ScanReceipt";
 import IngredientInput from "./pages/ingredientInput/IngredientInput";
 import RecommendRecipes from "@/pages/recommendRecipes/RecommendRecipes"
+import ResultScanReceipt from "./pages/resultScanReceipt/ResultScanReceipt";
+import LoginHandler from "./pages/login/components/LoginHandler";
 
 const Router = () => {
   return (
@@ -16,7 +18,8 @@ const Router = () => {
       <Routes>
         <Route path="/test" element={<Test />} />
         <Route path="/survey" element={<Survey />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/login/oauth2/callback/kakao" element={<LoginHandler />} />
         <Route path="/main" element={<Main />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/editprofile" element={<EditProfile />} />
@@ -24,6 +27,7 @@ const Router = () => {
         <Route path="/scanreceipt" element={<ScanReceipt />} />
         <Route path="/ingredientinput" element={<IngredientInput />} />
         <Route path="/recommendRecipes" element={<RecommendRecipes />} />
+        <Route path="/resultscan" element={<ResultScanReceipt />} />
       </Routes>
     </BrowserRouter>
   );

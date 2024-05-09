@@ -27,19 +27,19 @@ const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
       {isDropDown && (
         <DropDownArea>
           <Option value="a" key="a" onClick={onClickOption}>
-            A
+            고기류
           </Option>
           <Option value="b" key="b" onClick={onClickOption}>
-            B
+            곡물류
           </Option>
           <Option value="c" key="c" onClick={onClickOption}>
-            C
+            소스류
           </Option>
           <Option value="d" key="d" onClick={onClickOption}>
-            D
+            해산물
           </Option>
           <Option value="e" key="e" onClick={onClickOption}>
-            E
+            과일
           </Option>
         </DropDownArea>
       )}

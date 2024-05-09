@@ -87,6 +87,7 @@ export type FontsTypes = typeof fonts;
 const colors = {
   main1: "#7AF3CA",
   main2: "#78E99B",
+  main3: "#34BC1E",
 
   white: "#FFFFFF",
   black: "#000000",
