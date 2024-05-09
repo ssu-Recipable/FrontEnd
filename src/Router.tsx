@@ -8,6 +8,7 @@ import EditProfile from "./pages/editProfile/EditProfile";
 import AddIngredient from "./pages/addIngredient/AddIngredient";
 import ScanReceipt from "./pages/scanReceipt/ScanReceipt";
 import IngredientInput from "./pages/ingredientInput/IngredientInput";
+import RecommendRecipes from "@/pages/recommendRecipes/RecommendRecipes"
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
         <Route path="/addingredient" element={<AddIngredient />} />
         <Route path="/scanreceipt" element={<ScanReceipt />} />
         <Route path="/ingredientinput" element={<IngredientInput />} />
+        <Route path="/recommendRecipes" element={<RecommendRecipes />} />
       </Routes>
     </BrowserRouter>
   );
