@@ -11,6 +11,7 @@ import IngredientInput from "./pages/ingredientInput/IngredientInput";
 import RecommendRecipes from "@/pages/recommendRecipes/RecommendRecipes"
 import ResultScanReceipt from "./pages/resultScanReceipt/ResultScanReceipt";
 import LoginHandler from "./pages/login/components/LoginHandler";
+import Refrigerator from "./pages/refrigerator/Refrigerator";
 
 const Router = () => {
   return (
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="/ingredientinput" element={<IngredientInput />} />
         <Route path="/recommendRecipes" element={<RecommendRecipes />} />
         <Route path="/resultscan" element={<ResultScanReceipt />} />
+        <Route path="/refrigerator" element={<Refrigerator/>} />
       </Routes>
     </BrowserRouter>
   );
