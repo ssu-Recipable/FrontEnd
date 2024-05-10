@@ -13,6 +13,7 @@ import ResultScanReceipt from "./pages/resultScanReceipt/ResultScanReceipt";
 import LoginHandler from "./pages/login/components/LoginHandler";
 import Refrigerator from "./pages/refrigerator/Refrigerator";
 import ViewIngredient from "./pages/viewIngredient/ViewIngredient";
+import EditIngredient from "@/pages/editIngredient/EditIngredient";
 
 const Router = () => {
   return (
@@ -32,6 +33,7 @@ const Router = () => {
         <Route path="/resultscan" element={<ResultScanReceipt />} />
         <Route path="/refrigerator" element={<Refrigerator/>} />
         <Route path="/ingredient/:id" element={<ViewIngredient />} />
+        <Route path="/editIngredient/:id" element={<EditIngredient />} />
       </Routes>
     </BrowserRouter>
   );

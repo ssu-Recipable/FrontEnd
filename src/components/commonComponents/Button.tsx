@@ -37,13 +37,13 @@ const buttonCSS = {
     ${buttonDefaultCSS.basicCss};
     background-color: ${({ theme }) => theme.colors.main1};
     color: ${({ theme }) => theme.colors.black};
-    border-radius: 1.3rem;
+    border-radius: 2rem;
   `,
   disproveBtn: css`
     ${buttonDefaultCSS.basicCss};
     background-color: ${({ theme }) => theme.colors.main2};
     color: ${({ theme }) => theme.colors.black};
-    border-radius: 1.3rem;
+    border-radius: 2rem;
   `,
   confirmBtn: css`
     ${buttonDefaultCSS.basicCss};

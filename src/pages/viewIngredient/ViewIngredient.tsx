@@ -2,6 +2,7 @@ import Text from "@/components/commonComponents/Text";
 import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
 import styled from "styled-components";
 import Button from "@/components/commonComponents/Button";
+import { Link } from "react-router-dom";
 
 const ViewIngredient = () => {
     return (
@@ -28,7 +29,9 @@ const ViewIngredient = () => {
                     </Info>
                 </InfoSection>
                 <ButtonSection>
-                    <Button typeState={"completeBtn"}>재료 수정하기</Button>
+                    <Link to={"/editIngredient/1"}>
+                        <Button typeState={"completeBtn"}>재료 수정하기</Button>
+                    </Link>
                     <Button typeState={"disproveBtn"}>재료 삭제하기</Button>
                 </ButtonSection>
             </Wrapper>

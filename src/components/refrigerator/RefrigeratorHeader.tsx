@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import Text from "../commonComponents/Text";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const RefrigeratorHeader = () => {
     const [name, setName] = useState("유미라");
     return (
         <>
             <TitleSection>
-                    <Text font={"title1"}>{name}님의 냉장고</Text>
+                    <Link to={'/refrigerator'}>
+                        <Text font={"title1"}>{name}님의 냉장고</Text>
+                    </Link>
             </TitleSection>
             <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
         </>
