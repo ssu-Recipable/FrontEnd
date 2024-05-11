@@ -52,6 +52,7 @@ const buttonCSS = {
     width: 4.7rem;
     height: 2rem;
     padding: 1.2rem;
+    border-radius: 2rem;
   `,
   defaultBtn: css`
     ${buttonDefaultCSS.basicCss};
