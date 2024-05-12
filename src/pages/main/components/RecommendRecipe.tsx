@@ -1,7 +1,7 @@
 import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
-import TestImg from "@/assets/images/MainLogo.jpeg";
+import TestImg from "@/assets/images/test_food_image.jpeg";
 
 const RecommendRecipe = () => {
   return (
@@ -20,7 +20,7 @@ const RecommendRecipeWrapper = styled.section`
   margin-top: 1.2rem;
   img {
     width: 100%;
-    height: 15rem;
+    height: 18rem;
   }
 `;
 

@@ -31,7 +31,7 @@ const Router = () => {
         <Route path="/scanreceipt" element={<ScanReceipt />} />
         <Route path="/ingredientinput" element={<IngredientInput />} />
         <Route path="/resultscan" element={<ResultScanReceipt />} />
-        <Route path="/refrigerator" element={<Refrigerator/>} />
+        <Route path="/refrigerator" element={<Refrigerator />} />
         <Route path="/ingredient/:id" element={<ViewIngredient />} />
         <Route path="/editIngredient/:id" element={<EditIngredient />} />
         <Route path="/filtering" element={<Filtering />} />

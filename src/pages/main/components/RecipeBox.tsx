@@ -1,4 +1,4 @@
-import TestLogo from "@/assets/images/Recipable_Logo1.png";
+import TestLogo from "@/assets/images/test_food_image2.jpeg";
 import Text from "@/components/commonComponents/Text";
 import styled from "styled-components";
 
