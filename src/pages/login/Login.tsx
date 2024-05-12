@@ -11,6 +11,7 @@ const Login = () => {
   const link: string = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
 
   const loginWithKakao = () => {
+    console.log("test");
     window.location.href = link;
   };
 
