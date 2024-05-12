@@ -8,7 +8,6 @@ import EditProfile from "./pages/editProfile/EditProfile";
 import AddIngredient from "./pages/addIngredient/AddIngredient";
 import ScanReceipt from "./pages/scanReceipt/ScanReceipt";
 import IngredientInput from "./pages/ingredientInput/IngredientInput";
-import RecommendedRecipes from "@/pages/recommendedRecipes/RecommendedRecipes";
 import ResultScanReceipt from "./pages/resultScanReceipt/ResultScanReceipt";
 import LoginHandler from "./pages/login/components/LoginHandler";
 import Refrigerator from "./pages/refrigerator/Refrigerator";
