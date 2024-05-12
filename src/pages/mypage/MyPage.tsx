@@ -2,12 +2,15 @@ import Button from "@/components/commonComponents/Button";
 import Text from "@/components/commonComponents/Text";
 import Modal from "./components/Modal";
 import styled from "styled-components";
+import { loginState } from "@/recoil/atom";
+import { useSetRecoilState } from "recoil";
 import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
+  const setIsLogin = useSetRecoilState(loginState);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [reason, setReason] = useState<string>("");
   const navigate = useNavigate();
@@ -26,6 +29,12 @@ const MyPage = () => {
   const handleCancel = () => {
     setOpenModal(false);
     setReason("");
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("accessToken");
+    setIsLogin(false);
+    navigate("/");
   };
 
   const onClickToggleModal = useCallback(() => {
@@ -72,7 +81,7 @@ const MyPage = () => {
             <Text font={"body1"}>회원 탈퇴</Text>
           </div>
         </MyPageMenu>
-        <Button typeState={"defaultBtn"}>
+        <Button typeState={"defaultBtn"} onClick={handleLogOut}>
           <Text font={"button1"}>로그아웃</Text>
         </Button>
       </MyPageContainer>

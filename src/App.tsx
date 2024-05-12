@@ -4,6 +4,7 @@ import GlobalStyle from "@/styles/globalStyles";
 import styled, { ThemeProvider } from "styled-components";
 import { useEffect } from "react";
 import { theme } from "./styles/theme";
+import { RecoilRoot } from "recoil";
 
 const MobileWrapper = styled.div`
   display: flex;
@@ -45,12 +46,14 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <MobileWrapper>
-          <GlobalStyle />
-          <Router />
-        </MobileWrapper>
-      </ThemeProvider>
+      <RecoilRoot>
+        <ThemeProvider theme={theme}>
+          <MobileWrapper>
+            <GlobalStyle />
+            <Router />
+          </MobileWrapper>
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   );
 }
