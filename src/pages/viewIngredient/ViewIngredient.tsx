@@ -69,6 +69,10 @@ const ButtonSection = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom: 3rem;
 `;
 
 

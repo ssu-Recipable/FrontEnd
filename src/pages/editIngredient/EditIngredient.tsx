@@ -63,11 +63,13 @@ const EditIngredient = () => {
                     </Info>
                     <Info>
                         <Text font={"title4"}>메모</Text>
-                        <Textarea maxLength={100}/>
+                        <Textarea maxLength={100} placeholder="최대 100자까지 입력 가능합니다."/>
                     </Info>
                 </InfoSection>
                 <Link to={`/ingredient/1`}>
-                    <Button typeState={"completeBtn"}>수정 완료하기</Button>
+                    <div style={{position: "fixed", left: "50%", transform: "translate(-50%, 0)", bottom: "3rem"}}>
+                        <Button typeState={"completeBtn"}>수정 완료하기</Button>
+                    </div>
                 </Link>
             </Wrapper>
         </>
@@ -118,6 +120,7 @@ const InputInfo = styled.input`
     height: 2.5rem;
     border: solid 0.1rem rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
+    outline: none;
 `;
 
 const Select = styled.select`
@@ -125,6 +128,7 @@ const Select = styled.select`
     height: 2.5rem;
     border: solid 0.1rem rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
+    outline: none;
 `;
 
 const Textarea = styled.textarea`
@@ -133,4 +137,5 @@ const Textarea = styled.textarea`
     border: solid 0.1rem rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
     resize: none;
+    outline: none;
 `;
