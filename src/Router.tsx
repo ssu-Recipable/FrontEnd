@@ -17,6 +17,8 @@ import EditIngredient from "@/pages/editIngredient/EditIngredient";
 import Filtering from "./pages/filtering/Filtering";
 import { useRecoilValue } from "recoil";
 import { loginState } from "./recoil/atom";
+import BookMark from "./pages/bookMark/BookMark";
+import CustomerFeedback from "./pages/customerFeedback/CustomerFeedback";
 
 const Router = () => {
   const isLogin = useRecoilValue(loginState);
@@ -35,7 +37,6 @@ const Router = () => {
           <>
             <Route path="/test" element={<Test />} />
             <Route path="/survey" element={<Survey />} />
-
             <Route path="/main" element={<Main />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/editprofile" element={<EditProfile />} />
@@ -47,6 +48,8 @@ const Router = () => {
             <Route path="/ingredient/:id" element={<ViewIngredient />} />
             <Route path="/editIngredient/:id" element={<EditIngredient />} />
             <Route path="/filtering" element={<Filtering />} />
+            <Route path="/bookmark" element={<BookMark />} />
+            <Route path="/feedback" element={<CustomerFeedback />} />
             <Route
               path="/recommendedRecipes"
               element={<RecommendedRecipes />}
