@@ -19,6 +19,10 @@ const RecipeBox = () => {
 
 const RecipeBoxWrapper = styled.div`
   margin-bottom: 3rem;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 `;
 const RecipeImg = styled.img`
   width: 10rem;
