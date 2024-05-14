@@ -1,9 +1,14 @@
 import Button from "@/components/commonComponents/Button";
 import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const CustomerFeedback = () => {
+  const navigate = useNavigate();
+  const gotoMain = () => {
+    navigate("/main");
+  };
   return (
     <FeedBackContainer>
       <Text font={"title3"}>어떤 셰프의 레시피가 더 만족스러우셨나요?</Text>
@@ -22,7 +27,7 @@ const CustomerFeedback = () => {
       <TextAreaSection>
         <textarea></textarea>
       </TextAreaSection>
-      <Button typeState={"completeBtn"}>
+      <Button typeState={"completeBtn"} onClick={gotoMain}>
         <Text font={"button1"}>홈으로</Text>
       </Button>
     </FeedBackContainer>
