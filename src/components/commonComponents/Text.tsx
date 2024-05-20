@@ -1,7 +1,8 @@
+import React from "react";
 import styled from "styled-components";
 
 type ValueProps = {
-  children: string | number | string[];
+  children: React.ReactNode;
   font: string;
   color?: string;
 };

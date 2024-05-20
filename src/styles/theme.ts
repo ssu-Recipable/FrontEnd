@@ -94,8 +94,11 @@ const colors = {
 
   grey1: "#c0c0c0",
   grey2: "#e0e0e0",
+  grey3: "#5E5D63",
 
   red: "#F15454",
+  blue: "#2FACEB",
+  green: "#34BC1E",
 };
 
 export type ColorsTypes = typeof colors;

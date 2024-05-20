@@ -19,6 +19,9 @@ import { useRecoilValue } from "recoil";
 import { loginState } from "./recoil/atom";
 import BookMark from "./pages/bookMark/BookMark";
 import CustomerFeedback from "./pages/customerFeedback/CustomerFeedback";
+import EmailLogin from "./pages/login/components/EmailLogin";
+import Tos from "./pages/login/components/Tos";
+import EmailAuth from "./pages/login/components/EmailAuth";
 
 const Router = () => {
   const isLogin = useRecoilValue(loginState);
@@ -32,6 +35,9 @@ const Router = () => {
               path="/login/oauth2/callback/kakao"
               element={<LoginHandler />}
             />
+            <Route path="/emaillogin" element={<EmailLogin />} />
+            <Route path="/emailtos" element={<Tos />} />
+            <Route path="/emailauth" element={<EmailAuth />} />
           </>
         ) : (
           <>
