@@ -18,6 +18,7 @@ const EmailLogin = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<LoginUserPropType>({
     mode: "onChange",
     resolver: zodResolver(LoginValidation),
@@ -37,10 +38,23 @@ const EmailLogin = () => {
       password: e.password,
     });
     console.log(response);
-    const accessToken = response.headers["authorization"].split(" ")[1];
-    localStorage.setItem("accessToken", accessToken);
-    setIsLogin(true);
-    navigate("/main");
+    if (response.data.trim() === "로그인 성공") {
+      const accessToken = response.headers["authorization"].split(" ")[1];
+      localStorage.setItem("accessToken", accessToken);
+      setIsLogin(true);
+      navigate("/main");
+    } else if (response.data.trim() === "등록되지 않은 이메일입니다.") {
+      const choice = window.confirm(
+        "등록되지 않은 이메일입니다. 회원가입하시겠습니까?"
+      );
+      if (choice) {
+        navigate("/emailauth");
+      } else {
+        return;
+      }
+    } else {
+      setError("password", { message: "비밀번호가 틀렸습니다." });
+    }
   };
 
   return (
