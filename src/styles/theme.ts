@@ -54,6 +54,12 @@ const fonts = {
     size: 1.1,
     lineHeight: 2.6,
   }),
+  title5: FONT({
+    family: "Pretendard Variable",
+    weight: 700,
+    size: 1.5,
+    lineHeight: 3.4,
+  }),
 
   body1: FONT({
     family: "Pretendard Variable",
@@ -94,8 +100,12 @@ const colors = {
 
   grey1: "#c0c0c0",
   grey2: "#e0e0e0",
+  grey3: "#5E5D63",
+  grey4: "#F8F8F8",
 
   red: "#F15454",
+  blue: "#2FACEB",
+  green: "#34BC1E",
 };
 
 export type ColorsTypes = typeof colors;
