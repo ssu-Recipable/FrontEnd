@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { theme } from "@/styles/theme";
 import { LoginUserPropType } from "@/types/EmailLoginType";
 import { LoginApi } from "@/utils/apis/EmailLoginApi";
-import { LoginValidation } from "../hooks/registerSchema";
+import { loginValidation } from "../hooks/validation";
 import { useNavigate } from "react-router-dom";
 
 const EmailLogin = () => {
@@ -21,7 +21,7 @@ const EmailLogin = () => {
     setError,
   } = useForm<LoginUserPropType>({
     mode: "onChange",
-    resolver: zodResolver(LoginValidation),
+    resolver: zodResolver(loginValidation),
     defaultValues: {
       email: "",
       password: "",

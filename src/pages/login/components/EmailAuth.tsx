@@ -2,7 +2,7 @@ import Text from "@/components/commonComponents/Text";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { registerSchema } from "../hooks/registerSchema";
+import { registerValidation } from "../hooks/validation";
 import { theme } from "@/styles/theme";
 import { EmailCheckApi, RegisterApi } from "@/utils/apis/EmailLoginApi";
 import { useState } from "react";
@@ -22,7 +22,7 @@ const EmailAuth = () => {
     watch,
   } = useForm<UserPropType>({
     mode: "onChange",
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerValidation),
     defaultValues: {
       nickname: "",
       email: "",
