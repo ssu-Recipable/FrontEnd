@@ -35,6 +35,8 @@ const Wrapper = styled.span<{ $font: string; $color: string }>`
         return theme.fonts.title3;
       case "title4":
         return theme.fonts.title4;
+      case "title5":
+        return theme.fonts.title5;
       case "body1":
         return theme.fonts.body1;
       case "body2":

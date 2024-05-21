@@ -38,8 +38,8 @@ const Tos = () => {
     <TosContainer>
       <TitleSection>
         <Text font={"title1"}>약관동의</Text>
+        <Text font={"title5"}>레시퍼블 서비스의 이용약관에 동의해주세요.</Text>
       </TitleSection>
-      <Text font={"title3"}>레시퍼블 서비스의 이용약관에 동의해주세요.</Text>
       <CheckTosSection>
         <CheckAllTos>
           <CheckBox
@@ -127,7 +127,10 @@ const TosContainer = styled.div`
 
 const TitleSection = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 3rem;
   margin: 5rem 0 3rem 0;
 `;
 
