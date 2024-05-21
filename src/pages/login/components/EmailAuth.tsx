@@ -1,40 +1,111 @@
 import Text from "@/components/commonComponents/Text";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { registerSchema } from "../hooks/registerSchema";
 import { theme } from "@/styles/theme";
-
-interface UserPropType {
-  nickname: string;
-  email: string;
-  password: string;
-  passwordCheck: string;
-}
+import { EmailCheckApi, RegisterApi } from "@/utils/apis/EmailLoginApi";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserPropType } from "@/types/EmailLoginType";
 
 const EmailAuth = () => {
+  const [checkAuthCode, setCheckAuthCode] = useState<boolean>(false);
+  const [isEmailCheck, setIsEmailCheck] = useState<boolean>(false);
+  const [authCodeValue, setAuthCodeValue] = useState<string>("");
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<UserPropType>({
     mode: "onChange",
     resolver: zodResolver(registerSchema),
     defaultValues: {
       nickname: "",
       email: "",
+      authcode: "",
       password: "",
       passwordCheck: "",
     },
   });
 
+  const checkEmail = async () => {
+    if (watch("email").trim().length === 0) {
+      alert("이메일을 입력해주세요!");
+    } else {
+      setCheckAuthCode(true);
+      alert("입력하신 이메일로 인증 번호가 전송되었습니다!");
+      const response = await EmailCheckApi({ email: watch("email") });
+      console.log(response.data.code);
+      // if (typeof response.data.code === "string") {
+      //   console.log("test");
+      // }
+      setAuthCodeValue(response.data.code);
+    }
+  };
+
+  const checkAuthCodeCorrect = () => {
+    if (watch("authcode") === authCodeValue) {
+      alert("인증이 완료되었습니다.");
+      setIsEmailCheck(true);
+    } else {
+      console.log("error");
+    }
+  };
+
+  const handleRegister: SubmitHandler<UserPropType> = async (
+    e: UserPropType
+  ) => {
+    if (isEmailCheck) {
+      console.log(e);
+      const response = await RegisterApi({
+        nickname: e.nickname,
+        loginId: e.email,
+        password: e.password,
+      });
+      console.log(response);
+      navigate("/emaillogin");
+    } else {
+      alert("이메일 인증을 진행해주세요!");
+      console.log("test");
+      return;
+    }
+  };
+
+  const authCodeContent = (
+    <>
+      <div style={{ position: "relative" }}>
+        <label htmlFor="authcode">
+          <Text font={"title3"}>인증번호 입력</Text>
+        </label>
+        <Input
+          type="text"
+          id="authcode"
+          placeholder="인증번호를 입력해주세요."
+          {...register("authcode")}
+        />
+        <EmailAuthButton type="button" onClick={checkAuthCodeCorrect}>
+          확인
+        </EmailAuthButton>
+      </div>
+      {errors.authcode ? (
+        <ErrorMessage>{errors.authcode.message}</ErrorMessage>
+      ) : (
+        <DefaultMessage />
+      )}
+    </>
+  );
+
   return (
-    <LoginFormContainer>
+    <AuthFormContainer>
       <TitleSection>
         <Text font={"title1"}>회원가입</Text>
         <Text font={"title5"}>회원가입에 필요한 정보를 기입해주세요.</Text>
       </TitleSection>
-      <form onSubmit={handleSubmit((e) => console.log(e))}>
+      <form onSubmit={handleSubmit(handleRegister)}>
         <div>
           <label htmlFor="nickname">
             <Text font={"title3"}>닉네임</Text>
@@ -54,17 +125,24 @@ const EmailAuth = () => {
           <label htmlFor="email">
             <Text font={"title3"}>이메일</Text>
           </label>
-          <Input
-            type="text"
-            id="email"
-            placeholder="이메일을 입력해주세요."
-            {...register("email")}
-          />
+          <div style={{ position: "relative" }}>
+            <Input
+              type="text"
+              id="email"
+              placeholder="이메일을 입력해주세요."
+              {...register("email")}
+            />
+            <EmailAuthButton type="button" onClick={checkEmail}>
+              이메일 인증
+            </EmailAuthButton>
+          </div>
           {errors.email ? (
             <ErrorMessage>{errors.email.message}</ErrorMessage>
           ) : (
             <DefaultMessage />
           )}
+
+          {checkAuthCode ? authCodeContent : null}
 
           <label htmlFor="password">
             <Text font={"title3"}>비밀번호</Text>
@@ -100,11 +178,11 @@ const EmailAuth = () => {
           <SubmitButton type="submit" value="회원가입하기" />
         </ButtonSection>
       </form>
-    </LoginFormContainer>
+    </AuthFormContainer>
   );
 };
 
-const LoginFormContainer = styled.div`
+const AuthFormContainer = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -116,7 +194,20 @@ const TitleSection = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3rem;
-  margin: 5rem 0 3rem 0;
+  margin: 5rem 0 1rem 0;
+`;
+
+const EmailAuthButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  background-color: ${theme.colors.grey2};
+  color: ${theme.colors.black};
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+  &:hover {
+    background-color: ${theme.colors.main2};
+  }
 `;
 
 const ErrorMessage = styled.div`
@@ -145,8 +236,10 @@ const ButtonSection = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const SubmitButton = styled.input`
   cursor: pointer;
+  text-align: center;
   width: 100%;
   height: 4rem;
   letter-spacing: -0.032rem;
