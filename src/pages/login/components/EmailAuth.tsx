@@ -20,6 +20,7 @@ const EmailAuth = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    setError,
   } = useForm<UserPropType>({
     mode: "onChange",
     resolver: zodResolver(registerValidation),
@@ -36,14 +37,20 @@ const EmailAuth = () => {
     if (watch("email").trim().length === 0) {
       alert("이메일을 입력해주세요!");
     } else {
-      setCheckAuthCode(true);
-      alert("입력하신 이메일로 인증 번호가 전송되었습니다!");
       const response = await EmailCheckApi({ email: watch("email") });
       console.log(response.data.code);
-      // if (typeof response.data.code === "string") {
-      //   console.log("test");
-      // }
-      setAuthCodeValue(response.data.code);
+      if (response.data.code === "이미 등록된 사용자 입니다.") {
+        setError("email", {
+          message: "이미 등록된 이메일입니다. 다른 이메일을 입력해주세요!",
+        });
+      } else {
+        setCheckAuthCode(true);
+        alert("입력하신 이메일로 인증 번호가 전송되었습니다!");
+        // if (typeof response.data.code === "string") {
+        //   console.log("test");
+        // }
+        setAuthCodeValue(response.data.code);
+      }
     }
   };
 
