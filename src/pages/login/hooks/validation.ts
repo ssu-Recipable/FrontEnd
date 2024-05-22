@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export type RegisterSchemaType = z.infer<typeof registerSchema>;
+export type RegisterValidation = z.infer<typeof registerValidation>;
 
-export const registerSchema = z
+export const registerValidation = z
   .object({
     nickname: z.string().min(1, { message: "닉네임은 필수 입력입니다." }),
     email: z
@@ -25,9 +25,9 @@ export const registerSchema = z
     message: "비밀번호가 일치하지 않습니다.",
   });
 
-export type LoginValidatioin = z.infer<typeof LoginValidation>;
+export type LoginValidation = z.infer<typeof loginValidation>;
 
-export const LoginValidation = z.object({
+export const loginValidation = z.object({
   email: z
     .string()
     .email({ message: "이메일 형식에 맞게 입력해주세요." })

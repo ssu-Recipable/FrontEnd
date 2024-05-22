@@ -1,25 +1,27 @@
-import React, { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import { FaFolderPlus } from "react-icons/fa";
 import { theme } from "@/styles/theme";
 import Button from "@/components/commonComponents/Button";
+// import { api } from "@/utils/apis/axios";
 
-type UploadFile = {
+interface UploadFile {
   file: File;
   thumbnail: string;
   type: string;
-};
+}
 
 const ScanReceipt = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<UploadFile | null>(null);
+
   const handleClickFileInput = () => {
     fileInputRef.current?.click();
   };
+
   const uploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
-    // const length = fileList?.length;
     if (fileList && fileList[0]) {
       const url = URL.createObjectURL(fileList[0]);
       setImageFile({
@@ -28,6 +30,20 @@ const ScanReceipt = () => {
         type: fileList[0].type.slice(0, 5),
       });
     }
+  };
+
+  const receiveReceipt = () => {
+    const fileData = new FormData();
+    fileData.append("receiptFile", imageFile!.file);
+    for (const value of fileData.values()) {
+      console.log(value);
+    }
+    // 영수증 이미지 서버 전송 api
+    // 영수증이미지전송api.('/api주소', fileData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   }
+    // })
   };
 
   const showImage = useMemo(() => {
@@ -63,7 +79,7 @@ const ScanReceipt = () => {
         ></input>
         <button type="button" onClick={handleClickFileInput}></button>
       </form>
-      <Button typeState={"completeBtn"}>
+      <Button typeState={"completeBtn"} onClick={receiveReceipt}>
         <Text font={"button1"}>영수증 분석하기</Text>
       </Button>
     </ScanReceiptContainer>

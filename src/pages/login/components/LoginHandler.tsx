@@ -35,7 +35,7 @@ const LoginHandler = () => {
     };
 
     kakaoLogin();
-  }, [AUTHORIZE_CODE]);
+  }, [AUTHORIZE_CODE, navigate, setIsLogin]);
 
   return (
     <LoadContainer>

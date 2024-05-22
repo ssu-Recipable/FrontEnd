@@ -7,3 +7,16 @@ export const api = axios.create({
     "Access-Control-Allow-Origin": "*",
   },
 });
+
+api.interceptors.request.use(
+  (config) => {
+    if (localStorage.getItem("accessToken")) {
+      const accessToken = localStorage.getItem("accessToken");
+      config.headers!.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
