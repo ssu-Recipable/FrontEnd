@@ -31,29 +31,32 @@ const EmailLogin = () => {
   const handleLogin: SubmitHandler<LoginUserPropType> = async (
     e: LoginUserPropType
   ) => {
-    console.log("test");
     console.log(e);
-    const response = await LoginApi({
-      email: e.email,
-      password: e.password,
-    });
-    console.log(response);
-    if (response.data.trim() === "로그인 성공") {
-      const accessToken = response.headers["authorization"].split(" ")[1];
-      localStorage.setItem("accessToken", accessToken);
-      setIsLogin(true);
-      navigate("/main");
-    } else if (response.data.trim() === "등록되지 않은 이메일입니다.") {
-      const choice = window.confirm(
-        "등록되지 않은 이메일입니다. 회원가입하시겠습니까?"
-      );
-      if (choice) {
-        navigate("/emailauth");
+    try {
+      const response = await LoginApi({
+        email: e.email,
+        password: e.password,
+      });
+      console.log(response);
+      if (response.data.trim() === "로그인 성공") {
+        const accessToken = response.headers["authorization"].split(" ")[1];
+        localStorage.setItem("accessToken", accessToken);
+        setIsLogin(true);
+        navigate("/main");
+      } else if (response.data.trim() === "등록되지 않은 이메일입니다.") {
+        const choice = window.confirm(
+          "등록되지 않은 이메일입니다. 회원가입하시겠습니까?"
+        );
+        if (choice) {
+          navigate("/emailauth");
+        } else {
+          return;
+        }
       } else {
-        return;
+        setError("password", { message: "비밀번호가 틀렸습니다." });
       }
-    } else {
-      setError("password", { message: "비밀번호가 틀렸습니다." });
+    } catch (err) {
+      console.error(err);
     }
   };
 
