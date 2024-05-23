@@ -1,6 +1,7 @@
 import Button from "@/components/commonComponents/Button";
 import Text from "@/components/commonComponents/Text";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 import styled from "styled-components";
 
 const AddIngredient = () => {
@@ -11,9 +12,17 @@ const AddIngredient = () => {
   const gotoIngredientInput = () => {
     navigate("/ingredientinput");
   };
+
+  const movePreviousPage = () => {
+    navigate(-1);
+  };
+
   return (
     <AddIngredientContainer>
       <Title>
+        <MoveBack onClick={movePreviousPage}>
+          <IoIosArrowBack size={20} />
+        </MoveBack>
         <Text font={"title1"}>재료 추가 방식을 선택해주세요</Text>
       </Title>
       <ActionState>
@@ -35,9 +44,22 @@ const AddIngredientContainer = styled.div`
   align-items: center;
   margin-top: 20rem;
 `;
+
 const Title = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-bottom: 7rem;
 `;
+
+const MoveBack = styled.span`
+  cursor: pointer;
+  position: absolute;
+  left: -2rem;
+  bottom: 0.6rem;
+`;
+
 const ActionState = styled.div`
   height: 10rem;
   display: flex;

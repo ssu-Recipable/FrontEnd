@@ -7,11 +7,18 @@ import { useEffect, useState } from "react";
 import { theme } from "@/styles/theme";
 import { AddIngredientType } from "./types/type";
 import IngredientList from "../../components/commonComponents/IngredientList";
+import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const IngredientInput = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [inputIngredient, setInputIngredient] = useState<string>("");
   const [ingredientList, setIngredientList] = useState<AddIngredientType[]>([]);
+  const navigate = useNavigate();
+
+  const movePreviousPage = () => {
+    navigate(-1);
+  };
 
   const handleSaveIngredient = () => {
     if (
@@ -47,7 +54,12 @@ const IngredientInput = () => {
   return (
     <InputContainer>
       <TopContainer>
-        <Text font={"title1"}>재료를 입력해주세요</Text>
+        <TitleSection>
+          <MoveBack onClick={movePreviousPage}>
+            <IoIosArrowBack size={20} />
+          </MoveBack>
+          <Text font={"title1"}>재료를 입력해주세요</Text>
+        </TitleSection>
         <Category
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
@@ -99,6 +111,20 @@ const InputContainer = styled.div`
   flex-direction: column;
   margin-top: 8rem;
   padding: 1rem;
+`;
+
+const TitleSection = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const MoveBack = styled.span`
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  bottom: 0.6rem;
 `;
 
 const TopContainer = styled.section`

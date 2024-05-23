@@ -4,11 +4,20 @@ import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import Button from "@/components/commonComponents/Button";
+import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
+  const navigate = useNavigate();
+  const movePreviousPage = () => {
+    navigate(-1);
+  };
   return (
     <EditProfileContainer>
       <EditProfileTitle>
+        <MoveBack onClick={movePreviousPage}>
+          <IoIosArrowBack size={20} />
+        </MoveBack>
         <Text font={"title1"}>프로필 수정</Text>
       </EditProfileTitle>
       <EditProfileContent>
@@ -34,7 +43,9 @@ const EditProfileContainer = styled.main`
   justify-content: center;
   align-items: center;
 `;
+
 const EditProfileTitle = styled.div`
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -43,6 +54,13 @@ const EditProfileTitle = styled.div`
   margin-top: 5rem;
   padding: 1rem;
 `;
+
+const MoveBack = styled.span`
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+`;
+
 const EditProfileContent = styled.div`
   display: flex;
   flex-direction: column;
