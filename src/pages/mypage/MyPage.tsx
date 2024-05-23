@@ -41,6 +41,10 @@ const MyPage = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
+  const gotoMain = () => {
+    navigate("/main");
+  };
+
   return (
     <>
       {isOpenModal && (
@@ -68,6 +72,15 @@ const MyPage = () => {
           <Text font={"title3"}>차현수</Text>
         </UserInfo>
         <MyPageMenu>
+          <div onClick={gotoMain}>
+            <Text font={"body1"}>홈으로</Text>
+          </div>
+          <span
+            style={{
+              border: `0.5px solid ${theme.colors.grey1}`,
+              width: "100%",
+            }}
+          />
           <div onClick={gotoEditProfile}>
             <Text font={"body1"}>프로필 수정</Text>
           </div>
