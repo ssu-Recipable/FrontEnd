@@ -9,7 +9,7 @@ const ViewIngredient = () => {
         <>
             <RefrigeratorHeader />
             <Wrapper>
-                <IngredientImg />
+                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
                 <InfoSection>
                     <Info>
                         <Text font={"title4"}>이름</Text>
@@ -50,8 +50,6 @@ const Wrapper = styled.div`
 const IngredientImg = styled.img`
     width: 10rem;
     height: 10rem;
-    border-radius: 5rem;
-    background: rgba(0, 0, 0, 0.1);
     margin: 5rem 0;
 `;
 
