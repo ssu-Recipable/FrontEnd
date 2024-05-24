@@ -4,16 +4,25 @@ import { useState, useEffect } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import Button from "@/components/commonComponents/Button";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RecommendedRecipe = () => {
     const ingredient = `- 신김치 2컵\n- 돼지고기(삼겹살 또는 목살) 200g\n- 두부 1/2모\n- 양파 1/2개\n- 대파 1대\n- 청양고추 1개 (선택 사항)\n- 다진 마늘 1큰술\n- 고춧가루 1큰술\n- 된장 1작은술\n- 국간장 1큰술\n- 소금 약간\n- 후추 약간\n- 물 또는 육수 4컵\n`;
     const tmpR = `1. 김치는 적당한 크기로 자르고, 양파와 파는 얇게 채 썰어줍니다.\n2. 돼지고기는 적당한 크기로 잘라줍니다.\n3. 냄비에 참기름을 두르고 다진 마늘을 볶아 향을 낸 뒤, 돼지고기를 넣고 익힙니다.\n4. 돼지고기가 살짝 익으면 고추장과 고춧가루를 넣고 볶아줍니다.\n5. 김치와 양파를 넣고 함께 볶아줍니다.\n6. 물 또는 육수를 부어주고 끓인 뒤, 두부와 미역을 넣고 중간 불에서 끓입니다.\n7. 간장과 소금으로 간을 맞추고, 파를 뿌려 마무리합니다.`
     
+    const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+    const [lastScrollTop, setLastScrollTop] = useState(0);
+
     const [isEditing, setIsEditing] = useState(false);
     const [recipe, setRecipe] = useState(tmpR);
     const [isBookmarked, setIsBookmarked] = useState(false);
+
+    const navigate = useNavigate();
     
+    const handleBackClick = () => {
+        navigate(-1);
+    };
+
     const handleEditClick = () => {
         setIsEditing(true);
     };
@@ -68,9 +77,34 @@ const RecommendedRecipe = () => {
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            
+            if (scrollTop < lastScrollTop) {
+                setIsHeaderVisible(true);
+            } else {
+                setIsHeaderVisible(false);
+            }
+            setLastScrollTop(scrollTop);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [lastScrollTop]);
+    
     
     return (
         <>
+            <Header style={{ top: isHeaderVisible ? '0' : '-4rem' }}>
+                <svg onClick={handleBackClick} style={{cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clipRule="evenodd" />
+                </svg>
+            </Header>
             <Wrapper>
                 <Img />
                 <InfoSection>
@@ -124,6 +158,20 @@ const RecommendedRecipe = () => {
 }
 export default RecommendedRecipe;
 
+
+const Header = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4rem;
+    background: white;
+    transition: top 0.1s;
+    padding: 0 1rem;
+`;
+
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -133,7 +181,7 @@ const Wrapper = styled.div`
 
 const Img = styled.img`
     width : 100%;
-    margin-top: 2rem;
+    margin-top: 4.5rem;
     height: 22rem;
     background: rgba(0, 0, 0, 0.1);
 `;
