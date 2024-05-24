@@ -2,12 +2,15 @@ import Button from "@/components/commonComponents/Button";
 import Text from "@/components/commonComponents/Text";
 import Modal from "./components/Modal";
 import styled from "styled-components";
+import { loginState } from "@/recoil/atom";
+import { useSetRecoilState } from "recoil";
 import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
+  const setIsLogin = useSetRecoilState(loginState);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [reason, setReason] = useState<string>("");
   const navigate = useNavigate();
@@ -28,9 +31,19 @@ const MyPage = () => {
     setReason("");
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem("accessToken");
+    setIsLogin(false);
+    navigate("/");
+  };
+
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+
+  const gotoMain = () => {
+    navigate("/main");
+  };
 
   return (
     <>
@@ -59,6 +72,15 @@ const MyPage = () => {
           <Text font={"title3"}>차현수</Text>
         </UserInfo>
         <MyPageMenu>
+          <div onClick={gotoMain}>
+            <Text font={"body1"}>홈으로</Text>
+          </div>
+          <span
+            style={{
+              border: `0.5px solid ${theme.colors.grey1}`,
+              width: "100%",
+            }}
+          />
           <div onClick={gotoEditProfile}>
             <Text font={"body1"}>프로필 수정</Text>
           </div>
@@ -72,7 +94,7 @@ const MyPage = () => {
             <Text font={"body1"}>회원 탈퇴</Text>
           </div>
         </MyPageMenu>
-        <Button typeState={"defaultBtn"}>
+        <Button typeState={"defaultBtn"} onClick={handleLogOut}>
           <Text font={"button1"}>로그아웃</Text>
         </Button>
       </MyPageContainer>
