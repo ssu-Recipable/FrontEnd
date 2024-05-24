@@ -15,18 +15,18 @@ const Refrigerator = () => {
                         <IngredientList>
                             <Link to={`/ingredient/1`}>
                                 <Ingredient>
-                                    <IngredientImg />
+                                    <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
                                     <Text font={"body1"}>양배추</Text>
                                     <Text font={"body2"} color={"gray"}>D-3</Text>
                                 </Ingredient>
                             </Link>
                             <Ingredient>
-                                <IngredientImg />
+                                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
                                 <Text font={"body1"}>오이</Text>
                                 <Text font={"body2"} color={"gray"}>D-2</Text>
                             </Ingredient>
                             <Ingredient>
-                                <IngredientImg />
+                                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
                                 <Text font={"body1"}>오이</Text>
                                 <Text font={"body2"} color={"gray"}>D-2</Text>
                             </Ingredient>
@@ -38,7 +38,7 @@ const Refrigerator = () => {
                         <Text font={"body2"} color={"gray"}>오래 두고 먹어요.</Text>
                         <IngredientList>
                             <Ingredient>
-                                <IngredientImg />
+                                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
                                 <Text font={"body1"}>딸기잼</Text>
                                 <Text font={"body2"} color={"gray"}>D-365</Text>
                             </Ingredient>
@@ -99,8 +99,6 @@ const Ingredient = styled.div`
 const IngredientImg = styled.img`
     width: 4.5rem;
     height: 4.5rem;
-    border-radius: 3rem;
-    background: rgba(0, 0, 0, 0.1)
 `;
 
 const AddButton = styled.button`
