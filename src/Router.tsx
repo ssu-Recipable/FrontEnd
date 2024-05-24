@@ -8,7 +8,8 @@ import EditProfile from "./pages/editProfile/EditProfile";
 import AddIngredient from "./pages/addIngredient/AddIngredient";
 import ScanReceipt from "./pages/scanReceipt/ScanReceipt";
 import IngredientInput from "./pages/ingredientInput/IngredientInput";
-import RecommendedRecipes from "@/pages/recommendedRecipes/RecommendedRecipes"
+import RecommendedRecipes from "@/pages/recommendedRecipes/RecommendedRecipes";
+import RecommendedRecipe from "./pages/recommendedRecipe/RecommendedRecipe";
 import ResultScanReceipt from "./pages/resultScanReceipt/ResultScanReceipt";
 import LoginHandler from "./pages/login/components/LoginHandler";
 import Refrigerator from "./pages/refrigerator/Refrigerator";
@@ -36,6 +37,7 @@ const Router = () => {
         <Route path="/editIngredient/:id" element={<EditIngredient />} />
         <Route path="/filtering" element={<Filtering />} />
         <Route path="/recommendedRecipes" element={<RecommendedRecipes />} />
+        <Route path="/recommendedRecipes/:id" element={<RecommendedRecipe />} />
       </Routes>
     </BrowserRouter>
   );
