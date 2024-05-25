@@ -26,8 +26,8 @@ import EmailAuth from "./pages/login/components/EmailAuth";
 import ChooseIngredients from "./pages/chooseIngredients/ChooseIngredients";
 
 const Router = () => {
-  // const isLogin = useRecoilValue(loginState);
-  const isLogin = true;
+  const isLogin = useRecoilValue(loginState);
+  // const isLogin = true;
   return (
     <BrowserRouter>
       <Routes>
@@ -63,7 +63,10 @@ const Router = () => {
               path="/recommendedRecipes"
               element={<RecommendedRecipes />}
             />
-            <Route path="/recommendedRecipes/:id" element={<RecommendedRecipe />} />
+            <Route
+              path="/recommendedRecipes/:id"
+              element={<RecommendedRecipe />}
+            />
             <Route path="/chooseIngredients" element={<ChooseIngredients />} />
           </>
         )}
