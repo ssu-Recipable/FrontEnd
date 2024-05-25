@@ -8,16 +8,26 @@ import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
+
+  const gotoRefrigerator = () => {
+    navigate("/refrigerator");
+  };
+
   const gotoBookMark = () => {
     navigate("/bookmark");
   };
+
+  const chooseIngredients = () => {
+    navigate("/chooseIngredients");
+  };
+
   return (
     <FooterWrapper>
-      <SubMenuBox>
+      <SubMenuBox onClick={gotoRefrigerator}>
         <IoMenu size={25} />
         <Text font={"title4"}>냉장고</Text>
       </SubMenuBox>
-      <LogoBox>
+      <LogoBox onClick={chooseIngredients}>
         <img src={TestLogo2} alt="Logo" />
       </LogoBox>
       <SubMenuBox onClick={gotoBookMark}>
@@ -37,6 +47,7 @@ const FooterWrapper = styled.footer`
   padding: 1rem 3rem;
   border-top: 1px solid ${theme.colors.grey2};
 `;
+
 const SubMenuBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,6 +57,7 @@ const SubMenuBox = styled.div`
     transform: scale(1.1);
   }
 `;
+
 const LogoBox = styled.div`
   cursor: pointer;
   position: absolute;
@@ -53,6 +65,7 @@ const LogoBox = styled.div`
   left: 12.7rem;
   border-radius: 70rem;
   overflow: hidden;
+
   img {
     width: 9rem;
     height: 9rem;
