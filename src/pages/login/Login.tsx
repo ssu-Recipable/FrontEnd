@@ -3,7 +3,7 @@ import MainLogo from "@/assets/images/Recipable_MainLogo.png";
 import KakaoLogin from "@/assets/images/kakao_login_large_wide.png";
 import styled from "styled-components";
 import Button from "@/components/commonComponents/Button";
-import { theme } from "@/styles/theme";
+
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -18,9 +18,7 @@ const Login = () => {
   const gotoEmailLogin = () => {
     navigate("/emaillogin");
   };
-  const gotoTOS = () => {
-    navigate("/emailtos");
-  };
+
   return (
     <LoginContainer>
       <MainLogoImg src={MainLogo} alt="Recipable 만들어 먹는 재미!" />
@@ -33,16 +31,6 @@ const Login = () => {
       <Button typeState={"defaultBtn"} onClick={gotoEmailLogin}>
         <Text font={"button1"}>이메일로 로그인하기</Text>
       </Button>
-      <HelpContainer>
-        <Text font={"body1"} color={theme.colors.black}>
-          아직 회원이 아니십니까?
-        </Text>
-        <div onClick={gotoTOS}>
-          <Text font={"body1"} color={theme.colors.grey1}>
-            이메일로 회원가입 하기
-          </Text>
-        </div>
-      </HelpContainer>
     </LoginContainer>
   );
 };
@@ -74,17 +62,6 @@ const KakaoLoginImg = styled.img`
   height: 4rem;
   margin-top: 5rem;
   margin-bottom: 2rem;
-`;
-
-const HelpContainer = styled.div`
-  width: 25rem;
-  padding: 1rem;
-  margin-top: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  div {
-    cursor: pointer;
-  }
 `;
 
 export default Login;

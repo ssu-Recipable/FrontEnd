@@ -45,8 +45,8 @@ const EmailAuth = () => {
             message: "이미 등록된 이메일입니다. 다른 이메일을 입력해주세요!",
           });
         } else {
-          setCheckAuthCode(true);
           alert("입력하신 이메일로 인증 번호가 전송되었습니다!");
+          setCheckAuthCode(true);
           // if (typeof response.data.code === "string") {
           //   console.log("test");
           // }

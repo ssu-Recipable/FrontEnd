@@ -2,15 +2,17 @@ import Button from "@/components/commonComponents/Button";
 import Text from "@/components/commonComponents/Text";
 import Modal from "./components/Modal";
 import styled from "styled-components";
-import { loginState } from "@/recoil/atom";
-import { useSetRecoilState } from "recoil";
+import { nickNameState, loginState } from "@/recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { DeleteUserInfo, RequestUserInfo } from "@/utils/apis/UserInfoAPI";
 
 const MyPage = () => {
   const setIsLogin = useSetRecoilState(loginState);
+  const [nickName, setNickName] = useRecoilState(nickNameState);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [reason, setReason] = useState<string>("");
   const navigate = useNavigate();
@@ -18,11 +20,22 @@ const MyPage = () => {
   const gotoEditProfile = () => {
     navigate("/editprofile");
   };
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (reason.trim() === "") {
       alert("탈퇴 사유를 입력해주세요.");
       return;
     }
+    try {
+      const response = await DeleteUserInfo();
+      console.log(response);
+      localStorage.removeItem("accessToken");
+      setIsLogin(false);
+      setNickName("");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+
     setOpenModal(false);
   };
 
@@ -34,6 +47,7 @@ const MyPage = () => {
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
     setIsLogin(false);
+    setNickName("");
     navigate("/");
   };
 
@@ -44,6 +58,16 @@ const MyPage = () => {
   const gotoMain = () => {
     navigate("/main");
   };
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const response = await RequestUserInfo();
+      console.log(response.data);
+      setNickName(response.data.data.nickname);
+    };
+
+    getUserInfo();
+  }, [setNickName]);
 
   return (
     <>
@@ -69,7 +93,7 @@ const MyPage = () => {
         </MyPageTitle>
         <UserInfo>
           <FaUserCircle size={90} color={theme.colors.grey2} />
-          <Text font={"title3"}>차현수</Text>
+          <Text font={"title3"}>{nickName}</Text>
         </UserInfo>
         <MyPageMenu>
           <div onClick={gotoMain}>

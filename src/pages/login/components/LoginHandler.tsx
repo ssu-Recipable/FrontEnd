@@ -22,6 +22,7 @@ const LoginHandler = () => {
         console.log(response);
         /* 등록되지 않은 사용자라면 회원 등록 진행 */
         if (typeof response.data !== "string") {
+          console.log("test");
           const signUp = await KakaoSignUpApi(response.data);
           console.log(signUp);
         }
