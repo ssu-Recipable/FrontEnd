@@ -18,7 +18,7 @@ const RecommendedRecipes = () => {
                             <Text font={"title3"}>chatGPT 셰프의 추천 레시피</Text>
                         </div>
                         <RecipesList>
-                            <Link to={"/recommended/1"}>
+                            <Link to={"/recommendedRecipes/1"}>
                                 <Recipe>
                                     <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
                                     <RecipeInfo>
