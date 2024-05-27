@@ -2,17 +2,18 @@ import Button from "@/components/commonComponents/Button";
 import Text from "@/components/commonComponents/Text";
 import Modal from "./components/Modal";
 import styled from "styled-components";
-import { nickNameState, loginState } from "@/recoil/atom";
+import { nickNameState, loginState, kakakLoginState } from "@/recoil/atom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { DeleteUserInfo, RequestUserInfo } from "@/utils/apis/UserInfoAPI";
+import { DeleteUserInfo } from "@/utils/apis/UserInfoAPI";
 
 const MyPage = () => {
   const setIsLogin = useSetRecoilState(loginState);
   const [nickName, setNickName] = useRecoilState(nickNameState);
+  const [isKakaoLogin, setIsKakaoLogin] = useRecoilState(kakakLoginState);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [reason, setReason] = useState<string>("");
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const MyPage = () => {
   const gotoEditProfile = () => {
     navigate("/editprofile");
   };
+
   const handleConfirm = async () => {
     if (reason.trim() === "") {
       alert("탈퇴 사유를 입력해주세요.");
@@ -35,7 +37,6 @@ const MyPage = () => {
     } catch (err) {
       console.log(err);
     }
-
     setOpenModal(false);
   };
 
@@ -44,7 +45,10 @@ const MyPage = () => {
     setReason("");
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    if (isKakaoLogin) {
+      setIsKakaoLogin(false);
+    }
     localStorage.removeItem("accessToken");
     setIsLogin(false);
     setNickName("");
@@ -58,16 +62,6 @@ const MyPage = () => {
   const gotoMain = () => {
     navigate("/main");
   };
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      const response = await RequestUserInfo();
-      console.log(response.data);
-      setNickName(response.data.data.nickname);
-    };
-
-    getUserInfo();
-  }, [setNickName]);
 
   return (
     <>

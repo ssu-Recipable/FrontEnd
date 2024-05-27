@@ -6,14 +6,14 @@ import { FaPencil } from "react-icons/fa6";
 import Button from "@/components/commonComponents/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { nickNameState } from "@/recoil/atom";
 import { useRef, useState } from "react";
 import { ChangeUserInfo } from "@/utils/apis/UserInfoAPI";
 
 const EditProfile = () => {
   const navigate = useNavigate();
-  const nickName = useRecoilValue(nickNameState);
+  const [nickName, setNickName] = useRecoilState(nickNameState);
   const [changeNickName, setChangeNickName] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,6 +37,7 @@ const EditProfile = () => {
             inputRef.current?.value as string
           );
           console.log(response);
+          setNickName(inputRef.current!.value);
           navigate("/mypage");
         } else {
           return;
