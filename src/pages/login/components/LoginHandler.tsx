@@ -1,4 +1,4 @@
-import { loginState } from "@/recoil/atom";
+import { kakakLoginState, loginState } from "@/recoil/atom";
 import { useSetRecoilState } from "recoil";
 import { KakaoSignUpApi, kakaoAuthCodeApi } from "@/utils/apis/kakaoLoginApi";
 import { useEffect } from "react";
@@ -9,6 +9,7 @@ import styled from "styled-components";
 
 const LoginHandler = () => {
   const setIsLogin = useSetRecoilState(loginState);
+  const setKakaoLogin = useSetRecoilState(kakakLoginState);
   const AUTHORIZE_CODE: string = new URLSearchParams(
     window.location.search
   ).get("code")!;
@@ -22,12 +23,14 @@ const LoginHandler = () => {
         console.log(response);
         /* 등록되지 않은 사용자라면 회원 등록 진행 */
         if (typeof response.data !== "string") {
+          console.log("test");
           const signUp = await KakaoSignUpApi(response.data);
           console.log(signUp);
         }
         const accessToken = response.headers["authorization"].split(" ")[1];
         localStorage.setItem("accessToken", accessToken);
         setIsLogin(true);
+        setKakaoLogin(true);
         navigate("/main");
       } catch (err) {
         console.log(err);
@@ -35,7 +38,7 @@ const LoginHandler = () => {
     };
 
     kakaoLogin();
-  }, [AUTHORIZE_CODE, navigate, setIsLogin]);
+  }, [AUTHORIZE_CODE, navigate, setIsLogin, setKakaoLogin]);
 
   return (
     <LoadContainer>

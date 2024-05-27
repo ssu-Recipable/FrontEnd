@@ -8,3 +8,15 @@ export const loginState = atom<boolean>({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const nickNameState = atom<string>({
+  key: "NickNameState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const kakakLoginState = atom<boolean>({
+  key: "KakaoLoginState",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});

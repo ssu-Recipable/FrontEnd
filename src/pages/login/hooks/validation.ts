@@ -4,7 +4,10 @@ export type RegisterValidation = z.infer<typeof registerValidation>;
 
 export const registerValidation = z
   .object({
-    nickname: z.string().min(1, { message: "닉네임은 필수 입력입니다." }),
+    nickname: z
+      .string()
+      .min(1, { message: "닉네임은 필수 입력입니다." })
+      .max(7, { message: "7자 이하로 작성해주세요!" }),
     email: z
       .string()
       .email({ message: "이메일 형식에 맞게 입력해주세요." })

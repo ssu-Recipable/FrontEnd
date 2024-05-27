@@ -60,6 +60,10 @@ const EmailLogin = () => {
     }
   };
 
+  const gotoTOS = () => {
+    navigate("/emailtos");
+  };
+
   return (
     <LoginFormContainer>
       <TitleSection>
@@ -107,6 +111,16 @@ const EmailLogin = () => {
           <SubmitButton type="submit" value="로그인" />
         </ButtonSection>
       </form>
+      <HelpContainer>
+        <Text font={"body1"} color={theme.colors.black}>
+          아직 회원이 아니십니까?
+        </Text>
+        <div onClick={gotoTOS}>
+          <Text font={"body1"} color={theme.colors.grey1}>
+            이메일로 회원가입 하기
+          </Text>
+        </div>
+      </HelpContainer>
     </LoginFormContainer>
   );
 };
@@ -167,4 +181,14 @@ const SubmitButton = styled.input`
   }
 `;
 
+const HelpContainer = styled.div`
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  div {
+    cursor: pointer;
+  }
+`;
 export default EmailLogin;
