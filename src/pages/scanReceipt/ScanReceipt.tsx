@@ -7,12 +7,7 @@ import Button from "@/components/commonComponents/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { ResultScan } from "@/utils/apis/ScanReceiptAPI";
-
-interface UploadFile {
-  file: File;
-  thumbnail: string;
-  type: string;
-}
+import { UploadFile } from "@/types/ScanReceiptType";
 
 const ScanReceipt = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
