@@ -6,8 +6,7 @@ import { theme } from "@/styles/theme";
 import Button from "@/components/commonComponents/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-// import { ResultScan } from "@/utils/apis/ScanReceiptAPI";
+import { ResultScan } from "@/utils/apis/ScanReceiptAPI";
 
 interface UploadFile {
   file: File;
@@ -43,13 +42,13 @@ const ScanReceipt = () => {
   const receiveReceipt = async () => {
     if (imageFile) {
       const fileData = new FormData();
-      fileData.append("receiptFile", imageFile!.file);
+      fileData.append("multipartFile", imageFile!.file);
 
-      console.log(fileData.get("receiptFile"));
+      console.log(fileData.get("multipartFile"));
       // 영수증 이미지 서버 전송 api
       try {
-        // const response = await ResultScan(fileData);
-        // console.log(response);
+        const response = await ResultScan(fileData);
+        console.log(response);
       } catch (err) {
         console.log(err);
       }
@@ -87,7 +86,7 @@ const ScanReceipt = () => {
         <Text font={"title1"}>영수증 사진을 업로드해주세요</Text>
       </TitleSection>
       {showImage}
-      <form encType="mulitpart/form-data">
+      <form encType="multipart/form-data">
         <input
           type="file"
           accept="image/jpg, image/jpeg, image/png"
@@ -139,7 +138,7 @@ const NoSelecetedImage = styled.div`
   }
 `;
 const ShowFileImage = styled.img`
-  width: 25rem;
+  width: 30rem;
   height: 27rem;
   margin: 2rem 0;
 `;

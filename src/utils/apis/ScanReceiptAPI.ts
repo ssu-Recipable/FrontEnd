@@ -12,5 +12,9 @@ interface IngredientResponse {
 }
 
 export const ResultScan = (receipt: FormData) => {
-  return api.post<IngredientResponse>("/receipt", receipt);
+  return api.post<IngredientResponse>("/receipt", receipt, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
