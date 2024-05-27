@@ -181,7 +181,7 @@ const Wrapper = styled.div`
 
 const Img = styled.img`
     width : 100%;
-    margin-top: 4.5rem;
+    margin-top: 4rem;
     height: 22rem;
     background: rgba(0, 0, 0, 0.1);
 `;
