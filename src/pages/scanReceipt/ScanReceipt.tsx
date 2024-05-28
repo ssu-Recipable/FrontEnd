@@ -9,11 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { ResultScan } from "@/utils/apis/ScanReceiptAPI";
 import { UploadFile } from "@/types/ScanReceiptType";
 import Spinner from "@/assets/images/LoadingSpinnerReceipt.gif";
+import { useSetRecoilState } from "recoil";
+import { ingredientDataListState } from "@/recoil/atom";
 
 const ScanReceipt = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<UploadFile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const setIngredientDataList = useSetRecoilState(ingredientDataListState);
   const navigate = useNavigate();
 
   const movePreviousPage = () => {
@@ -46,7 +49,9 @@ const ScanReceipt = () => {
       try {
         setIsLoading(true);
         const response = await ResultScan(fileData);
-        console.log(response);
+        const ingredData = response.data.data.ingredientResponseList;
+        console.log(ingredData);
+        setIngredientDataList(ingredData);
         setIsLoading(false);
         navigate("/resultscan");
       } catch (err) {

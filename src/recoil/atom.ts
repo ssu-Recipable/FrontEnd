@@ -1,3 +1,4 @@
+import { Ingredient } from "@/types/ScanReceiptType";
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
@@ -18,5 +19,11 @@ export const nickNameState = atom<string>({
 export const kakakLoginState = atom<boolean>({
   key: "KakaoLoginState",
   default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const ingredientDataListState = atom<Ingredient[]>({
+  key: "IngredientDataListState",
+  default: [],
   effects_UNSTABLE: [persistAtom],
 });

@@ -1,41 +1,28 @@
 import IngredientList from "@/components/commonComponents/IngredientList";
 import Text from "@/components/commonComponents/Text";
-import { AddIngredientType } from "../ingredientInput/types/type";
 import { useState } from "react";
 import styled from "styled-components";
 import Button from "@/components/commonComponents/Button";
-
-const TEST_LIST = [
-  { id: Math.random(), category: "고기류", ingredient: "삼겹살" },
-  { id: Math.random(), category: "해산물", ingredient: "연어" },
-  { id: Math.random(), category: "채소", ingredient: "당근" },
-  { id: Math.random(), category: "과일", ingredient: "사과" },
-  { id: Math.random(), category: "곡물", ingredient: "쌀" },
-  { id: Math.random(), category: "유제품", ingredient: "우유" },
-  { id: Math.random(), category: "간식", ingredient: "과자" },
-  { id: Math.random(), category: "음료", ingredient: "차" },
-  { id: Math.random(), category: "고기류", ingredient: "삼겹살" },
-  { id: Math.random(), category: "해산물", ingredient: "연어" },
-  { id: Math.random(), category: "채소", ingredient: "당근" },
-  { id: Math.random(), category: "과일", ingredient: "사과" },
-  { id: Math.random(), category: "곡물", ingredient: "쌀" },
-  { id: Math.random(), category: "유제품", ingredient: "우유" },
-  { id: Math.random(), category: "간식", ingredient: "과자" },
-  { id: Math.random(), category: "음료", ingredient: "차" },
-  { id: Math.random(), category: "고기류", ingredient: "삼겹살" },
-  { id: Math.random(), category: "해산물", ingredient: "연어" },
-  { id: Math.random(), category: "채소", ingredient: "당근" },
-  { id: Math.random(), category: "과일", ingredient: "사과" },
-];
+import { useRecoilValue } from "recoil";
+import { ingredientDataListState } from "@/recoil/atom";
+import { AddIngredientType } from "@/types/ScanReceiptType";
 
 const ResultScanReceipt = () => {
+  const ingredientDataList = useRecoilValue(ingredientDataListState);
+  const ingredientListWithId = ingredientDataList.map((ingredient) => ({
+    ...ingredient,
+    id: Math.random(),
+  }));
+
   const [ingredientList, setIngredientList] =
-    useState<AddIngredientType[]>(TEST_LIST);
+    useState<AddIngredientType[]>(ingredientListWithId);
+
   const handleRemoveIngredient = (id: number) => {
     setIngredientList((prevState) => {
       return prevState.filter((ingreList) => ingreList.id !== id);
     });
   };
+
   return (
     <ResultScanContainer>
       <TitleSection>
