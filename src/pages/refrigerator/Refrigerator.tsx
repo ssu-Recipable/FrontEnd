@@ -17,10 +17,11 @@ const Refrigerator = () => {
                 <CategorySection>
                     {data?.map((category, index) => {
                         return <>
-                            <Category>
-                                <Text font={"body1"}>{category.categoryName}</Text>
-                                <Text font={"body2"} color={"gray"}>{category.detailContent}</Text>
-                                {category.refrigeratorDetailList?.length !== 0?
+                            {category.refrigeratorDetailList?.length !== 0?
+                                <>
+                                <Category>
+                                    <Text font={"body1"}>{category.categoryName}</Text>
+                                    <Text font={"body2"} color={"gray"}>{category.detailContent}</Text>
                                     <IngredientList>
                                         {category.refrigeratorDetailList?.map((ingredient) => 
                                             <Link to={`/ingredient/${ingredient.ingredientId}`}>
@@ -32,14 +33,11 @@ const Refrigerator = () => {
                                             </Link>)
                                         }
                                     </IngredientList>
-                                    : <EmptySection> 
-                                        <div>
-                                            <Text font={"body2"} color={"#d8d8d8"}>해당하는 재료가 없습니다.</Text>
-                                        </div>
-                                    </EmptySection>
-                                }
-                            </Category>
-                            {index !== data.length - 1 && <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>}
+                                </Category>
+                                {index !== data.length - 1 && <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>}
+                                </>
+                                : null
+                            }
                         </>
                     })}
                 </CategorySection>
