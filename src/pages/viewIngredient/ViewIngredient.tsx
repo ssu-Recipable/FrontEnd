@@ -2,15 +2,31 @@ import Text from "@/components/commonComponents/Text";
 import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
 import styled from "styled-components";
 import Button from "@/components/commonComponents/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { IngredientApi } from "@/utils/apis/IngredientApi";
+import { DeleteIngridientApi, ViewIngredientApi } from "@/utils/apis/IngredientApi";
 
 const ViewIngredient = () => {
     const { id } = useParams();
-    const { data } = useQuery({queryKey: ['ingredient'], queryFn: () => id? IngredientApi(id) : null})
+    const { data } = useQuery({queryKey: ['ingredient'], queryFn: () => id? ViewIngredientApi(id) : null});
+    const navigate = useNavigate();
 
     console.log(data);
+
+    const deleteIngredient = async () => {
+        if(!id) {
+            return;
+        }
+
+        const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+        if(!confirmDelete) {
+            return;
+        }
+
+        await DeleteIngridientApi(id);
+
+        navigate('/refrigerator');
+    }
 
     return (
         <>
@@ -40,7 +56,7 @@ const ViewIngredient = () => {
                     <Link to={"/editIngredient/1"}>
                         <Button typeState={"completeBtn"}>재료 수정하기</Button>
                     </Link>
-                    <Button typeState={"disproveBtn"}>재료 삭제하기</Button>
+                    <Button typeState={"disproveBtn"} onClick={deleteIngredient}>재료 삭제하기</Button>
                 </ButtonSection>
             </Wrapper>
         </>
