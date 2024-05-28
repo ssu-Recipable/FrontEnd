@@ -4,8 +4,11 @@ import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
 import { useState } from "react";
 import Button from "@/components/commonComponents/Button";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ChooseIngredients = () => {
+    const navigate = useNavigate();
+
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
     const [allSelected, setAllSelected] = useState(false);
 
@@ -28,6 +31,14 @@ const ChooseIngredients = () => {
         }
         setAllSelected(prevState => !prevState);
     };
+
+    const handleCompleteClick = () => {
+        if (selectedIngredients.length === 0) {
+            alert("재료를 하나 이상 선택해주세요.");
+        } else {
+            navigate('/filtering');
+        }
+    }
 
     return (
         <>
@@ -86,9 +97,7 @@ const ChooseIngredients = () => {
                     </svg>
                     <Text font={"body2"}>전체 선택하기</Text>
                 </SelectAll>
-                <Link to={"/filtering"}>
-                    <Button typeState={"completeBtn"}>재료 선택 완료</Button>
-                </Link>
+                <Button typeState={"completeBtn"} onClick={handleCompleteClick}>재료 선택 완료</Button>
             </Wrapper>
         </>
     )
