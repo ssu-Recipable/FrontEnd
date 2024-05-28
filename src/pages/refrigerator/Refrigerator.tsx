@@ -43,11 +43,13 @@ const Refrigerator = () => {
                 </CategorySection>
 
                 <Link to={"/addIngredient"}>
-                    <AddButton>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="white" stroke-width="2" width="40" height="40">
-                            <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
-                        </svg>
-                    </AddButton>
+                    <Footer>
+                        <AddButton>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="white" stroke-width="2" width="40" height="40">
+                                <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+                            </svg>
+                        </AddButton>
+                    </Footer>
                 </Link>
             </Wrapper>
         </>
@@ -97,21 +99,23 @@ const IngredientImg = styled.img`
     height: 4.5rem;
 `;
 
-const AddButton = styled.button`
+const Footer = styled.div`
     position: fixed;
     left: 50%;
     transform: translate(-50%, 0);
-    bottom: 3rem;
+    width: 100%;
+    height: 15rem;
+    background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+`;
+
+
+const AddButton = styled.button`
     width: 8rem;
     height: 8rem;
     border-radius: 4rem;
     background: linear-gradient(#7AF4D2, #78E790);
-`;
-
-const EmptySection = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    margin-top: 5.4rem;
+    margin-top: 5rem;
 `;
