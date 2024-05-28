@@ -1,8 +1,8 @@
 import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
+import { InputType } from "@/types/ScanReceiptType";
 import { useRef } from "react";
 import styled from "styled-components";
-import { InputType } from "../types/type";
 
 const Input = ({ inputIngredient, setInputIngredient }: InputType) => {
   const inputRef = useRef<HTMLInputElement>(null);

@@ -1,8 +1,8 @@
 import Text from "@/components/commonComponents/Text";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
-import { IngredientListType } from "../../pages/ingredientInput/types/type";
 import { FaPencil } from "react-icons/fa6";
+import { IngredientListType } from "@/types/ScanReceiptType";
 
 const IngredientList = ({
   isEdit,
@@ -16,10 +16,10 @@ const IngredientList = ({
           <IngredientItem key={item.id}>
             <div>
               <Text font={"title4"} color={theme.colors.main3}>
-                {item.category}
+                {item.ingredientCategory}
               </Text>
             </div>
-            <Text font={"body1"}>{item.ingredient}</Text>
+            <Text font={"body1"}>{item.ingredientName}</Text>
             {isEdit ? (
               <EditButton>
                 <FaPencil size={16} color={theme.colors.black} />

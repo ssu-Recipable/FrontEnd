@@ -1,7 +1,7 @@
 export interface AddIngredientType {
   id: number;
-  category: string;
-  ingredient: string;
+  ingredientCategory: string;
+  ingredientName: string;
 }
 
 export interface InputType {
@@ -18,4 +18,21 @@ export interface IngredientListType {
   isEdit: boolean;
   ingredientList: AddIngredientType[];
   onRemove: (id: number) => void;
+}
+
+export interface UploadFile {
+  file: File;
+  thumbnail: string;
+  type: string;
+}
+
+export interface Ingredient {
+  ingredientCategory: string;
+  ingredientName: string;
+}
+
+export interface IngredientResponse {
+  data: {
+    ingredientResponseList: Ingredient[];
+  };
 }

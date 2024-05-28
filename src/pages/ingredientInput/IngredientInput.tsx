@@ -5,10 +5,10 @@ import Input from "./components/Input";
 import Button from "@/components/commonComponents/Button";
 import { useEffect, useState } from "react";
 import { theme } from "@/styles/theme";
-import { AddIngredientType } from "./types/type";
 import IngredientList from "../../components/commonComponents/IngredientList";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { AddIngredientType } from "@/types/ScanReceiptType";
 
 const IngredientInput = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -30,8 +30,8 @@ const IngredientInput = () => {
     }
     const newIngredient = {
       id: Math.random(),
-      category: selectedCategory,
-      ingredient: inputIngredient,
+      ingredientCategory: selectedCategory,
+      ingredientName: inputIngredient,
     };
     setIngredientList((prevState) => {
       const updateList = [newIngredient, ...prevState];

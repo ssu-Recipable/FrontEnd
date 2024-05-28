@@ -1,8 +1,8 @@
 import Text from "@/components/commonComponents/Text";
 import { theme } from "@/styles/theme";
-import React, { useState } from "react";
+import { CategoryType } from "@/types/ScanReceiptType";
+import { useState } from "react";
 import styled from "styled-components";
-import { CategoryType } from "../types/type";
 
 const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
   const [isDropDown, setIsDropDown] = useState(false);
