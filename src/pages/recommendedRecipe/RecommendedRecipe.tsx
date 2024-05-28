@@ -3,8 +3,14 @@ import Text from "@/components/commonComponents/Text";
 import { useState, useEffect } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import Button from "@/components/commonComponents/Button";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { api } from "@/utils/apis/axios";
+
+interface YouTubeVideo {
+    videoUrl: string;
+    title: string;
+    thumnail: string;
+}
 
 const RecommendedRecipe = () => {
     const ingredient = `- 신김치 2컵\n- 돼지고기(삼겹살 또는 목살) 200g\n- 두부 1/2모\n- 양파 1/2개\n- 대파 1대\n- 청양고추 1개 (선택 사항)\n- 다진 마늘 1큰술\n- 고춧가루 1큰술\n- 된장 1작은술\n- 국간장 1큰술\n- 소금 약간\n- 후추 약간\n- 물 또는 육수 4컵\n`;
@@ -13,9 +19,11 @@ const RecommendedRecipe = () => {
     const [isHeaderVisible, setIsHeaderVisible] = useState(true);
     const [lastScrollTop, setLastScrollTop] = useState(0);
 
+    const keyword = "김치찌개";
     const [isEditing, setIsEditing] = useState(false);
     const [recipe, setRecipe] = useState(tmpR);
     const [isBookmarked, setIsBookmarked] = useState(false);
+    const [videos, setVideos] = useState<YouTubeVideo[]>([]);
 
     const navigate = useNavigate();
     
@@ -54,28 +62,19 @@ const RecommendedRecipe = () => {
         });
     };
 
+    const searchYouTubeVideos = async () => {
+        try {
+            const response = await api.get<YouTubeVideo[]>('/youtube',{
+                params: { keyword },
+            });
+            console.log(response.data);
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios
-                    .get('https://openapi.naver.com/v1/search/image.json', {
-                        params: { query: 'cat' },
-                        headers: {
-                            'X-Naver-Client-Id':
-                            import.meta.env.VITE_NAVER_CLIENT_ID,
-                            'X-Naver-Client-Secret':
-                            import.meta.env.VITE_CLIENT_SECRET,
-                        },
-                    })
-                    .then((response) => {
-                        console.log('response', response.data);
-                    });
-                    return response;
-            } catch {
-                console.log('error');
-            }
-        };
-        fetchData();
+        searchYouTubeVideos();
     }, []);
 
     useEffect(() => {
