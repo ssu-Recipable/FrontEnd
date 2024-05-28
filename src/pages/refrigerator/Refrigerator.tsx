@@ -2,48 +2,46 @@ import Text from "@/components/commonComponents/Text";
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
+import { RefrigeratorApi } from "@/utils/apis/RefrigeratorApi";
+import { useQuery } from "@tanstack/react-query";
 
 const Refrigerator = () => {
+    const { data } = useQuery({queryKey: ['refrigerator'], queryFn: () => RefrigeratorApi()});
+
+    console.log(data);
+
     return (
         <>
             <RefrigeratorHeader />
             <Wrapper>
                 <CategorySection>
-                    <Category>
-                        <Text font={"body1"}>야채류</Text>
-                        <Text font={"body2"} color={"gray"}>상하기 쉬워요.</Text>
-                        <IngredientList>
-                            <Link to={`/ingredient/1`}>
-                                <Ingredient>
-                                    <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
-                                    <Text font={"body1"}>양배추</Text>
-                                    <Text font={"body2"} color={"gray"}>D-3</Text>
-                                </Ingredient>
-                            </Link>
-                            <Ingredient>
-                                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
-                                <Text font={"body1"}>오이</Text>
-                                <Text font={"body2"} color={"gray"}>D-2</Text>
-                            </Ingredient>
-                            <Ingredient>
-                                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
-                                <Text font={"body1"}>오이</Text>
-                                <Text font={"body2"} color={"gray"}>D-2</Text>
-                            </Ingredient>
-                        </IngredientList>
-                    </Category>
-                    <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                    <Category>
-                        <Text font={"body1"}>소스류</Text>
-                        <Text font={"body2"} color={"gray"}>오래 두고 먹어요.</Text>
-                        <IngredientList>
-                            <Ingredient>
-                                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
-                                <Text font={"body1"}>딸기잼</Text>
-                                <Text font={"body2"} color={"gray"}>D-365</Text>
-                            </Ingredient>
-                        </IngredientList>
-                    </Category>
+                    {data?.map((category, index) => {
+                        return <>
+                            <Category>
+                                <Text font={"body1"}>{category.categoryName}</Text>
+                                <Text font={"body2"} color={"gray"}>{category.detailContent}</Text>
+                                {category.refrigeratorDetailList?.length !== 0?
+                                    <IngredientList>
+                                        {category.refrigeratorDetailList?.map((ingredient) => 
+                                            <Link to={`/ingredient/${ingredient.ingredientId}`}>
+                                                <Ingredient>
+                                                    <IngredientImg src={ingredient.igredientImage? ingredient.igredientImage : "/src/assets/images/default_ingredients.png"}/>
+                                                    <Text font={"body1"}>{ingredient.ingredientName}</Text>
+                                                    <Text font={"body2"} color={"gray"}>{ingredient.expiredRemaining? `D-${ingredient.expiredRemaining}`: null}</Text>
+                                                </Ingredient>
+                                            </Link>)
+                                        }
+                                    </IngredientList>
+                                    : <EmptySection> 
+                                        <div>
+                                            <Text font={"body2"} color={"#d8d8d8"}>해당하는 재료가 없습니다.</Text>
+                                        </div>
+                                    </EmptySection>
+                                }
+                            </Category>
+                            {index !== data.length - 1 && <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>}
+                        </>
+                    })}
                 </CategorySection>
 
                 <Link to={"/addIngredient"}>
@@ -109,5 +107,13 @@ const AddButton = styled.button`
     width: 8rem;
     height: 8rem;
     border-radius: 4rem;
-    background: linear-gradient(#7AF4D2, #78E790)
+    background: linear-gradient(#7AF4D2, #78E790);
+`;
+
+const EmptySection = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-top: 5.4rem;
 `;
