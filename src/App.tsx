@@ -5,7 +5,6 @@ import styled, { ThemeProvider } from "styled-components";
 import { useEffect } from "react";
 import { theme } from "./styles/theme";
 import { RecoilRoot } from "recoil";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const MobileWrapper = styled.div`
@@ -50,7 +49,6 @@ function App() {
 
   return (
     <>
-
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>

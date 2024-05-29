@@ -26,6 +26,7 @@ const IngredientList = ({
               </EditButton>
             ) : null}
             <DeleteButton type="button" onClick={() => onRemove(item.id as number)} />
+
           </IngredientItem>
         ))}
     </>
