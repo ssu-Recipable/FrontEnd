@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const EditIngredient = () => {
+    const { id } = useParams();
+
     const [postImg, setPostImg] = useState<File | null>();
     const [previewImg, setPreviewImg] = useState<string | null>();
-    const [name, setName] = useState<string|null>();
+
+    // const formData = new FormData();
+    // formData.append('ingredientImage', postImg);
 
     const changeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.files !== null) {
@@ -66,7 +70,7 @@ const EditIngredient = () => {
                         <Textarea maxLength={100} placeholder="최대 100자까지 입력 가능합니다."/>
                     </Info>
                 </InfoSection>
-                <Link to={`/ingredient/1`}>
+                <Link to={`/ingredient/${id}`}>
                     <div style={{position: "fixed", left: "50%", transform: "translate(-50%, 0)", bottom: "3rem"}}>
                         <Button typeState={"completeBtn"}>수정 완료하기</Button>
                     </div>
@@ -121,6 +125,7 @@ const InputInfo = styled.input`
     border: solid 0.1rem rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
     outline: none;
+    border-radius: 0.5rem;
 `;
 
 const Select = styled.select`
@@ -129,6 +134,7 @@ const Select = styled.select`
     border: solid 0.1rem rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
     outline: none;
+    border-radius: 0.5rem;
 `;
 
 const Textarea = styled.textarea`
@@ -138,4 +144,5 @@ const Textarea = styled.textarea`
     font-size: 1.2rem;
     resize: none;
     outline: none;
+    border-radius: 0.5rem;
 `;

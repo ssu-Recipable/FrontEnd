@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Filtering = () => {
     const [selectedSkill, setSelectedSkill] = useState<string|null>();
@@ -164,9 +165,11 @@ const Filtering = () => {
                         </ul>
                     </Filter>
                 </FilteringSection>
-                <div style={{margin: "3rem 0"}}>
-                    <Button typeState={"completeBtn"}>레시피 추천받기</Button>
-                </div>                
+                <Link to={`/recommendedRecipes`}>
+                    <div style={{margin: "3rem 0"}}>
+                        <Button typeState={"completeBtn"}>레시피 추천받기</Button>
+                    </div>
+                </Link>          
             </Wrapper>
         </>
     );

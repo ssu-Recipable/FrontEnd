@@ -2,37 +2,61 @@ import Text from "@/components/commonComponents/Text";
 import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
 import styled from "styled-components";
 import Button from "@/components/commonComponents/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { DeleteIngridientApi, ViewIngredientApi } from "@/utils/apis/IngredientApi";
 
 const ViewIngredient = () => {
+    const { id } = useParams();
+    const { data } = useQuery({queryKey: ['ingredient'], queryFn: () => id? ViewIngredientApi(id) : null});
+    const navigate = useNavigate();
+
+    console.log(data);
+
+    const deleteIngredient = async () => {
+        if(!id) {
+            return;
+        }
+
+        const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+        if(!confirmDelete) {
+            return;
+        }
+
+        await DeleteIngridientApi(id);
+
+        navigate('/refrigerator');
+    }
+
     return (
         <>
             <RefrigeratorHeader />
             <Wrapper>
-                <IngredientImg src={"/src/assets/images/default_ingredients.png"}/>
+                {data?.ingredientImage === null ? <DefaultImg src={"/src/assets/images/default_ingredients.png"}/>
+                : <IngredientImg src={data?.ingredientImage} />}
                 <InfoSection>
                     <Info>
                         <Text font={"title4"}>이름</Text>
-                        <Text font={"body1"}>양배추</Text>
+                        <Text font={"body1"}>{data?.ingredientName}</Text>
                     </Info>
                     <Info>
                         <Text font={"title4"}>카테고리</Text>
-                        <Text font={"body1"}>야채류</Text>
+                        <Text font={"body1"}>{data?.categoryName}</Text>
                     </Info>
                     <Info>
                         <Text font={"title4"}>소비기한</Text>
-                        <Text font={"body1"}>2024-04-01</Text>
+                        <Text font={"body1"}>{data?.expirationDay}</Text>
                     </Info>
                     <Info>
                         <Text font={"title4"}>메모</Text>
-                        <Text font={"body1"}>야채칸에 있음!</Text>
+                        <Text font={"body1"}>{data?.memo}</Text>
                     </Info>
                 </InfoSection>
                 <ButtonSection>
                     <Link to={"/editIngredient/1"}>
                         <Button typeState={"completeBtn"}>재료 수정하기</Button>
                     </Link>
-                    <Button typeState={"disproveBtn"}>재료 삭제하기</Button>
+                    <Button typeState={"disproveBtn"} onClick={deleteIngredient}>재료 삭제하기</Button>
                 </ButtonSection>
             </Wrapper>
         </>
@@ -47,9 +71,16 @@ const Wrapper = styled.div`
     width: 100%;
 `;
 
+const DefaultImg = styled.img`
+    width: 10rem;
+    height: 10rem;
+    margin: 5rem 0;
+`;
+
 const IngredientImg = styled.img`
     width: 10rem;
     height: 10rem;
+    border-radius: 5rem;
     margin: 5rem 0;
 `;
 
