@@ -4,15 +4,27 @@ import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
 import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { EditIngrdientApi, ViewIngredientApi } from "@/utils/apis/IngredientApi";
+import { UpdateIngredientRequest } from "@/types/IngredientType";
+
+const categories: string[] = [
+    "야채류",
+    "과일",
+    "김치"
+];
 
 const EditIngredient = () => {
-    const { id } = useParams();
+    const { id } = useParams<{id: string}>() as {id: string};
 
-    const [postImg, setPostImg] = useState<File | null>();
+    const { data } = useQuery({queryKey: ['ingredient'], queryFn: () => id? ViewIngredientApi(id) : null});
+
+    const [postImg, setPostImg] = useState<File | null>(null);
     const [previewImg, setPreviewImg] = useState<string | null>();
-
-    // const formData = new FormData();
-    // formData.append('ingredientImage', postImg);
+    const [ingredientName, setIngredientName] = useState<string>('');
+    const [categoryName, setCategoryName] = useState<string>('');
+    const [expirationDay, setExpirationDay] = useState<string | null>();
+    const [memo, setMemo] = useState<string|null>();
 
     const changeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.files !== null) {
@@ -33,6 +45,48 @@ const EditIngredient = () => {
         }
     }, [postImg]);
 
+    useEffect(()=>{
+        if(data) {
+            setPreviewImg(data.ingredientImage);
+            setIngredientName(data.ingredientName);
+            setCategoryName(data.categoryName);
+            setExpirationDay(data.expirationDay);
+            setMemo(data.memo);
+        }
+    }, []);
+
+    const handleEditButton = () => {
+        const formData = new FormData();
+        if(postImg) {
+            formData.append('multipartFile', postImg);
+        }
+
+        const request: UpdateIngredientRequest = {};
+
+        if(ingredientName !== data?.ingredientName) {
+            request.ingredientName = ingredientName;
+        }
+        if(categoryName !== data?.categoryName) {
+            request.categoryName = categoryName;
+        } 
+        if(expirationDay && expirationDay !== data?.expirationDay) {
+            request.expirationDay = expirationDay;
+        } 
+        if(memo && memo !== data?.memo) {
+            request.memo = memo;
+        } 
+        
+        formData.append('updateIngredientRequest', new Blob([JSON.stringify(request)], { type: "application/json" }));
+        
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+        const response = EditIngrdientApi(id, formData);
+        console.log(response);
+        
+    }
+
     return (
         <>
             <RefrigeratorHeader />
@@ -52,27 +106,42 @@ const EditIngredient = () => {
                 <InfoSection>
                     <Info>
                         <Text font={"title4"}>이름</Text>
-                        <InputInfo type="text"/>
+                        <InputInfo 
+                            type="text" 
+                            value={ingredientName} 
+                            onChange={(e) => setIngredientName(e.target.value)}
+                        />
                     </Info>
                     <Info>
                         <Text font={"title4"}>카테고리</Text>
-                        <Select>
-                            <option>야채류</option>
-                            <option>소스류</option>
+                        <Select value={categoryName} onChange={(e) => setCategoryName(e.target.value)}>
+                            {categories.map((item) => (
+                                <option value={item}>{item}</option>
+                            )
+                            )}
                         </Select>
                     </Info>
                     <Info>
                         <Text font={"title4"}>소비기한</Text>
-                        <InputInfo type="date"/>
+                        <InputInfo 
+                            type="date"
+                            value={expirationDay ?? ''} 
+                            onChange={(e) => setExpirationDay(e.target.value)}
+                        />
                     </Info>
                     <Info>
                         <Text font={"title4"}>메모</Text>
-                        <Textarea maxLength={100} placeholder="최대 100자까지 입력 가능합니다."/>
+                        <Textarea 
+                            maxLength={100} 
+                            placeholder="최대 100자까지 입력 가능합니다."
+                            value={memo ?? ''} 
+                            onChange={(e) => setMemo(e.target.value)}
+                        />
                     </Info>
                 </InfoSection>
                 <Link to={`/ingredient/${id}`}>
                     <div style={{position: "fixed", left: "50%", transform: "translate(-50%, 0)", bottom: "3rem"}}>
-                        <Button typeState={"completeBtn"}>수정 완료하기</Button>
+                        <Button typeState={"completeBtn"} onClick={handleEditButton}>수정 완료하기</Button>
                     </div>
                 </Link>
             </Wrapper>
@@ -92,7 +161,8 @@ const IngredientImg = styled.img`
     width: 10rem;
     height: 10rem;
     border-radius: 5rem;
-    margin: 3 0;
+    margin: 5rem 0;
+    border: 0.1rem solid rgba(0, 0, 0, 0.1);
     object-fit: cover;
     cursor: pointer;
 `;
@@ -105,7 +175,7 @@ const InputImg = styled.div`
     height: 10rem;
     border-radius: 5rem;
     background: rgba(0, 0, 0, 0.1);
-    margin: 3rem 0;
+    margin: 5rem 0;
     cursor: pointer;
 `;
 
