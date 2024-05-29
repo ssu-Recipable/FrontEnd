@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
-import { useState } from "react";
 import Button from "@/components/commonComponents/Button";
 import { Link } from "react-router-dom";
 
 const RecommendedRecipes = () => {
-    const [name, setName] = useState("유미라");
+    const name = "유미라";
     return (
         <>
             <Wrapper>

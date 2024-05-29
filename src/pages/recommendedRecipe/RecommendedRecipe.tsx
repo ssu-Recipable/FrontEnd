@@ -23,7 +23,7 @@ const RecommendedRecipe = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [recipe, setRecipe] = useState(tmpR);
     const [isBookmarked, setIsBookmarked] = useState(false);
-    const [videos, setVideos] = useState<YouTubeVideo[]>([]);
+    // const [videos, setVideos] = useState<YouTubeVideo[]>([]);
 
     const navigate = useNavigate();
     

@@ -11,7 +11,7 @@ const EditIngredient = () => {
     const [postImg, setPostImg] = useState<File | null>();
     const [previewImg, setPreviewImg] = useState<string | null>();
 
-    const formData = new FormData();
+    // const formData = new FormData();
     // formData.append('ingredientImage', postImg);
 
     const changeImg = (event: React.ChangeEvent<HTMLInputElement>) => {

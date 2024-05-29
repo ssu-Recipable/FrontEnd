@@ -3,7 +3,6 @@ import Text from "@/components/commonComponents/Text";
 import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
 import { useState } from "react";
 import Button from "@/components/commonComponents/Button";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const ChooseIngredients = () => {
