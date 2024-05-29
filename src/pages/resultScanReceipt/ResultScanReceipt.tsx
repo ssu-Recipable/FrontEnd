@@ -6,7 +6,7 @@ import Button from "@/components/commonComponents/Button";
 import { useRecoilValue } from "recoil";
 import { ingredientDataListState } from "@/recoil/atom";
 import { AddIngredientType } from "@/types/ScanReceiptType";
-import { AddRefrigeratorReceipt } from "@/utils/apis/refrigeratorApi";
+import { AddRefrigeratorReceipt } from "@/utils/apis/RefrigeratorApi";
 import { useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import { theme } from "@/styles/theme";
