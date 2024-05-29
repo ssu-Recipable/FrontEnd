@@ -20,14 +20,23 @@ const LoginHandler = () => {
     const kakaoLogin = async () => {
       try {
         const response = await kakaoAuthCodeApi(AUTHORIZE_CODE);
-        console.log(response);
-        /* 등록되지 않은 사용자라면 회원 등록 진행 */
-        if (typeof response.data !== "string") {
-          console.log("test");
-          const signUp = await KakaoSignUpApi(response.data);
-          console.log(signUp);
+        console.log(response.data);
+
+        if (typeof response.data === "string") {
+          const accessToken = response.headers["authorization"].split(" ")[1];
+          localStorage.setItem("accessToken", accessToken);
+          setIsLogin(true);
+          setKakaoLogin(true);
+          navigate("/main");
+          return;
         }
-        const accessToken = response.headers["authorization"].split(" ")[1];
+
+        /* 등록되지 않은 사용자라면 signUp 진행 */
+        const signUp_response = await KakaoSignUpApi(response.data);
+        console.log(signUp_response);
+        const accessToken =
+          signUp_response.headers["authorization"].split(" ")[1];
+
         localStorage.setItem("accessToken", accessToken);
         setIsLogin(true);
         setKakaoLogin(true);

@@ -1,11 +1,5 @@
+import { MainDataResponse, UserDataResponse } from "@/types/MainType";
 import { api } from "./axios";
-
-interface UserDataResponse {
-  data: {
-    nickname: string;
-    userImg: string;
-  };
-}
 
 export const RequestUserInfo = () => {
   return api.get<UserDataResponse>("/users/info");
@@ -17,4 +11,9 @@ export const ChangeUserInfo = (nickName: string) => {
 
 export const DeleteUserInfo = () => {
   return api.delete<string>("/users/info");
+};
+
+export const LoadMainData = async () => {
+  const response = await api.get<MainDataResponse>("users/main");
+  return response.data;
 };

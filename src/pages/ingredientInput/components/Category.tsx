@@ -4,6 +4,28 @@ import { CategoryType } from "@/types/ScanReceiptType";
 import { useState } from "react";
 import styled from "styled-components";
 
+const CategoryList = [
+  "과일",
+  "채소",
+  "축산물",
+  "어패류",
+  "생선",
+  "건어물",
+  "해조류",
+  "농산물",
+  "유가공품",
+  "김치",
+  "장류",
+  "젓갈",
+  "조미료",
+  "소스잼",
+  "식용유",
+  "면류",
+  "통조림",
+  "분말류",
+  "음료",
+];
+
 const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
   const [isDropDown, setIsDropDown] = useState(false);
   const onClickOption = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,21 +48,11 @@ const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
       </SelectButton>
       {isDropDown && (
         <DropDownArea>
-          <Option value="a" key="a" onClick={onClickOption}>
-            고기류
-          </Option>
-          <Option value="b" key="b" onClick={onClickOption}>
-            곡물류
-          </Option>
-          <Option value="c" key="c" onClick={onClickOption}>
-            소스류
-          </Option>
-          <Option value="d" key="d" onClick={onClickOption}>
-            해산물
-          </Option>
-          <Option value="e" key="e" onClick={onClickOption}>
-            과일
-          </Option>
+          {CategoryList.map((item, id) => (
+            <Option value={item} key={id} onClick={onClickOption}>
+              {item}
+            </Option>
+          ))}
         </DropDownArea>
       )}
     </CategoryContainer>

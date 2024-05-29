@@ -5,9 +5,13 @@ import styled, { ThemeProvider } from "styled-components";
 import { useEffect } from "react";
 import { theme } from "./styles/theme";
 import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+
 
 const queryClient = new QueryClient();
+
 
 const MobileWrapper = styled.div`
   display: flex;
@@ -38,6 +42,8 @@ function App() {
     );
   };
 
+  const queryClient = new QueryClient();
+
   useEffect(() => {
     setScreenSize();
     window.addEventListener("resize", setScreenSize);
@@ -49,6 +55,7 @@ function App() {
 
   return (
     <>
+
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
