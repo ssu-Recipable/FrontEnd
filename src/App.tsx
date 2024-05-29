@@ -22,6 +22,8 @@ const MobileWrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100);
 `;
 
+const queryClient = new QueryClient();
+
 function App() {
   const setScreenSize = () => {
     const vh = window.innerHeight * 0.01;
@@ -35,8 +37,6 @@ function App() {
       `${maxWidth}rem`
     );
   };
-
-  const queryClient = new QueryClient();
 
   useEffect(() => {
     setScreenSize();

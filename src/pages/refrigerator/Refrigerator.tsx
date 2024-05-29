@@ -26,7 +26,7 @@ const Refrigerator = () => {
                                         {category.refrigeratorDetailList?.map((ingredient) => 
                                             <Link to={`/ingredient/${ingredient.ingredientId}`}>
                                                 <Ingredient>
-                                                    {ingredient.ingredientImage? <DefaultImg src={ingredient.ingredientImage} /> : <IngredientImg src={"/src/assets/images/default_ingredients.png"} />}
+                                                    {ingredient.ingredientImage? <IngredientImg src={ingredient.ingredientImage} /> : <DefaultImg src={"/src/assets/images/default_ingredients.png"} />}
                                                     <Text font={"body1"}>{ingredient.ingredientName}</Text>
                                                     <Text font={"body2"} color={"gray"}>{ingredient.expiredRemaining? `D-${ingredient.expiredRemaining}`: null}</Text>
                                                 </Ingredient>
@@ -94,13 +94,14 @@ const Ingredient = styled.div`
     align-items: center;
 `;
 
-const DefaultImg = styled.img`
+const IngredientImg = styled.img`
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 3rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.1);
 `;
 
-const IngredientImg = styled.img`
+const DefaultImg = styled.img`
     width: 4.5rem;
     height: 4.5rem;
 `;

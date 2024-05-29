@@ -1,4 +1,4 @@
-import { IngredientResponse } from "@/types/IngredientType";
+import { EditIngrdientRequest, IngredientResponse } from "@/types/IngredientType";
 import { api } from "./axios";
 
 export const ViewIngredientApi = async (id: string) => {
@@ -7,7 +7,7 @@ export const ViewIngredientApi = async (id: string) => {
 }
 
 export const EditIngrdientApi = (id: string, formData: FormData) => {
-    return api.patch<IngredientResponse>(`/refrigerators/${id}`, formData, {
+    return api.patch<EditIngrdientRequest>(`/refrigerators/${id}`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
           },

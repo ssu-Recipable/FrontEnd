@@ -25,10 +25,8 @@ const IngredientList = ({
                 <FaPencil size={16} color={theme.colors.black} />
               </EditButton>
             ) : null}
-            <DeleteButton
-              type="button"
-              onClick={() => onRemove(item.id as number)}
-            />
+            <DeleteButton type="button" onClick={() => onRemove(item.id as number)} />
+
           </IngredientItem>
         ))}
     </>

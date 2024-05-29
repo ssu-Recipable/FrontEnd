@@ -81,6 +81,7 @@ const IngredientImg = styled.img`
     width: 10rem;
     height: 10rem;
     border-radius: 5rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.1);
     margin: 5rem 0;
 `;
 
