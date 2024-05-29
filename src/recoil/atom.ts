@@ -1,4 +1,4 @@
-import { Ingredient } from "@/types/ScanReceiptType";
+import { AddIngredientType } from "@/types/ScanReceiptType";
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
@@ -22,7 +22,7 @@ export const kakakLoginState = atom<boolean>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const ingredientDataListState = atom<Ingredient[]>({
+export const ingredientDataListState = atom<AddIngredientType[]>({
   key: "IngredientDataListState",
   default: [],
   effects_UNSTABLE: [persistAtom],
