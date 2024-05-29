@@ -6,7 +6,7 @@ export const RequestUserInfo = () => {
 };
 
 export const ChangeUserInfo = (nickName: string) => {
-  return api.put<UserDataResponse>("users/info", nickName);
+  return api.patch<UserDataResponse>("users/info", nickName);
 };
 
 export const DeleteUserInfo = () => {
