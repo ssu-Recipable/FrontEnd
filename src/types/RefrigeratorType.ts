@@ -2,7 +2,7 @@ interface SimpleIngredient {
     ingredientId: number;
     ingredientName: string;
     expiredRemaining: number | null;
-    igredientImage: string | null;
+    ingredientImage: string | null;
 }
 
 export interface IngredientCategory {
