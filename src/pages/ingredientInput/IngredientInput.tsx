@@ -9,11 +9,15 @@ import IngredientList from "../../components/commonComponents/IngredientList";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { AddIngredientType } from "@/types/ScanReceiptType";
+import { AddRefrigeratorDirect } from "@/utils/apis/refrigeratorApi";
+import { FaCheck } from "react-icons/fa";
 
 const IngredientInput = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [inputIngredient, setInputIngredient] = useState<string>("");
   const [ingredientList, setIngredientList] = useState<AddIngredientType[]>([]);
+  const [isSuccess, SetIsSuccess] = useState(false);
+
   const navigate = useNavigate();
 
   const movePreviousPage = () => {
@@ -47,60 +51,113 @@ const IngredientInput = () => {
     });
   };
 
+  const gotoRecipeRecommend = () => {
+    navigate("/chooseIngredients");
+  };
+
+  const saveIngredient = async () => {
+    const newArray = ingredientList.map(
+      ({ ingredientCategory, ingredientName }) => ({
+        ingredientCategory,
+        ingredientName,
+      })
+    );
+    try {
+      const check = window.confirm("식재료를 등록하시겠습니까?");
+      if (check) {
+        const response = await AddRefrigeratorDirect({
+          ingredients: newArray,
+        });
+        console.log(response);
+
+        SetIsSuccess(true);
+
+        setTimeout(() => {
+          SetIsSuccess(false);
+          navigate("/refrigerator");
+        }, 4000);
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     console.log(ingredientList);
   }, [ingredientList]);
 
   return (
     <InputContainer>
-      <TopContainer>
-        <TitleSection>
-          <MoveBack onClick={movePreviousPage}>
-            <IoIosArrowBack size={20} />
-          </MoveBack>
-          <Text font={"title1"}>재료를 입력해주세요</Text>
-        </TitleSection>
-        <Category
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        <Input
-          inputIngredient={inputIngredient}
-          setInputIngredient={setInputIngredient}
-        />
-        <TopButtonSection>
-          <Button typeState={"confirmBtn"} onClick={handleSaveIngredient}>
-            <Text font={"button2"}>확인</Text>
-          </Button>
-        </TopButtonSection>
-      </TopContainer>
-      <BottomContainer>
-        <Text font={"title3"}>다음과 같은 재료를 냉장고에 추가합니다</Text>
-        {ingredientList.length > 0 ? (
-          <ItemContainer>
-            <IngredientList
-              isEdit={false}
-              onRemove={handleRemoveIngredient}
-              ingredientList={ingredientList}
-            />
-          </ItemContainer>
-        ) : (
-          <DefalutMessage>
-            <Text font={"title4"}>
-              이곳에 원하는 식재료의 이름과 카테고리를 추가해보세요!
+      {isSuccess ? (
+        <SuccessMessage>
+          <Check>
+            <FaCheck size={100} color={theme.colors.main1} />
+          </Check>
+          <TextSection>
+            <Text font={"title3"}>재료 저장 완료!</Text>
+            <Text font={"body1"}>
+              냉장고를 확인하시고 싶으면 잠시만 기다려주세요!
             </Text>
-          </DefalutMessage>
-        )}
-        <BottomButtonSection>
-          <Button
-            typeState={
-              ingredientList.length > 0 ? "completeBtn" : "disabledBtn"
-            }
-          >
-            <Text font={"button1"}>냉장고에 재료 추가하기</Text>
+          </TextSection>
+          <Button typeState={"completeBtn"} onClick={gotoRecipeRecommend}>
+            <Text font={"button1"}>레시피 추천 받으러 가기!</Text>
           </Button>
-        </BottomButtonSection>
-      </BottomContainer>
+        </SuccessMessage>
+      ) : (
+        <>
+          <TopContainer>
+            <TitleSection>
+              <MoveBack onClick={movePreviousPage}>
+                <IoIosArrowBack size={20} />
+              </MoveBack>
+              <Text font={"title1"}>재료를 입력해주세요</Text>
+            </TitleSection>
+            <Category
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
+            <Input
+              inputIngredient={inputIngredient}
+              setInputIngredient={setInputIngredient}
+            />
+            <TopButtonSection>
+              <Button typeState={"confirmBtn"} onClick={handleSaveIngredient}>
+                <Text font={"button2"}>확인</Text>
+              </Button>
+            </TopButtonSection>
+          </TopContainer>
+          <BottomContainer>
+            <Text font={"title3"}>다음과 같은 재료를 냉장고에 추가합니다</Text>
+            {ingredientList.length > 0 ? (
+              <ItemContainer>
+                <IngredientList
+                  isEdit={false}
+                  onRemove={handleRemoveIngredient}
+                  ingredientList={ingredientList}
+                />
+              </ItemContainer>
+            ) : (
+              <DefalutMessage>
+                <Text font={"title4"}>
+                  이곳에 원하는 식재료의 이름과 카테고리를 추가해보세요!
+                </Text>
+              </DefalutMessage>
+            )}
+            <BottomButtonSection>
+              <Button
+                typeState={
+                  ingredientList.length > 0 ? "completeBtn" : "disabledBtn"
+                }
+                onClick={saveIngredient}
+              >
+                <Text font={"button1"}>냉장고에 재료 추가하기</Text>
+              </Button>
+            </BottomButtonSection>
+          </BottomContainer>
+        </>
+      )}
     </InputContainer>
   );
 };
@@ -162,6 +219,27 @@ const DefalutMessage = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 5rem;
+`;
+
+const SuccessMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+`;
+
+const Check = styled.div`
+  margin-top: 5rem;
+`;
+
+const TextSection = styled.div`
+  margin-top: 5rem;
+  margin-bottom: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default IngredientInput;

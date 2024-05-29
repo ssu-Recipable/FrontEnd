@@ -30,11 +30,6 @@ export interface UploadFile {
   type: string;
 }
 
-// export interface Ingredient {
-//   ingredientCategory: string;
-//   ingredientName: string;
-// }
-
 export interface IngredientResponse {
   data: {
     ingredientResponseList: AddIngredientType[];
