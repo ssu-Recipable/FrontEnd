@@ -135,6 +135,7 @@ const Loading = styled.div`
 const FooterWrapper = styled.footer`
   position: fixed;
   width: 33.5rem;
+  height: 8rem;
   bottom: 0;
   display: flex;
   justify-content: space-around;

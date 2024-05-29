@@ -3,7 +3,7 @@ import Text from "@/components/commonComponents/Text";
 
 const Advertise = () => {
   return (
-    <section style={{ marginBottom: "5rem" }}>
+    <section style={{ marginBottom: "10rem" }}>
       <div
         style={{
           backgroundColor: `${theme.colors.grey1}`,
