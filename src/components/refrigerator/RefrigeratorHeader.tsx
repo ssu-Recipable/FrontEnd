@@ -3,9 +3,12 @@ import Text from "../commonComponents/Text";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { theme } from "@/styles/theme";
+import { useRecoilValue } from "recoil";
+import { nickNameState } from "@/recoil/atom";
 
 const RefrigeratorHeader = () => {
-    const [name, setName] = useState("유미라");
+    const name = useRecoilValue(nickNameState);
+
     return (
         <>
             <TitleSection>
