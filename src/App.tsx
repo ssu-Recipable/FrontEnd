@@ -8,11 +8,6 @@ import { RecoilRoot } from "recoil";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-
-
-const queryClient = new QueryClient();
-
-
 const MobileWrapper = styled.div`
   display: flex;
 
@@ -28,6 +23,8 @@ const MobileWrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100);
 `;
 
+const queryClient = new QueryClient();
+
 function App() {
   const setScreenSize = () => {
     const vh = window.innerHeight * 0.01;
@@ -41,8 +38,6 @@ function App() {
       `${maxWidth}rem`
     );
   };
-
-  const queryClient = new QueryClient();
 
   useEffect(() => {
     setScreenSize();

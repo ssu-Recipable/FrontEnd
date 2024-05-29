@@ -9,7 +9,7 @@ import IngredientList from "../../components/commonComponents/IngredientList";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { AddIngredientType } from "@/types/ScanReceiptType";
-import { AddRefrigeratorDirect } from "@/utils/apis/refrigeratorApi";
+import { AddRefrigeratorDirect } from "@/utils/apis/RefrigeratorApi";
 import { FaCheck } from "react-icons/fa";
 
 const IngredientInput = () => {
