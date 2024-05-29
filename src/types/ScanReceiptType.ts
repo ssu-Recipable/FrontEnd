@@ -1,9 +1,3 @@
-export interface AddIngredientType {
-  id: number;
-  ingredientCategory: string;
-  ingredientName: string;
-}
-
 export interface InputType {
   inputIngredient: string;
   setInputIngredient: React.Dispatch<React.SetStateAction<string>>;
@@ -12,6 +6,16 @@ export interface InputType {
 export interface CategoryType {
   selectedCategory: string;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface AddIngredientType {
+  id?: number;
+  ingredientCategory: string;
+  ingredientName: string;
+}
+
+export interface IngredientRequset {
+  ingredients: AddIngredientType[];
 }
 
 export interface IngredientListType {
@@ -26,13 +30,13 @@ export interface UploadFile {
   type: string;
 }
 
-export interface Ingredient {
-  ingredientCategory: string;
-  ingredientName: string;
-}
+// export interface Ingredient {
+//   ingredientCategory: string;
+//   ingredientName: string;
+// }
 
 export interface IngredientResponse {
   data: {
-    ingredientResponseList: Ingredient[];
+    ingredientResponseList: AddIngredientType[];
   };
 }

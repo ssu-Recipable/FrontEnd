@@ -6,9 +6,11 @@ import Button from "@/components/commonComponents/Button";
 import { useRecoilValue } from "recoil";
 import { ingredientDataListState } from "@/recoil/atom";
 import { AddIngredientType } from "@/types/ScanReceiptType";
+import { AddRefrigeratorReceipt } from "@/utils/apis/refrigeratorApi";
 
 const ResultScanReceipt = () => {
   const ingredientDataList = useRecoilValue(ingredientDataListState);
+
   const ingredientListWithId = ingredientDataList.map((ingredient) => ({
     ...ingredient,
     id: Math.random(),
@@ -21,6 +23,24 @@ const ResultScanReceipt = () => {
     setIngredientList((prevState) => {
       return prevState.filter((ingreList) => ingreList.id !== id);
     });
+  };
+
+  const saveIngredient = async () => {
+    const newArray = ingredientList.map(
+      ({ ingredientCategory, ingredientName }) => ({
+        ingredientCategory,
+        ingredientName,
+      })
+    );
+
+    try {
+      const response = await AddRefrigeratorReceipt({
+        ingredients: newArray,
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -36,7 +56,7 @@ const ResultScanReceipt = () => {
         />
       </ListContainer>
       <ButtonSection>
-        <Button typeState={"completeBtn"}>
+        <Button typeState={"completeBtn"} onClick={saveIngredient}>
           <Text font={"button1"}>냉장고에 재료 추가하기</Text>
         </Button>
       </ButtonSection>

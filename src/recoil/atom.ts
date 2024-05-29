@@ -1,5 +1,4 @@
 import { Ingredient } from "@/types/ScanReceiptType";
-// import { MainDataResponse } from "@/utils/apis/UserInfoAPI";
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
