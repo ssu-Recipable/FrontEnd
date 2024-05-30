@@ -1,8 +1,8 @@
-import { SignUpResponse, UserType } from "@/types/kakaoLoginType";
+import { UserType } from "@/types/kakaoLoginType";
 import { api } from "./axios";
 
 export const kakaoAuthCodeApi = (authCode: string) => {
-  return api.get<string | SignUpResponse>(`/login/kakao?code=${authCode}`);
+  return api.get<string | UserType>(`/login/kakao?code=${authCode}`);
 };
 
 export const KakaoSignUpApi = (userData: UserType) => {
