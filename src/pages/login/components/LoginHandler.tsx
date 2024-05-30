@@ -33,11 +33,7 @@ const LoginHandler = () => {
         }
 
         /* 등록되지 않은 사용자라면 signUp 진행 */
-        const signUp_response = await KakaoSignUpApi({
-          name: response.data.data.name,
-          email: response.data.data.email,
-          imageUrl: response.data.data.profileImage,
-        });
+        const signUp_response = await KakaoSignUpApi(response.data);
         console.log(signUp_response);
         const accessToken =
           signUp_response.headers["authorization"].split(" ")[1];

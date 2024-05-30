@@ -4,12 +4,12 @@ export interface UserType {
   imageUrl: string;
 }
 
-export interface SignUpResponse {
-  data: {
-    name: string;
-    email: string;
-    gender: string;
-    birthyear: string;
-    profileImage: string;
-  };
-}
+// export interface SignUpResponse {
+//   data: {
+//     name: string;
+//     email: string;
+//     gender: string;
+//     birthyear: string;
+//     profileImage: string;
+//   };
+// }
