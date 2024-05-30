@@ -19,8 +19,9 @@ const LoginHandler = () => {
   useEffect(() => {
     const kakaoLogin = async () => {
       try {
+        console.log(AUTHORIZE_CODE);
         const response = await kakaoAuthCodeApi(AUTHORIZE_CODE);
-        console.log(response.data);
+        console.log(response);
 
         if (typeof response.data === "string") {
           const accessToken = response.headers["authorization"].split(" ")[1];
@@ -32,7 +33,11 @@ const LoginHandler = () => {
         }
 
         /* 등록되지 않은 사용자라면 signUp 진행 */
-        const signUp_response = await KakaoSignUpApi(response.data);
+        const signUp_response = await KakaoSignUpApi({
+          name: response.data.data.name,
+          email: response.data.data.email,
+          imageUrl: response.data.data.profileImage,
+        });
         console.log(signUp_response);
         const accessToken =
           signUp_response.headers["authorization"].split(" ")[1];
