@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RefrigeratorHeader from "@/components/refrigerator/RefrigeratorHeader";
 import { RefrigeratorApi } from "@/utils/apis/RefrigeratorApi";
 import { useQuery } from "@tanstack/react-query";
+import DefaultIngredientImg from "@/assets/images/default_ingredients.png";
 
 const Refrigerator = () => {
     const { data } = useQuery({queryKey: ['refrigerator'], queryFn: () => RefrigeratorApi()});
@@ -26,7 +27,7 @@ const Refrigerator = () => {
                                         {category.refrigeratorDetailList?.map((ingredient) => 
                                             <Link to={`/ingredient/${ingredient.ingredientId}`}>
                                                 <Ingredient>
-                                                    {ingredient.ingredientImage? <IngredientImg src={ingredient.ingredientImage} /> : <DefaultImg src={"/src/assets/images/default_ingredients.png"} />}
+                                                    {ingredient.ingredientImage? <IngredientImg src={ingredient.ingredientImage} /> : <DefaultImg src={DefaultIngredientImg} />}
                                                     <Text font={"body1"}>{ingredient.ingredientName}</Text>
                                                     <Text font={"body2"} color={"gray"}>{ingredient.expiredRemaining? `D-${ingredient.expiredRemaining}`: null}</Text>
                                                 </Ingredient>
