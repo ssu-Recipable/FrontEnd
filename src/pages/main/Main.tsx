@@ -77,7 +77,7 @@ const Main = () => {
                 onClick={() => showDetail(data.recipeId as number)}
               >
                 <RecipeImg src={data.recipeImg} alt="menu image" />
-                <Text font={"title4"}>음식이름</Text>
+                <Text font={"title4"}>{data.recipeName}</Text>
                 <Text font={"body2"}>{data.introduce}</Text>
               </RecipeBoxWrapper>
             </RecipeWrapper>
@@ -199,7 +199,7 @@ const LogoBox = styled.div`
   cursor: pointer;
   border-radius: 70rem;
   overflow: hidden;
-
+  margin-bottom: 3rem;
   img {
     width: 9rem;
     height: 9rem;
