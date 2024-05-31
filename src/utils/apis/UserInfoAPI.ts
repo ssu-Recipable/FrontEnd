@@ -15,5 +15,6 @@ export const DeleteUserInfo = () => {
 
 export const LoadMainData = async () => {
   const response = await api.get<MainDataResponse>("users/main");
+  console.log(response.data);
   return response.data;
 };
