@@ -8,7 +8,7 @@ const Advertise = () => {
         style={{
           backgroundColor: `${theme.colors.grey1}`,
           width: "100%",
-          height: "10rem",
+          height: "40rem",
           marginTop: "1rem",
           marginBottom: "1rem",
         }}
