@@ -209,7 +209,7 @@ const ItemContainer = styled.div`
 
 const BottomButtonSection = styled.section`
   position: absolute;
-  bottom: -2rem;
+  bottom: -0.5rem;
   left: 3.25rem;
 `;
 
