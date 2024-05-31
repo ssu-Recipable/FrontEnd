@@ -1,5 +1,6 @@
 export interface BookMarkData {
   recipeId: number;
+  recipeName: string;
   recipeImg: string;
   introduce: string;
 }

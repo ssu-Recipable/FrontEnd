@@ -42,7 +42,7 @@ const BookMark = () => {
           >
             <RecipeImg src={item.recipeImg} alt="Recipe Image" />
             <TextSection>
-              <Text font={"title4"}>음식 이름</Text>
+              <Text font={"title4"}>{item.recipeName}</Text>
               <Text font={"body2"} color={theme.colors.grey1}>
                 {item.introduce}
               </Text>
