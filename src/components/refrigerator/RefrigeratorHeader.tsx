@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { theme } from "@/styles/theme";
 import { useRecoilValue } from "recoil";
 import { nickNameState } from "@/recoil/atom";
+import HeaderLogo from "@/assets/images/Recipable_Logo2.png";
 
 const RefrigeratorHeader = () => {
     const name = useRecoilValue(nickNameState);
@@ -12,7 +13,7 @@ const RefrigeratorHeader = () => {
         <>
             <TitleSection>
                     <Link to={'/main'}>
-                        <img src={'/src/assets/images/Recipable_Logo2.png'} style={{height: "3.5rem", position: "absolute", left: "0"}} />
+                        <img src={HeaderLogo} style={{height: "3.5rem", position: "absolute", left: "0"}} />
                     </Link>
                     <Link to={'/refrigerator'}>
                         <Text font={"title1"}>{name}님의 냉장고</Text>

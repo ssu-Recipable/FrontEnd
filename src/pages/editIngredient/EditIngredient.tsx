@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   EditIngrdientApi,
   ViewIngredientApi,
@@ -16,8 +16,9 @@ const categories: string[] = ["야채류", "과일", "김치"];
 const EditIngredient = () => {
   const { id } = useParams<{ id: string }>() as { id: string };
 
+  const queryClient = useQueryClient();
   const { data } = useQuery({
-    queryKey: ["ingredient"],
+    queryKey: ["ingredient", id],
     queryFn: () => (id ? ViewIngredientApi(id) : null),
   });
 
@@ -57,7 +58,7 @@ const EditIngredient = () => {
     }
   }, []);
 
-  const handleEditButton = () => {
+  const handleEditButton = async () => {
     const formData = new FormData();
     if (postImg) {
       formData.append("multipartFile", postImg);
@@ -73,6 +74,7 @@ const EditIngredient = () => {
     }
     if (expirationDay && expirationDay !== data?.expirationDay) {
       request.expirationDay = expirationDay;
+      console.log(request.expirationDay);
     }
     if (memo && memo !== data?.memo) {
       request.memo = memo;
@@ -87,8 +89,14 @@ const EditIngredient = () => {
       console.log(`${key}: ${value}`);
     }
 
-    const response = EditIngrdientApi(id, formData);
-    console.log(response);
+    try {
+      const response = await EditIngrdientApi(id, formData);
+      console.log(response);
+
+      queryClient.invalidateQueries({ queryKey: ['ingredient', id] });
+    } catch(err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -166,10 +174,7 @@ const EditIngredient = () => {
         <Link to={`/ingredient/${id}`}>
           <div
             style={{
-              position: "fixed",
-              left: "50%",
-              transform: "translate(-50%, 0)",
-              bottom: "3rem",
+              marginBottom: "3rem"
             }}
           >
             <Button typeState={"completeBtn"} onClick={handleEditButton}>
@@ -215,7 +220,7 @@ const InputImg = styled.div`
 const InfoSection = styled.div`
   width: 100%;
   padding: 0 4rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 5rem;
 `;
 
 const Info = styled.div`

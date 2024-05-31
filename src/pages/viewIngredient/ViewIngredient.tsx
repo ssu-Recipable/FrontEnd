@@ -5,10 +5,12 @@ import Button from "@/components/commonComponents/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { DeleteIngridientApi, ViewIngredientApi } from "@/utils/apis/IngredientApi";
+import DefaultIngredientImg from "@/assets/images/default_ingredients.png";
 
 const ViewIngredient = () => {
     const { id } = useParams();
-    const { data } = useQuery({queryKey: ['ingredient'], queryFn: () => id? ViewIngredientApi(id) : null});
+
+    const { data } = useQuery({queryKey: ['ingredient', id], queryFn: () => id? ViewIngredientApi(id) : null});
     const navigate = useNavigate();
 
     console.log(data);
@@ -32,7 +34,7 @@ const ViewIngredient = () => {
         <>
             <RefrigeratorHeader />
             <Wrapper>
-                {data?.ingredientImage === null ? <DefaultImg src={"/src/assets/images/default_ingredients.png"}/>
+                {data?.ingredientImage === null ? <DefaultImg src={DefaultIngredientImg}/>
                 : <IngredientImg src={data?.ingredientImage} />}
                 <InfoSection>
                     <Info>
@@ -53,7 +55,7 @@ const ViewIngredient = () => {
                     </Info>
                 </InfoSection>
                 <ButtonSection>
-                    <Link to={"/editIngredient/1"}>
+                    <Link to={`/editIngredient/${id}`}>
                         <Button typeState={"completeBtn"}>재료 수정하기</Button>
                     </Link>
                     <Button typeState={"disproveBtn"} onClick={deleteIngredient}>재료 삭제하기</Button>
