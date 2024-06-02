@@ -17,6 +17,7 @@ const IngredientInput = () => {
   const [inputIngredient, setInputIngredient] = useState<string>("");
   const [ingredientList, setIngredientList] = useState<AddIngredientType[]>([]);
   const [isSuccess, SetIsSuccess] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
   const navigate = useNavigate();
 
@@ -52,6 +53,7 @@ const IngredientInput = () => {
   };
 
   const gotoRecipeRecommend = () => {
+    window.clearTimeout(timeoutId!);
     navigate("/chooseIngredients");
   };
 
@@ -62,25 +64,25 @@ const IngredientInput = () => {
         ingredientName,
       })
     );
-    try {
-      const check = window.confirm("식재료를 등록하시겠습니까?");
-      if (check) {
+    const check = window.confirm("식재료를 등록하시겠습니까?");
+    if (check) {
+      try {
         const response = await AddRefrigeratorDirect({
           ingredients: newArray,
         });
         console.log(response);
-
         SetIsSuccess(true);
 
-        setTimeout(() => {
+        const id = window.setTimeout(() => {
           SetIsSuccess(false);
           navigate("/refrigerator");
         }, 4000);
-      } else {
-        return;
+        setTimeoutId(id);
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      return;
     }
   };
 

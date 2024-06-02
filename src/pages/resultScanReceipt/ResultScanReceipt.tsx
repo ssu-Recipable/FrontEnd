@@ -14,6 +14,7 @@ import { theme } from "@/styles/theme";
 const ResultScanReceipt = () => {
   const ingredientDataList = useRecoilValue(ingredientDataListState);
   const [isSuccess, SetIsSuccess] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const ingredientListWithId = ingredientDataList.map((ingredient) => ({
@@ -31,6 +32,7 @@ const ResultScanReceipt = () => {
   };
 
   const gotoRecipeRecommend = () => {
+    window.clearTimeout(timeoutId!);
     navigate("/chooseIngredients");
   };
 
@@ -42,24 +44,25 @@ const ResultScanReceipt = () => {
       })
     );
 
-    try {
-      const check = window.confirm("식재료를 등록하시겠습니까?");
-      if (check) {
+    const check = window.confirm("식재료를 등록하시겠습니까?");
+    if (check) {
+      try {
         const response = await AddRefrigeratorReceipt({
           ingredients: newArray,
         });
         console.log(response);
         SetIsSuccess(true);
 
-        setTimeout(() => {
+        const id = window.setTimeout(() => {
           SetIsSuccess(false);
           navigate("/refrigerator");
-        }, 8000);
-      } else {
-        return;
+        }, 4000);
+        setTimeoutId(id);
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      return;
     }
   };
 
