@@ -81,7 +81,7 @@ const ChooseIngredients = () => {
                                     )}
                                 </IngredientList>
                             </Category>
-                            {index !== data.length - 1 && <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>}
+                            {index !== data.length - 1 && <div style={{ borderBottom : "1px solid #d8d8d8", width: "100%" }}/>}
                             </>
                         : null}
                         </>

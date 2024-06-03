@@ -3,9 +3,13 @@ import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { theme } from "@/styles/theme";
 
 const Filtering = () => {
-    const [selectedSkill, setSelectedSkill] = useState<string|null>();
+    const foodCategories = ["한식", "양식", "일식", "중식", "디저트"];
+    const skills = ["초급자", "중급자", "고급자"];
+
+    const [selectedSkill, setSelectedSkill] = useState<string|null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [inputText, setInputText] = useState<string>('');
     const [nonPreferred, setNonPreffered] = useState<string[]>([]);
@@ -31,6 +35,10 @@ const Filtering = () => {
 
     const handleAddNonPreffered = () => {
         if (inputText.trim() !== '') {
+            if(nonPreferred.includes(inputText)) {
+                window.alert("이미 추가된 비선호 재료입니다.")
+                return;
+            }
             setNonPreffered([...nonPreferred, inputText]);
             setInputText('');
         }
@@ -40,109 +48,54 @@ const Filtering = () => {
         setNonPreffered(nonPreferred.filter(Filter => Filter != text))
     }
 
-    console.log(nonPreferred)
+    console.log(selectedCategories);
+    console.log(selectedSkill);
+    console.log(nonPreferred);
 
     return (
         <>
             <Wrapper>
                 <TitleSection>
-                    <Text font={"title1"}>원하시는 레시피에 대해 알려주세요.</Text>
+                    <div style={{marginBottom: "0.5rem"}}>
+                        <Text font={"title1"}>원하시는 레시피에 대해 알려주세요</Text>
+                    </div>
+                    <div style={{marginLeft: "0.5rem"}}>
+                        <Text font={"body2"} color={`${theme.colors.grey2}`}>필수적으로 선택하지 않으셔도 됩니다</Text>
+                    </div>
                 </TitleSection>
                 <FilteringSection>
                     <Filter>
                         <Text font={"title3"}>1. 카테고리 선택</Text>
                         <ItemList>
-                            <Item onClick={() => handleCategoryClick('한식')}>
-                                <Text font={"body1"}>한식</Text>
+                            {foodCategories.map((category) => 
+                                <Item onClick={() => handleCategoryClick(category)}>
+                                <Text font={"body1"}>{category}</Text>
                                 {
-                                    selectedCategories.includes('한식') ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
+                                    selectedCategories.includes(category) ? 
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" fill="black">
                                             <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
                                         </svg>
                                     : null
                                 }
-                            </Item>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Item onClick={() => handleCategoryClick('양식')}>
-                                <Text font={"body1"}>양식</Text>
-                                {
-                                    selectedCategories.includes('양식') ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                }
-                            </Item>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Item onClick={() => handleCategoryClick('일식')}>
-                                <Text font={"body1"}>일식</Text>
-                                {
-                                    selectedCategories.includes('일식') ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                }
-                            </Item>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Item onClick={() => handleCategoryClick('중식')}>
-                                <Text font={"body1"}>중식</Text>
-                                {
-                                    selectedCategories.includes('중식') ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                }
-                            </Item>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Item onClick={() => handleCategoryClick('디저트')}>
-                                <Text font={"body1"}>디저트</Text>
-                                {
-                                    selectedCategories.includes('디저트') ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                }
-                            </Item>
+                                </Item>
+                            )}
                         </ItemList>
                     </Filter>
                     <Filter>
                         <Text font={"title3"}>2. 요리 숙련도</Text>
                         <ItemList>
-                            <Item onClick={() => handleSkillClick('초급자')}>
-                                <Text font={"body1"}>초급자</Text>
-                                {
-                                    selectedSkill === '초급자' ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                } 
-                            </Item>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Item onClick={() => handleSkillClick('중급자')}>
-                                <Text font={"body1"}>중급자</Text>
-                                {
-                                    selectedSkill === '중급자' ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                }     
-                            </Item>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Item onClick={() => handleSkillClick('고급자')}>
-                                <Text font={"body1"}>고급자</Text>
-                                {
-                                    selectedSkill === '고급자' ? 
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" fill="black">
-                                            <path  d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                        </svg>
-                                    : null
-                                } 
-                            </Item>
+                            {skills.map((skill) => 
+                                <Item onClick={() => handleSkillClick(skill)}>
+                                    <Text font={"body1"}>{skill}</Text>
+                                    {
+                                        selectedSkill === skill ? 
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" fill="black">
+                                                <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
+                                            </svg>
+                                        : null
+                                    } 
+                                </Item>
+                            )}
                         </ItemList>
                     </Filter>
                     <Filter>
