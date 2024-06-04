@@ -18,7 +18,6 @@ const RecommendedRecipes = () => {
 
     const [recipes, setRecipes] = useState<Recipe[] | null>(null);
 
-
     const parseRecipes = (text: string): Recipe[] => {
         const recipes: Recipe[] = [];
         const lines = text.split('\n');
@@ -54,6 +53,11 @@ const RecommendedRecipes = () => {
         }
     };
 
+    const createNewRecipes = () => {
+        setRecipes(null);
+        fetchRecipes();
+    }
+
     useEffect(() => {
         const storedRecipes = sessionStorage.getItem('recipes');
         if (storedRecipes) {
@@ -81,9 +85,9 @@ const RecommendedRecipes = () => {
                             <Text font={"title3"}>chatGPT 셰프의 추천 레시피</Text>
                         </div>
                         <RecipesList>
-                            {recipes? recipes.map((recipe, index) => (
+                            {recipes? recipes.map((recipe) => (
                                 <>
-                                <Link to={`/recommendedRecipes/${index}`}>
+                                <Link to={`/recommendedRecipes/${recipe.recipeName}`}>
                                 <Recipe>
                                     <RecipeImg src={recipe.recipeImg} />
                                     <RecipeInfo>
@@ -103,8 +107,10 @@ const RecommendedRecipes = () => {
                     </Item>
                 </RecipesSection>
                 <ButtonSection>
-                    <Button typeState={"completeBtn"}>다른 레시피를 알고 싶어요</Button>
-                    <Button typeState={"disproveBtn"}>레시피 추천 그만두기</Button>
+                    <Button typeState={"completeBtn"} onClick={createNewRecipes}>다른 레시피를 알고 싶어요</Button>
+                    <Link to={"/main"}>
+                        <Button typeState={"disproveBtn"}>레시피 추천 그만두기</Button>
+                    </Link>
                 </ButtonSection>
             </Wrapper>
         </>
