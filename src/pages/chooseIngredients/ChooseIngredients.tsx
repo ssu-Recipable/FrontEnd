@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { RefrigeratorApi } from "@/utils/apis/RefrigeratorApi";
 import DefaultIngredientImg from "@/assets/images/default_ingredients.png";
+import { useRecoilState } from "recoil";
+import { ingredientsState } from "@/recoil/atom";
 
 const ChooseIngredients = () => {
     const { data } = useQuery({queryKey: ['refrigerator'], queryFn: () => RefrigeratorApi()});
@@ -16,6 +18,8 @@ const ChooseIngredients = () => {
     const [allIngredients, setAllIngredients] = useState<string[]>([]);
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
     const [allSelected, setAllSelected] = useState(false);
+
+    const [ingredients, setIngredients] = useRecoilState(ingredientsState);
 
     const handleIngredientClick = (ingredient: string) => {
         const isAlreadySelected = selectedIngredients.includes(ingredient);
@@ -40,6 +44,8 @@ const ChooseIngredients = () => {
         if (selectedIngredients.length === 0) {
             alert("재료를 하나 이상 선택해주세요.");
         } else {
+            setIngredients(selectedIngredients);
+            sessionStorage.removeItem('recipes');
             navigate('/filtering');
         }
     }
@@ -52,6 +58,12 @@ const ChooseIngredients = () => {
             setAllIngredients(ingredients);
         }
     }, [data]);
+
+    useEffect(() => {
+        if(ingredients.length === 0) {
+            sessionStorage.removeItem('recipes');
+        }
+    }, []);
 
     console.log(selectedIngredients);
     

@@ -85,6 +85,7 @@ const IngredientImg = styled.img`
     border-radius: 5rem;
     border: 0.1rem solid rgba(0, 0, 0, 0.1);
     margin: 5rem 0;
+    object-fit: cover;
 `;
 
 const InfoSection = styled.div`
