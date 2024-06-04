@@ -1,4 +1,3 @@
-import { Recipe } from "@/types/RecipeType";
 import { AddIngredientType } from "@/types/ScanReceiptType";
 import { getSessionStorage, setSessionStorage } from "@/utils/sessionStorageUtil";
 import { atom } from "recoil";
