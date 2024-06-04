@@ -1,4 +1,6 @@
+import { Recipe } from "@/types/RecipeType";
 import { AddIngredientType } from "@/types/ScanReceiptType";
+import { getSessionStorage, setSessionStorage } from "@/utils/sessionStorageUtil";
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
@@ -27,3 +29,16 @@ export const ingredientDataListState = atom<AddIngredientType[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+
+export const ingredientsState = atom<string[]>({
+  key: 'ingredientsState',
+  default: getSessionStorage('ingredients') || [],
+  effects_UNSTABLE: [
+    ({onSet}) => {
+      onSet(newValue => {
+        setSessionStorage('ingredients', newValue);
+      })
+    }
+  ]
+})

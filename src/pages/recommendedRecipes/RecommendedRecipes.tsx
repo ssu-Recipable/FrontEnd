@@ -1,10 +1,74 @@
 import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { ingredientsState, nickNameState } from "@/recoil/atom";
+import { useEffect, useState } from "react";
+import { callChatGPT } from "@/utils/chatGPTUtil";
+import type { Recipe } from "@/types/RecipeType";
+import { GetRecipeImgApi } from "@/utils/apis/RecipeApi";
+import SkeletonRecipes from "./SkeletonRecipes";
 
 const RecommendedRecipes = () => {
-    const name = "유미라";
+    const name = useRecoilValue(nickNameState);
+    const ingredients = useRecoilValue(ingredientsState);
+
+    const navigate = useNavigate();
+
+    const [recipes, setRecipes] = useState<Recipe[] | null>(null);
+
+
+    const parseRecipes = (text: string): Recipe[] => {
+        const recipes: Recipe[] = [];
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            const parts = line.split(':');
+            if (parts.length === 2) {
+                const recipeName = parts[0].replace(/^\d+\.\s*/, '').trim();
+                const introduce = parts[1].trim();
+                recipes.push({ recipeName, introduce });
+            }
+        });
+        return recipes
+    }
+
+    const fetchRecipes = async () => {
+        try {
+            const res = await callChatGPT(`요리 3가지 추천해줘. 형식은 숫자. 요리이름: 한줄설명. 다른 문장은 출력하지마.`);
+            console.log("call chatGPT!")
+            if (res !== null) {
+                const parsedRecipes = parseRecipes(res);
+                const recipesWithImg = await Promise.all(parsedRecipes.map(async (recipe) => {
+                    const url = await GetRecipeImgApi(recipe.recipeName);
+                    return {
+                        ...recipe,
+                        recipeImg: url
+                    }
+                }))
+                setRecipes(recipesWithImg);
+                sessionStorage.setItem('recipes', JSON.stringify(recipesWithImg));
+            }
+        } catch (error) {
+            console.error('Error fetching recipes:', error);
+        }
+    };
+
+    useEffect(() => {
+        const storedRecipes = sessionStorage.getItem('recipes');
+        if (storedRecipes) {
+            setRecipes(JSON.parse(storedRecipes));
+        } else {
+            fetchRecipes();
+        }
+    }, []);
+
+    useEffect(() => {
+        if(ingredients.length === 0){
+            navigate('/chooseIngredients');
+        }
+    }, [ingredients]);
+
     return (
         <>
             <Wrapper>
@@ -17,61 +81,24 @@ const RecommendedRecipes = () => {
                             <Text font={"title3"}>chatGPT 셰프의 추천 레시피</Text>
                         </div>
                         <RecipesList>
-                            <Link to={"/recommendedRecipes/1"}>
+                            {recipes? recipes.map((recipe, index) => (
+                                <>
+                                <Link to={`/recommendedRecipes/${index}`}>
                                 <Recipe>
-                                    <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
+                                    <RecipeImg src={recipe.recipeImg} />
                                     <RecipeInfo>
-                                        <Text font={"body1"}>김치찌개</Text>
-                                        <Text font={"body2"}>한국의 전통 맛을 담은 김치찌개</Text>
+                                        <div>
+                                            <div style={{fontSize: "1.2rem", fontWeight: "700"}}>{recipe.recipeName}</div>
+                                        </div>
+                                        <div>
+                                            <div style={{color: "rgba(0,0,0,0.5)", lineHeight: "1.4"}}>{recipe.introduce}</div>
+                                        </div>
                                     </RecipeInfo>   
                                 </Recipe>
                             </Link>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Recipe>
-                                <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
-                                <RecipeInfo>
-                                    <Text font={"body1"}>김치찌개</Text>
-                                    <Text font={"body2"}>한국의 전통 맛을 담은 김치찌개</Text>
-                                </RecipeInfo>   
-                            </Recipe>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Recipe>
-                                <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
-                                <RecipeInfo>
-                                    <Text font={"body1"}>김치찌개</Text>
-                                    <Text font={"body2"}>한국의 전통 맛을 담은 김치찌개</Text>
-                                </RecipeInfo>   
-                            </Recipe>
-                        </RecipesList>
-                    </Item>
-                    <Item>
-                        <div style={{marginBottom: "2rem"}}>
-                            <Text font={"title3"}>Gemini 셰프의 추천 레시피</Text>
-                        </div>
-                        <RecipesList>
-                            <Recipe>
-                                <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
-                                <RecipeInfo>
-                                    <Text font={"body1"}>김치찌개</Text>
-                                    <Text font={"body2"}>한국의 전통 맛을 담은 김치찌개</Text>
-                                </RecipeInfo>   
-                            </Recipe>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Recipe>
-                                <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
-                                <RecipeInfo>
-                                    <Text font={"body1"}>김치찌개</Text>
-                                    <Text font={"body2"}>한국의 전통 맛을 담은 김치찌개</Text>
-                                </RecipeInfo>   
-                            </Recipe>
-                            <hr style={{ border : "0.1rem solid #d8d8d8", width: "100%" }}/>
-                            <Recipe>
-                                <img style={{width: "10.5rem", height: "8rem", background:"rgba(0, 0, 0, 0.1)"}}/>
-                                <RecipeInfo>
-                                    <Text font={"body1"}>김치찌개</Text>
-                                    <Text font={"body2"}>한국의 전통 맛을 담은 김치찌개</Text>
-                                </RecipeInfo>   
-                            </Recipe>
+    
+                            </>
+                            )): <SkeletonRecipes />}
                         </RecipesList>
                     </Item>
                 </RecipesSection>
@@ -106,9 +133,9 @@ const RecipesSection = styled.div`
 `;
 
 const Item = styled.div`
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     width: 100%;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 `;
 
 const RecipesList = styled.div`
@@ -117,15 +144,22 @@ const RecipesList = styled.div`
 
 const Recipe = styled.div`
     display: flex;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     gap: 2rem;
     align-items: center;
+`;
+
+const RecipeImg = styled.img`
+    width: 12rem;
+    height: 9rem;
+    object-fit: cover;
+    border-radius: 0.8rem;
 `;
 
 const RecipeInfo = styled.div`
     display: flex;
     flex-direction: column;
-    height: 5rem;
+    width: 17rem;
     gap: 1rem;
 `;
 
