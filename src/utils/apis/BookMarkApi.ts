@@ -1,4 +1,4 @@
-import { BookMarkResponse } from "@/types/BookMartType";
+import { BookMarkResponse } from "@/types/BookMarkType";
 import { api } from "./axios";
 
 export const GetBookMarkApi = async () => {

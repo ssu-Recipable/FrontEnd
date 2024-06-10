@@ -2,8 +2,9 @@ import styled, { keyframes } from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { Recipe } from "@/types/RecipeType";
+import type { Recipe, RecipeRequest } from "@/types/RecipeType";
 import { callChatGPT } from "@/utils/chatGPTUtil";
+import { SaveRecipeApi } from "@/utils/apis/RecipeApi";
 
 const RecommendedRecipe = () => { 
     const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -16,23 +17,37 @@ const RecommendedRecipe = () => {
 
     const navigate = useNavigate();
     
-    const saveRecipes = (text: string) => {
+    const saveRecipes = async (text: string) => {
         if (recipes) {
             const parts = text.split('레시피:');
             if (parts.length === 2) {
                 const ingredients = parts[0].trim().replace(/^재료:\s*/g, "");
                 const recipeDetails = parts[1].trim();
-                const updatedRecipes = recipes.map((recipe) => {
+
+                const updatedRecipes: Recipe[] = [];
+                for (const recipe of recipes) {
                     if(recipe.recipeName === id) {
-                        return {
+                        const recipeRequest: RecipeRequest = {
+                            recipeName: recipe.recipeName,
+                            recipeImg: recipe.recipeImg as string,
+                            introduce: recipe.introduce,
+                            ingredients: ingredients,
+                            recipeDetails: recipeDetails,
+                            query: id,
+                        }
+                        const res = await SaveRecipeApi(recipeRequest);
+                        console.log(res.data.data.recipeVideoResponses);
+                        updatedRecipes.push({
                             ...recipe,
                             ingredients: ingredients,
-                            recipeDetails: recipeDetails
-                        }
+                            recipeDetails: recipeDetails,
+                            RecipeVideoList: res.data.data.recipeVideoResponses,
+                            recipeId: res.data.data.recipeId,
+                        })
                     } else {
-                        return recipe
+                        updatedRecipes.push(recipe);
                     }
-                })
+                }
                 setRecipes(updatedRecipes);
                 sessionStorage.setItem('recipes', JSON.stringify(updatedRecipes));
             }
@@ -99,23 +114,16 @@ const RecommendedRecipe = () => {
     
     useEffect(() => {
         const storedRecipes = sessionStorage.getItem('recipes');
-        console.log(1);
         if (storedRecipes) {
-            console.log(2);
             setRecipes(JSON.parse(storedRecipes));
-            console.log(3);
         }
     }, []);
 
     useEffect(()=> {
         recipes?.map((recipe) => {
-            console.log(4);
             if(recipe.recipeName === id) {
-                console.log(5);
                 if(recipe.ingredients === undefined && recipe.recipeDetails === undefined && recipe.RecipeVideoList === undefined) {
-                    console.log(6);
                     fetchRecipe();
-                    console.log(7);
                 }
             }
         })
@@ -167,9 +175,16 @@ const RecommendedRecipe = () => {
                         <VideoSection>
                             <Text font={"title3"}>추천 영상</Text>
                             <Videos>
-                                <a href="https://www.youtube.com/watch?v=qWbHSOplcvY" target="_blank" rel="noopener noreferrer">
-                                    <Thumnail />
-                                </a>
+                                {recipe.RecipeVideoList? recipe.RecipeVideoList.map((video) => 
+                                    <Video>
+                                        <a href={video.videoUrl} target="_blank" rel="noopener noreferrer">
+                                            <Thumnail src={video.thumbnail}/>
+                                            <div>{video.title}</div>
+                                        </a>
+                                    </Video>
+                                )
+                                : null
+                                }
                             </Videos>
                         </VideoSection>
                         </>
@@ -278,11 +293,17 @@ const Videos = styled.div`
     gap: 1rem;
 `;
 
+const Video = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const Thumnail = styled.img`
     width : 100%;
-    height: 15rem;
+    height: 18rem;
     background: rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    object-fit: cover;
 `;
 
 const fadeIn = keyframes`
@@ -298,7 +319,7 @@ const SkeletonWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     margin: 1.5rem 0;
     animation: ${fadeIn} 0.9s infinite alternate;
 `;
@@ -307,5 +328,4 @@ const SkeletonDiv = styled.div`
     width: 100%;
     height: 1.5rem;
     background-color: #ccc;
-    border-radius: 1rem;
 `;
