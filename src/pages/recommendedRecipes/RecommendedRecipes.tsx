@@ -6,9 +6,10 @@ import { useRecoilValue } from "recoil";
 import { ingredientsState, nickNameState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
 import { callChatGPT } from "@/utils/chatGPTUtil";
-import type { Recipe } from "@/types/RecipeType";
-import { GetRecipeImgApi } from "@/utils/apis/RecipeApi";
+import type { Recipe, RecipeRequest } from "@/types/RecipeType";
+import { GetRecipeImgApi, SaveRecipeApi } from "@/utils/apis/RecipeApi";
 import SkeletonRecipes from "./SkeletonRecipes";
+import Loading from "@/assets/gif/Loading.gif"
 
 const RecommendedRecipes = () => {
     const name = useRecoilValue(nickNameState);
@@ -17,6 +18,7 @@ const RecommendedRecipes = () => {
     const navigate = useNavigate();
 
     const [recipes, setRecipes] = useState<Recipe[] | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const parseRecipes = (text: string): Recipe[] => {
         const recipes: Recipe[] = [];
@@ -58,6 +60,76 @@ const RecommendedRecipes = () => {
         fetchRecipes();
     }
 
+    const saveRecipes = async (name: string, text: string) => {
+        let recipeId: string | null = null;
+
+        if (recipes) {
+            const parts = text.split('레시피:');
+            if (parts.length === 2) {
+                const ingredients = parts[0].trim().replace(/^재료:\s*/g, "");
+                const recipeDetails = parts[1].trim();
+
+                const updatedRecipes: Recipe[] = [];
+                for (const recipe of recipes) {
+                    if(recipe.recipeName === name) {
+                        const recipeRequest: RecipeRequest = {
+                            recipeName: recipe.recipeName,
+                            recipeImg: recipe.recipeImg as string,
+                            introduce: recipe.introduce,
+                            ingredients: ingredients,
+                            recipeDetails: recipeDetails,
+                            query: name,
+                        }
+                        const res = await SaveRecipeApi(recipeRequest);
+                        console.log(res.data.data.recipeVideoResponses);
+                        recipeId = res.data.data.recipeId;
+
+                        updatedRecipes.push({
+                            ...recipe,
+                            ingredients: ingredients,
+                            recipeDetails: recipeDetails,
+                            RecipeVideoList: res.data.data.recipeVideoResponses,
+                            recipeId: res.data.data.recipeId,
+                        })
+                    } else {
+                        updatedRecipes.push(recipe);
+                    }
+                }
+                setRecipes(updatedRecipes);
+                sessionStorage.setItem('recipes', JSON.stringify(updatedRecipes));
+            }
+        }
+        return recipeId;
+    }
+
+    const fetchRecipe = async (name: string) => {
+        try {
+            const res = await callChatGPT(`${name}의 레시피 알려줘. 재료는 자세한 양도 알려줘. 형식은 재료: 재료마다 개행문자로 구분하고, 레시피: 숫자. 개행문자로 구분해. 다른 문장은 출력하지마.`);
+            console.log("call chatGPT!")
+            if (res !== null) {
+                const id = saveRecipes(name, res);
+                return id;
+            }
+        } catch (error) {
+            console.error('Error fetching recipes:', error);
+        }
+    };
+
+    const handleRecipeDetails = async (name: string) => {
+        const selectedRecipe = recipes?.find(recipe => recipe.recipeName === name);
+
+        if (selectedRecipe) {
+            if (selectedRecipe.recipeId) {
+                navigate(`/recommendedRecipes/${selectedRecipe.recipeId}`);
+            } else {
+                setIsLoading(true);
+                const id = await fetchRecipe(name);
+                navigate(`/recommendedRecipes/${id}`);
+                setIsLoading(false);
+            }
+        }
+    }
+
     useEffect(() => {
         const storedRecipes = sessionStorage.getItem('recipes');
         if (storedRecipes) {
@@ -72,47 +144,57 @@ const RecommendedRecipes = () => {
             navigate('/chooseIngredients');
         }
     }, [ingredients]);
-
+    
+    console.log(isLoading);
+    
     return (
         <>
+        {isLoading? 
             <Wrapper>
-                <TitleSection>
-                    <Text font={"title1"}>{name}님을 위한 추천 레시피</Text>
-                </TitleSection>
-                <RecipesSection>
-                    <Item>
-                        <div style={{marginBottom: "2rem"}}>
-                            <Text font={"title3"}>chatGPT 셰프의 추천 레시피</Text>
-                        </div>
-                        <RecipesList>
-                            {recipes? recipes.map((recipe) => (
-                                <>
-                                <Link to={`/recommendedRecipes/${recipe.recipeName}`}>
-                                <Recipe>
-                                    <RecipeImg src={recipe.recipeImg} />
-                                    <RecipeInfo>
-                                        <div>
-                                            <div style={{fontSize: "1.2rem", fontWeight: "700"}}>{recipe.recipeName}</div>
-                                        </div>
-                                        <div>
-                                            <div style={{color: "rgba(0,0,0,0.5)", lineHeight: "1.4"}}>{recipe.introduce}</div>
-                                        </div>
-                                    </RecipeInfo>   
-                                </Recipe>
-                            </Link>
-    
-                            </>
-                            )): <SkeletonRecipes />}
-                        </RecipesList>
-                    </Item>
-                </RecipesSection>
-                <ButtonSection>
-                    <Button typeState={"completeBtn"} onClick={createNewRecipes}>다른 레시피를 알고 싶어요</Button>
-                    <Link to={"/main"}>
-                        <Button typeState={"disproveBtn"}>레시피 추천 그만두기</Button>
-                    </Link>
-                </ButtonSection>
+                <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <h3>잠시만 기다려주세요.</h3>
+                    <img src={Loading} alt="로딩" width="30%" />
+                </div>
             </Wrapper>
+        : 
+        <>
+        <Wrapper>
+            <TitleSection>
+                <Text font={"title1"}>{name}님을 위한 추천 레시피</Text>
+            </TitleSection>
+            <RecipesSection>
+                <Item>
+                    <div style={{marginBottom: "2rem"}}>
+                        <Text font={"title3"}>chatGPT 셰프의 추천 레시피</Text>
+                    </div>
+                    <RecipesList>
+                        {recipes? recipes.map((recipe) => (
+                            <>
+                            <Recipe onClick={() => handleRecipeDetails(recipe.recipeName)}>
+                                <RecipeImg src={recipe.recipeImg} />
+                                <RecipeInfo>
+                                    <div>
+                                        <div style={{fontSize: "1.2rem", fontWeight: "700"}}>{recipe.recipeName}</div>
+                                    </div>
+                                    <div>
+                                        <div style={{color: "rgba(0,0,0,0.5)", lineHeight: "1.4"}}>{recipe.introduce}</div>
+                                    </div>
+                                </RecipeInfo>   
+                            </Recipe>
+                        </>
+                        )): <SkeletonRecipes />}
+                    </RecipesList>
+                </Item>
+            </RecipesSection>
+            <ButtonSection>
+                <Button typeState={"completeBtn"} onClick={createNewRecipes}>다른 레시피를 알고 싶어요</Button>
+                <Link to={"/main"}>
+                    <Button typeState={"disproveBtn"}>레시피 추천 그만두기</Button>
+                </Link>
+            </ButtonSection>
+        </Wrapper>
+    </>
+    }
         </>
     );
 }
@@ -153,6 +235,7 @@ const Recipe = styled.div`
     margin: 1.5rem 0;
     gap: 2rem;
     align-items: center;
+    cursor: pointer;
 `;
 
 const RecipeImg = styled.img`

@@ -1,7 +1,7 @@
 import Text from "@/components/commonComponents/Text";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
-import { BookMarkResponse } from "@/types/BookMartType";
+import { BookMarkResponse } from "@/types/BookMarkType";
 import { GetBookMarkApi } from "@/utils/apis/BookMarkApi";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";

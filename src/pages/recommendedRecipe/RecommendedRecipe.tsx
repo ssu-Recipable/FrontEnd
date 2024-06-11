@@ -3,59 +3,53 @@ import Text from "@/components/commonComponents/Text";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type { Recipe } from "@/types/RecipeType";
-import { callChatGPT } from "@/utils/chatGPTUtil";
+import { GetRecipeApi } from "@/utils/apis/RecipeApi";
+import { DeleteBookMarkApi, PostBookMarkApi } from "@/utils/apis/BookMarkApi";
+import { useQuery } from "@tanstack/react-query";
 
-const RecommendedRecipe = () => { 
+const RecommendedRecipe = () => {
+    const { id } = useParams();
+    const { data } = useQuery({queryKey: ['recipe', id], queryFn: () => GetRecipeApi(id as string), enabled: !!id });
+
     const [isHeaderVisible, setIsHeaderVisible] = useState(true);
     const [lastScrollTop, setLastScrollTop] = useState(0);
 
-    const { id } = useParams();
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const [recipes, setRecipes] = useState<Recipe[] | null>(null);
 
     const navigate = useNavigate();
-    
-    const saveRecipes = (text: string) => {
-        if (recipes) {
-            const parts = text.split('레시피:');
-            if (parts.length === 2) {
-                const ingredients = parts[0].trim().replace(/^재료:\s*/g, "");
-                const recipeDetails = parts[1].trim();
-                const updatedRecipes = recipes.map((recipe) => {
-                    if(recipe.recipeName === id) {
-                        return {
-                            ...recipe,
-                            ingredients: ingredients,
-                            recipeDetails: recipeDetails
-                        }
-                    } else {
-                        return recipe
-                    }
-                })
-                setRecipes(updatedRecipes);
-                sessionStorage.setItem('recipes', JSON.stringify(updatedRecipes));
-            }
-        }
-    }
-
-    const fetchRecipe = async () => {
-        try {
-            const res = await callChatGPT(`${id}의 레시피 알려줘. 재료는 자세한 양도 알려줘. 형식은 재료: 재료마다 개행문자로 구분하고, 레시피: 숫자. 개행문자로 구분해. 다른 문장은 출력하지마.`);
-            console.log("call chatGPT!")
-            if (res !== null) {
-                saveRecipes(res);
-            }
-        } catch (error) {
-            console.error('Error fetching recipes:', error);
-        }
-    };
 
     const handleBackClick = () => {
         navigate(-1);
     };
 
-    const handleBookmarkClick = () => {
+    const handleBookmarkClick = async () => {
+        if(recipes) {    
+            if(isBookmarked) {    
+                for(const recipe of recipes) {
+                    if(recipe.recipeName === id) {
+                        if(recipe.recipeId) {
+                            const res = await DeleteBookMarkApi(recipe.recipeId);
+                            console.log(res);
+                        } else {
+                            return;
+                        }   
+                    }  
+                }
+            } else {
+                for(const recipe of recipes) {
+                    if(recipe.recipeName === id) {
+                        if(recipe.recipeId) {
+                            const res = await PostBookMarkApi(recipe.recipeId);
+                            console.log(res);
+                        } else {
+                            return; 
+                        }
+                    }    
+                }
+            }
+        }
         setIsBookmarked(!isBookmarked);
     };
 
@@ -99,28 +93,11 @@ const RecommendedRecipe = () => {
     
     useEffect(() => {
         const storedRecipes = sessionStorage.getItem('recipes');
-        console.log(1);
         if (storedRecipes) {
-            console.log(2);
             setRecipes(JSON.parse(storedRecipes));
-            console.log(3);
         }
     }, []);
 
-    useEffect(()=> {
-        recipes?.map((recipe) => {
-            console.log(4);
-            if(recipe.recipeName === id) {
-                console.log(5);
-                if(recipe.ingredients === undefined && recipe.recipeDetails === undefined && recipe.RecipeVideoList === undefined) {
-                    console.log(6);
-                    fetchRecipe();
-                    console.log(7);
-                }
-            }
-        })
-    }, [recipes])
-    
     return (
         <>
             <Header style={{ top: isHeaderVisible ? '0' : '-4rem' }}>
@@ -129,14 +106,13 @@ const RecommendedRecipe = () => {
                 </svg>
             </Header>
             <Wrapper>
-                {recipes?.map((recipe) => (
-                    recipe.recipeName === id?
-                        <>
-                        <Img src={recipe.recipeImg}/>
+                {data? 
+                    <>
+                        <Img src={data.recipeImg}/>
                         <InfoSection>
                             <TextSection>
-                                <Text font={"title1"}>{recipe.recipeName}</Text>
-                                <Text font={"body2"}>{recipe.introduce}</Text>
+                                <Text font={"title1"}>{data.recipeName}</Text>
+                                <Text font={"body2"}>{data.introduce}</Text>
                             </TextSection>
                             <IconSection>
                                 <svg onClick={handleShareClick} style={{ cursor: "pointer" }} xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="20">
@@ -149,39 +125,32 @@ const RecommendedRecipe = () => {
                         </InfoSection>
                         <IngredientsSection>
                             <Text font={"title3"}>재료</Text>
-                            {recipe.ingredients? <Ingredients>{recipe.ingredients}</Ingredients>
-                            : 
-                            <SkeletonWrapper>
-                                {[...Array(2)].map(()=> <SkeletonDiv />)}
-                            </SkeletonWrapper>
-                            }
+                            <Ingredients>{data.ingredients}</Ingredients>
                         </IngredientsSection>
                         <RecipeSection>
                             <Text font={"title3"}>레시피</Text>
-                            {recipe.recipeDetails? <RecipeDetail>{recipe.recipeDetails}</RecipeDetail>
-                            : 
-                            <SkeletonWrapper>
-                                {[...Array(3)].map(()=> <SkeletonDiv />)}
-                            </SkeletonWrapper>}
+                            <RecipeDetail>{data.recipeDetails}</RecipeDetail>
                         </RecipeSection>
                         <VideoSection>
                             <Text font={"title3"}>추천 영상</Text>
                             <Videos>
-                                <a href="https://www.youtube.com/watch?v=qWbHSOplcvY" target="_blank" rel="noopener noreferrer">
-                                    <Thumnail />
-                                </a>
+                                {data.recipeVideoResponses.map((video) => 
+                                    <Video>
+                                        <a href={video.videoUrl} target="_blank" rel="noopener noreferrer">
+                                            <Thumnail src={video.thumbnail}/>
+                                            <div>{video.title}</div>
+                                        </a>
+                                    </Video>
+                                )}
                             </Videos>
                         </VideoSection>
-                        </>
-                    : null)
-                )}
+                    </>
+                    : null}
             </Wrapper>
-            
         </>
     )
 }
 export default RecommendedRecipe;
-
 
 const Header = styled.div`
     display: flex;
@@ -278,11 +247,17 @@ const Videos = styled.div`
     gap: 1rem;
 `;
 
+const Video = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const Thumnail = styled.img`
     width : 100%;
-    height: 15rem;
+    height: 18rem;
     background: rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    object-fit: cover;
 `;
 
 const fadeIn = keyframes`
@@ -292,20 +267,4 @@ const fadeIn = keyframes`
     to {
         opacity: 1;
     }
-`;
-
-const SkeletonWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-    animation: ${fadeIn} 0.9s infinite alternate;
-`;
-
-const SkeletonDiv = styled.div`
-    width: 100%;
-    height: 1.5rem;
-    background-color: #ccc;
-    border-radius: 1rem;
 `;
