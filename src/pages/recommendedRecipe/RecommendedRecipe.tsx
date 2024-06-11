@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
