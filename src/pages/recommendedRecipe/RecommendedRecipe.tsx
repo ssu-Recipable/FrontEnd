@@ -259,12 +259,3 @@ const Thumnail = styled.img`
     cursor: pointer;
     object-fit: cover;
 `;
-
-const fadeIn = keyframes`
-    from {
-        opacity: 0.5;
-    }
-    to {
-        opacity: 1;
-    }
-`;
