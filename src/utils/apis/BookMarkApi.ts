@@ -6,3 +6,11 @@ export const GetBookMarkApi = async () => {
   console.log(response);
   return response.data;
 };
+
+export const PostBookMarkApi = (id: number) => {
+  return api.post(`/bookmark/${id}`);
+}
+
+export const DeleteBookMarkApi = (id: number) => {
+  return api.delete(`/bookmark/${id}`);
+}
