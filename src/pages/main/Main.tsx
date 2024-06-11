@@ -13,6 +13,7 @@ import Text from "@/components/commonComponents/Text";
 import { MainDataResponse } from "@/types/MainType";
 import { theme } from "@/styles/theme";
 import { useNavigate } from "react-router-dom";
+import DefaultImage from "@/assets/images/MainLogo.jpeg";
 
 const Main = () => {
   const setNickName = useSetRecoilState(nickNameState);
@@ -61,11 +62,28 @@ const Main = () => {
         <Text font={"body1"} color={theme.colors.grey1}>
           {data?.data.todayRecipe.introduce}
         </Text>
-        <RecImg
+        {data?.data?.todayRecipe?.recipeImg ? (
+          <RecImg
+            onClick={() =>
+              showDetail(data?.data.todayRecipe.recipeId as number)
+            }
+            src={data?.data.todayRecipe.recipeImg}
+            alt="Recommend Recipe!"
+          />
+        ) : (
+          <RecImg
+            onClick={() =>
+              showDetail(data?.data.todayRecipe.recipeId as number)
+            }
+            src={DefaultImage}
+            alt="Recommend Recipe!"
+          />
+        )}
+        {/* <RecImg
           onClick={() => showDetail(data?.data.todayRecipe.recipeId as number)}
           src={data?.data.todayRecipe.recipeImg}
           alt="Recommend Recipe!"
-        />
+        /> */}
       </RecommendRecipeWrapper>
       <RecentSearchRecipeWrapper>
         <Text font={"title3"}>최근 조회한 레시피</Text>
@@ -134,7 +152,7 @@ const RecentSearchRecipeWrapper = styled.section`
 
 const RecipeWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 10rem);
+  grid-template-rows: repeat(3, 10rem);
   gap: 1rem;
   margin-top: 1rem;
 `;
