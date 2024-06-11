@@ -79,27 +79,29 @@ const Main = () => {
             alt="Recommend Recipe!"
           />
         )}
-        {/* <RecImg
-          onClick={() => showDetail(data?.data.todayRecipe.recipeId as number)}
-          src={data?.data.todayRecipe.recipeImg}
-          alt="Recommend Recipe!"
-        /> */}
       </RecommendRecipeWrapper>
       <RecentSearchRecipeWrapper>
         <Text font={"title3"}>최근 조회한 레시피</Text>
+
         {data?.data.recentRecipes && data.data.recentRecipes.length > 0 ? (
-          data.data.recentRecipes.map((data) => (
-            <RecipeWrapper>
+          <RecipeWrapper>
+            {data.data.recentRecipes.map((data) => (
               <RecipeBoxWrapper
                 key={data.recipeId}
                 onClick={() => showDetail(data.recipeId as number)}
               >
-                <RecipeImg src={data.recipeImg} alt="menu image" />
+                <div style={{ position: "relative" }}>
+                  <RecipeImg src={data.recipeImg} alt="menu image" />
+                  <HoverOverlay>
+                    <HoverText>{data.introduce}</HoverText>
+                  </HoverOverlay>
+                </div>
+
                 <Text font={"title4"}>{data.recipeName}</Text>
-                <Text font={"body2"}>{data.introduce}</Text>
+                {/* <Text font={"body2"}>{data.introduce}</Text> */}
               </RecipeBoxWrapper>
-            </RecipeWrapper>
-          ))
+            ))}
+          </RecipeWrapper>
         ) : (
           <EmptyWrapper>
             <Text font={"title4"}>최근 조회한 레시피가 없습니다.</Text>
@@ -137,11 +139,42 @@ const RecommendRecipeWrapper = styled.section`
 `;
 
 const RecImg = styled.img`
+  position: relative;
   cursor: pointer;
   width: 100%;
   height: 18rem;
   &:hover {
     transform: scale(1.01);
+  }
+`;
+
+const HoverOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const HoverText = styled.p`
+  position: absolute;
+  bottom: 3.3rem;
+  width: 100%;
+  padding: 10px;
+  color: ${theme.colors.white};
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  ${HoverOverlay}:hover & {
+    opacity: 1;
   }
 `;
 
@@ -151,9 +184,11 @@ const RecentSearchRecipeWrapper = styled.section`
 `;
 
 const RecipeWrapper = styled.div`
-  display: grid;
-  grid-template-rows: repeat(3, 10rem);
-  gap: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.7rem;
   margin-top: 1rem;
 `;
 
@@ -166,15 +201,15 @@ const EmptyWrapper = styled.div`
 `;
 
 const RecipeBoxWrapper = styled.div`
-  margin-bottom: 3rem;
   &:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.03);
   }
 `;
 
 const RecipeImg = styled.img`
   width: 10rem;
+  height: 10rem;
 `;
 
 const Loading = styled.div`
