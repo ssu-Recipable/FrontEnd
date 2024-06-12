@@ -6,9 +6,7 @@ export interface BookMarkData {
 }
 
 export interface BookMarkResponse {
-  data: {
-    status: number;
-    message: string;
-    data: BookMarkData[];
-  };
+  status: number;
+  message: string;
+  data: BookMarkData[];
 }
