@@ -34,8 +34,8 @@ const BookMark = () => {
         </MoveBack>
         <Text font={"title1"}>북마크한 레시피</Text>
       </TitleSection>
-      {data?.data.data && data.data.data.length > 0 ? (
-        data.data.data.map((item) => (
+      {data?.data && data.data.length > 0 ? (
+        data.data.map((item) => (
           <BookMarkBox
             key={item.recipeId}
             onClick={() => showRecipeDetail(item.recipeId)}
