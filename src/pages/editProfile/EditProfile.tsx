@@ -95,7 +95,6 @@ const EditProfileTitle = styled.div`
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid ${theme.colors.grey2};
-  margin-top: 5rem;
   padding: 1rem;
 `;
 

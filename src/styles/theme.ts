@@ -18,70 +18,70 @@ const FONT = ({ family, weight, size, lineHeight }: Font): string => {
 
 const fonts = {
   head1: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 700,
     size: 2.5,
     lineHeight: 3.4,
   }),
   head2: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 700,
     size: 1.9,
     lineHeight: 3,
   }),
 
   title1: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 700,
     size: 1.9,
     lineHeight: 3.4,
   }),
   title2: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 400,
     size: 1.9,
     lineHeight: 2.8,
   }),
   title3: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 700,
     size: 1.4,
     lineHeight: 2.8,
   }),
   title4: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 700,
     size: 1.1,
     lineHeight: 2.6,
   }),
   title5: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 700,
     size: 1.5,
     lineHeight: 3.4,
   }),
 
   body1: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 400,
-    size: 1.1,
+    size: 1.2,
     lineHeight: 2,
   }),
   body2: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 400,
-    size: 1,
+    size: 1.1,
     lineHeight: 0.4,
   }),
 
   button1: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 600,
     size: 1.3,
     lineHeight: 2,
   }),
   button2: FONT({
-    family: "Pretendard Variable",
+    family: 'Spoqa Han Sans Neo',
     weight: 600,
     size: 1.1,
     lineHeight: 2,

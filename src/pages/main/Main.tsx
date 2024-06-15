@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Advertise from "./components/Advertise";
 import { IoMenu } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
-import TestLogo2 from "@/assets/images/Recipable_Logo1.png";
+import TestLogo2 from "@/assets/images/Recipable_CircleLogo.png";
 import { useEffect } from "react";
 import { LoadMainData, RequestUserInfo } from "@/utils/apis/UserInfoAPI";
 import { useSetRecoilState } from "recoil";
@@ -57,9 +57,8 @@ const Main = () => {
     <MainContainer>
       <Header />
       <RecommendRecipeWrapper>
-        <Text font={"title2"}>오늘의 추천 레시피</Text>
         <Text font={"title1"}>{data?.data.todayRecipe.recipeName}</Text>
-        <Text font={"body1"} color={theme.colors.grey1}>
+        <Text font={"body1"}>
           {data?.data.todayRecipe.introduce}
         </Text>
         {data?.data?.todayRecipe?.recipeImg ? (
@@ -92,9 +91,11 @@ const Main = () => {
               >
                 <div style={{ position: "relative" }}>
                   <RecipeImg src={data.recipeImg} alt="menu image" />
+                  {/*
                   <HoverOverlay>
                     <HoverText>{data.introduce}</HoverText>
                   </HoverOverlay>
+                  */}
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <Text font={"title4"}>
@@ -139,7 +140,9 @@ const MainContainer = styled.main`
 `;
 
 const RecommendRecipeWrapper = styled.section`
-  margin-top: 1.2rem;
+  margin-top: 1.3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid ${theme.colors.grey2};
 `;
 
 const RecImg = styled.img`
@@ -152,6 +155,9 @@ const RecImg = styled.img`
   &:hover {
     transform: scale(1.01);
   }
+  object-fit: cover;
+  margin-top: 1rem;
+  border-radius: 1rem;
 `;
 
 const HoverOverlay = styled.div`
@@ -163,6 +169,7 @@ const HoverOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   opacity: 0;
   transition: opacity 0.3s;
+  border-radius: 1rem;
 
   &:hover {
     opacity: 0.8;
@@ -171,13 +178,16 @@ const HoverOverlay = styled.div`
 
 const HoverText = styled.p`
   position: absolute;
-  bottom: 3.3rem;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
-  padding: 10px;
+  padding: 0 0.5rem;
   color: ${theme.colors.white};
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s;
+  font-weight: 200;
 
   ${HoverOverlay}:hover & {
     opacity: 1;
@@ -186,6 +196,7 @@ const HoverText = styled.p`
 
 const RecentSearchRecipeWrapper = styled.section`
   margin-top: 1.2rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid ${theme.colors.grey2};
 `;
 
@@ -217,6 +228,7 @@ const RecipeImg = styled.img`
   width: 10rem;
   height: 10rem;
   object-fit: cover;
+  border-radius: 1rem;
 `;
 
 const Loading = styled.div`

@@ -7,10 +7,10 @@ export const GetBookMarkApi = async () => {
   return response.data;
 };
 
-export const PostBookMarkApi = (id: number) => {
+export const PostBookMarkApi = (id: string) => {
   return api.post(`/bookmark/${id}`);
 };
 
-export const DeleteBookMarkApi = (id: number) => {
+export const DeleteBookMarkApi = (id: string) => {
   return api.delete(`/bookmark/${id}`);
 };

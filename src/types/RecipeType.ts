@@ -41,6 +41,7 @@ interface RecipeDetailResponse {
     ingredients: string,
     recipeDetails: string,
     recipeVideoResponses: RecipeVideo[],
+    bookmark: boolean
 }
 
 export interface RecipeResponse {
