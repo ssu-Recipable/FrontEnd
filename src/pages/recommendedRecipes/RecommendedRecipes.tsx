@@ -78,7 +78,7 @@ const RecommendedRecipes = () => {
                             introduce: recipe.introduce,
                             ingredients: ingredients,
                             recipeDetails: recipeDetails,
-                            query: name,
+                            query: name + "레시피",
                         }
                         const res = await SaveRecipeApi(recipeRequest);
                         console.log(res.data.data.recipeVideoResponses);

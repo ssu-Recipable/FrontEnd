@@ -4,13 +4,13 @@ import { api } from "./axios";
 export const GetBookMarkApi = async () => {
   const response = await api.get<BookMarkResponse>("/bookmark");
   console.log(response);
-  return response.data;
+  return response;
 };
 
-export const PostBookMarkApi = (id: number) => {
+export const PostBookMarkApi = (id: string) => {
   return api.post(`/bookmark/${id}`);
 }
 
-export const DeleteBookMarkApi = (id: number) => {
+export const DeleteBookMarkApi = (id: string) => {
   return api.delete(`/bookmark/${id}`);
 }

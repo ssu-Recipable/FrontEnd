@@ -90,24 +90,12 @@ const MyPage = () => {
           <Text font={"title3"}>{nickName}</Text>
         </UserInfo>
         <MyPageMenu>
-          <div onClick={gotoMain}>
+          <div onClick={gotoMain} style={{borderBottom: `0.5px solid ${theme.colors.grey1}`, width: "100%"}}>
             <Text font={"body1"}>홈으로</Text>
           </div>
-          <span
-            style={{
-              border: `0.5px solid ${theme.colors.grey1}`,
-              width: "100%",
-            }}
-          />
-          <div onClick={gotoEditProfile}>
+          <div onClick={gotoEditProfile} style={{borderBottom: `0.5px solid ${theme.colors.grey1}`, width: "100%"}}>
             <Text font={"body1"}>프로필 수정</Text>
           </div>
-          <span
-            style={{
-              border: `0.5px solid ${theme.colors.grey1}`,
-              width: "100%",
-            }}
-          />
           <div onClick={onClickToggleModal}>
             <Text font={"body1"}>회원 탈퇴</Text>
           </div>
@@ -133,7 +121,6 @@ const MyPageTitle = styled.div`
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid ${theme.colors.grey2};
-  margin-top: 5rem;
   padding: 1rem;
 `;
 const UserInfo = styled.div`
