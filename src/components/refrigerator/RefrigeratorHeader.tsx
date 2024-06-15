@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Text from "../commonComponents/Text";
 import { Link } from "react-router-dom";
-import { theme } from "@/styles/theme";
 import { useRecoilValue } from "recoil";
 import { nickNameState } from "@/recoil/atom";
 import HeaderLogo from "@/assets/images/Recipable_Logo2.png";
@@ -19,7 +18,6 @@ const RefrigeratorHeader = () => {
                         <Text font={"title1"}>{name}님의 냉장고</Text>
                     </Link>
             </TitleSection>
-            <hr style={{ border : `1px solid ${theme.colors.grey2}`, width: "100%" }}/>
         </>
     );
 }
@@ -32,4 +30,5 @@ const TitleSection = styled.div`
     margin-top: 2rem;
     padding: 0.8rem;
     position: relative;
+    margin-bottom: 2.5rem;
 `;

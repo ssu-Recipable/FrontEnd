@@ -26,13 +26,13 @@ const Login = () => {
     <LoginContainer>
       <MainLogoImg src={MainLogo} alt="Recipable 만들어 먹는 재미!" />
       <TitleSection>
-        <Text font={"title3"}>로그인하고 원하는 레시피를 추천 받아봐요</Text>
+        <Text font={"body1"}>로그인하고 원하는 레시피를 추천 받아봐요</Text>
       </TitleSection>
       <KakaoLoginSection onClick={loginWithKakao}>
         <KakaoLoginImg src={KakaoLogin} alt="KaKao Login" />
       </KakaoLoginSection>
       <Button typeState={"defaultBtn"} onClick={gotoEmailLogin}>
-        <Text font={"button1"}>이메일로 로그인하기</Text>
+        <Text font={"body1"}>이메일로 로그인하기</Text>
       </Button>
     </LoginContainer>
   );
@@ -46,7 +46,6 @@ const LoginContainer = styled.main`
 `;
 
 const TitleSection = styled.section`
-  width: 16rem;
   text-align: center;
   margin-top: 8rem;
 `;

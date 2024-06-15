@@ -56,8 +56,8 @@ const fonts = {
   }),
   title5: FONT({
     family: 'Spoqa Han Sans Neo',
-    weight: 700,
-    size: 1.5,
+    weight: 400,
+    size: 1.3,
     lineHeight: 3.4,
   }),
 

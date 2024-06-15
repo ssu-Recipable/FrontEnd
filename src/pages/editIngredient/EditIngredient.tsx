@@ -135,7 +135,7 @@ const EditIngredient = () => {
         />
         <InfoSection>
           <Info>
-            <Text font={"title4"}>이름</Text>
+            <Text font={"title3"}>이름</Text>
             <InputInfo
               type="text"
               value={ingredientName}
@@ -143,7 +143,7 @@ const EditIngredient = () => {
             />
           </Info>
           <Info>
-            <Text font={"title4"}>카테고리</Text>
+            <Text font={"title3"}>카테고리</Text>
             <Select
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
@@ -154,7 +154,7 @@ const EditIngredient = () => {
             </Select>
           </Info>
           <Info>
-            <Text font={"title4"}>소비기한</Text>
+            <Text font={"title3"}>소비기한</Text>
             <InputInfo
               type="date"
               value={expirationDay ?? ""}
@@ -162,7 +162,7 @@ const EditIngredient = () => {
             />
           </Info>
           <Info>
-            <Text font={"title4"}>메모</Text>
+            <Text font={"title3"}>메모</Text>
             <Textarea
               maxLength={100}
               placeholder="최대 100자까지 입력 가능합니다."
@@ -178,7 +178,7 @@ const EditIngredient = () => {
             }}
           >
             <Button typeState={"completeBtn"} onClick={handleEditButton}>
-              수정 완료하기
+              <Text font={"button2"}>수정 완료하기</Text>
             </Button>
           </div>
         </Link>

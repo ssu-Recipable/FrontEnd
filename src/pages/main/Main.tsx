@@ -98,7 +98,7 @@ const Main = () => {
                   */}
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Text font={"title4"}>
+                  <Text font={"body1"}>
                     {data.recipeName.length > 11
                       ? `${data.recipeName.slice(0, 11)}...`
                       : data.recipeName}

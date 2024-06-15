@@ -38,27 +38,31 @@ const ViewIngredient = () => {
                 : <IngredientImg src={data?.ingredientImage} />}
                 <InfoSection>
                     <Info>
-                        <Text font={"title4"}>이름</Text>
+                        <Text font={"title3"}>이름</Text>
                         <Text font={"body1"}>{data?.ingredientName}</Text>
                     </Info>
                     <Info>
-                        <Text font={"title4"}>카테고리</Text>
+                        <Text font={"title3"}>카테고리</Text>
                         <Text font={"body1"}>{data?.categoryName}</Text>
                     </Info>
                     <Info>
-                        <Text font={"title4"}>소비기한</Text>
+                        <Text font={"title3"}>소비기한</Text>
                         <Text font={"body1"}>{data?.expirationDay}</Text>
                     </Info>
                     <Info>
-                        <Text font={"title4"}>메모</Text>
+                        <Text font={"title3"}>메모</Text>
                         <Text font={"body1"}>{data?.memo}</Text>
                     </Info>
                 </InfoSection>
                 <ButtonSection>
                     <Link to={`/editIngredient/${id}`}>
-                        <Button typeState={"completeBtn"}>재료 수정하기</Button>
+                        <Button typeState={"completeBtn"}>
+                            <Text font={"button2"}>재료 수정하기</Text>
+                        </Button>
                     </Link>
-                    <Button typeState={"disproveBtn"} onClick={deleteIngredient}>재료 삭제하기</Button>
+                    <Button typeState={"disproveBtn"} onClick={deleteIngredient}>
+                        <Text font={"button2"}>재료 삭제하기</Text>
+                    </Button>
                 </ButtonSection>
             </Wrapper>
         </>

@@ -21,7 +21,7 @@ const Refrigerator = () => {
                             {category.refrigeratorDetailList?.length !== 0?
                                 <>
                                 <Category>
-                                    <Text font={"body1"}>{category.categoryName}</Text>
+                                    <Text font={"title3"}>{category.categoryName}</Text>
                                     <Text font={"body2"} color={"gray"}>{category.detailContent}</Text>
                                     <IngredientList>
                                         {category.refrigeratorDetailList?.map((ingredient) => 
