@@ -176,6 +176,7 @@ const HoverOverlay = styled.div`
   }
 `;
 
+/**
 const HoverText = styled.p`
   position: absolute;
   top: 45%;
@@ -193,6 +194,7 @@ const HoverText = styled.p`
     opacity: 1;
   }
 `;
+*/
 
 const RecentSearchRecipeWrapper = styled.section`
   margin-top: 1.2rem;
