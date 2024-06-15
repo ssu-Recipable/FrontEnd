@@ -97,9 +97,13 @@ const Main = () => {
                   </HoverOverlay>
                   */}
                 </div>
-
-                <Text font={"body1"}>{data.recipeName}</Text>
-                {/* <Text font={"body2"}>{data.introduce}</Text> */}
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Text font={"title4"}>
+                    {data.recipeName.length > 11
+                      ? `${data.recipeName.slice(0, 11)}...`
+                      : data.recipeName}
+                  </Text>
+                </div>
               </RecipeBoxWrapper>
             ))}
           </RecipeWrapper>
@@ -144,8 +148,10 @@ const RecommendRecipeWrapper = styled.section`
 const RecImg = styled.img`
   position: relative;
   cursor: pointer;
+  object-fit: contain;
   width: 100%;
   height: 18rem;
+  background-color: rgba(224, 224, 224, 0.2);
   &:hover {
     transform: scale(1.01);
   }
