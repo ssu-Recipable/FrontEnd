@@ -160,6 +160,7 @@ const RecImg = styled.img`
   border-radius: 1rem;
 `;
 
+/**
 const HoverOverlay = styled.div`
   position: absolute;
   top: 0;
@@ -176,7 +177,6 @@ const HoverOverlay = styled.div`
   }
 `;
 
-/**
 const HoverText = styled.p`
   position: absolute;
   top: 45%;
