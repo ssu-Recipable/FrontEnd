@@ -174,7 +174,7 @@ const Loading = styled.div`
   align-items: center;
   width: 100%;
 `;
-
+/** 
 const LoadImg = styled.img`
   position: relative;
   height: 35rem;
@@ -185,5 +185,5 @@ const LoadContent = styled.div`
   position: absolute;
   bottom: 35rem;
 `;
-
+*/
 export default ScanReceipt;
