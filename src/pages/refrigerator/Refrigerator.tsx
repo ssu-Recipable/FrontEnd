@@ -29,7 +29,7 @@ const Refrigerator = () => {
                                                 <Ingredient>
                                                     {ingredient.ingredientImage? <IngredientImg src={ingredient.ingredientImage} /> : <DefaultImg src={DefaultIngredientImg} />}
                                                     <Text font={"body1"}>{ingredient.ingredientName}</Text>
-                                                    <Text font={"body2"} color={"gray"}>{ingredient.expiredRemaining? `D-${ingredient.expiredRemaining}`: null}</Text>
+                                                    <Text font={"body2"} color={"gray"}>{ingredient.expiredRemaining? (ingredient.expiredRemaining >= 0 ? `D-${ingredient.expiredRemaining}` : null) : null}</Text>
                                                 </Ingredient>
                                             </Link>)
                                         }
@@ -100,6 +100,7 @@ const IngredientImg = styled.img`
     height: 4.5rem;
     border-radius: 3rem;
     border: 0.1rem solid rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 `;
 
 const DefaultImg = styled.img`

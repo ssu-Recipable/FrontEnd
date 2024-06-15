@@ -100,7 +100,7 @@ const IngredientInput = () => {
           <TextSection>
             <Text font={"title3"}>재료 저장 완료!</Text>
             <Text font={"body1"}>
-              냉장고를 확인하시고 싶으면 잠시만 기다려주세요!
+              냉장고를 확인하시고 싶으면 잠시만 기다려주세요
             </Text>
           </TextSection>
           <Button typeState={"completeBtn"} onClick={gotoRecipeRecommend}>
@@ -109,13 +109,14 @@ const IngredientInput = () => {
         </SuccessMessage>
       ) : (
         <>
+          <MoveBack onClick={movePreviousPage}>
+                <IoIosArrowBack size={20} />
+          </MoveBack>
           <TopContainer>
             <TitleSection>
-              <MoveBack onClick={movePreviousPage}>
-                <IoIosArrowBack size={20} />
-              </MoveBack>
               <Text font={"title1"}>재료를 입력해주세요</Text>
             </TitleSection>
+            <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%", marginBottom: "4rem"}}>
             <Category
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
@@ -129,24 +130,18 @@ const IngredientInput = () => {
                 <Text font={"button2"}>확인</Text>
               </Button>
             </TopButtonSection>
+            </div>
           </TopContainer>
+          {ingredientList.length !== 0 ? 
           <BottomContainer>
             <Text font={"title3"}>다음과 같은 재료를 냉장고에 추가합니다</Text>
-            {ingredientList.length > 0 ? (
-              <ItemContainer>
-                <IngredientList
-                  isEdit={false}
-                  onRemove={handleRemoveIngredient}
-                  ingredientList={ingredientList}
-                />
-              </ItemContainer>
-            ) : (
-              <DefalutMessage>
-                <Text font={"title4"}>
-                  이곳에 원하는 식재료의 이름과 카테고리를 추가해보세요!
-                </Text>
-              </DefalutMessage>
-            )}
+            <ItemContainer>
+              <IngredientList
+                isEdit={false}
+                onRemove={handleRemoveIngredient}
+                ingredientList={ingredientList}
+              />
+            </ItemContainer>
             <BottomButtonSection>
               <Button
                 typeState={
@@ -157,7 +152,7 @@ const IngredientInput = () => {
                 <Text font={"button1"}>냉장고에 재료 추가하기</Text>
               </Button>
             </BottomButtonSection>
-          </BottomContainer>
+          </BottomContainer> : null}
         </>
       )}
     </InputContainer>
@@ -168,8 +163,6 @@ const InputContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 8rem;
-  padding: 1rem;
 `;
 
 const TitleSection = styled.div`
@@ -181,40 +174,47 @@ const TitleSection = styled.div`
 
 const MoveBack = styled.span`
   cursor: pointer;
-  position: absolute;
-  left: 0;
-  bottom: 0.6rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 `;
 
 const TopContainer = styled.section`
-  position: relative;
-  border-bottom: 1px solid ${theme.colors.grey2};
+  width: 100%;
+  height: auto;
+  min-height: 100%;
 `;
 
 const TopButtonSection = styled.section`
-  position: absolute;
-  bottom: 3rem;
-  left: 13.4rem;
 `;
 
 const BottomContainer = styled.section`
-  position: relative;
-  margin-top: 4rem;
+  position : relative;
+  bottom: 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ItemContainer = styled.div`
   width: 100%;
-  height: 20rem;
+  padding: 0 1rem;
   overflow-y: auto;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
+  height: 15rem;
 `;
 
 const BottomButtonSection = styled.section`
-  position: absolute;
-  bottom: -0.5rem;
-  left: 3.25rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
 `;
-
+/**
 const DefalutMessage = styled.div`
   display: flex;
   height: 20rem;
@@ -222,7 +222,7 @@ const DefalutMessage = styled.div`
   align-items: center;
   margin-bottom: 5rem;
 `;
-
+*/
 const SuccessMessage = styled.div`
   display: flex;
   flex-direction: column;

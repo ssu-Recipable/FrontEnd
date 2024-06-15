@@ -19,10 +19,10 @@ const AddIngredient = () => {
 
   return (
     <AddIngredientContainer>
-      <Title>
-        <MoveBack onClick={movePreviousPage}>
+      <MoveBack onClick={movePreviousPage}>
           <IoIosArrowBack size={20} />
-        </MoveBack>
+      </MoveBack>
+      <Title>
         <Text font={"title1"}>재료 추가 방식을 선택해주세요</Text>
       </Title>
       <ActionState>
@@ -42,22 +42,21 @@ const AddIngredientContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20rem;
+  width: 100%;
 `;
 
 const Title = styled.div`
-  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 7rem;
+  margin-bottom: 5rem;
 `;
 
-const MoveBack = styled.span`
+const MoveBack = styled.div`
   cursor: pointer;
-  position: absolute;
-  left: -2rem;
-  bottom: 0.6rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 20rem;
 `;
 
 const ActionState = styled.div`

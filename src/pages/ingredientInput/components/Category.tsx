@@ -3,30 +3,9 @@ import { theme } from "@/styles/theme";
 import { CategoryType } from "@/types/ScanReceiptType";
 import { useState } from "react";
 import styled from "styled-components";
+import { CategoryList} from "@/components/commonComponents/CategoryList"
 
-const CategoryList = [
-  "과일",
-  "채소",
-  "축산물",
-  "어패류",
-  "생선",
-  "건어물",
-  "해조류",
-  "농산물",
-  "유가공품",
-  "김치",
-  "장류",
-  "젓갈",
-  "조미료",
-  "소스잼",
-  "식용유",
-  "면류",
-  "통조림",
-  "분말류",
-  "음료",
-];
-
-const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
+const   Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
   const [isDropDown, setIsDropDown] = useState(false);
   const onClickOption = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedCategory(e.currentTarget.innerText);
@@ -61,6 +40,8 @@ const Category = ({ selectedCategory, setSelectedCategory }: CategoryType) => {
 
 const CategoryContainer = styled.div`
   margin-top: 3.5rem;
+  width: 100%;
+  padding: 0 1rem;
 `;
 const SelectButton = styled.button`
   position: relative;
@@ -88,7 +69,7 @@ const DropDownArea = styled.div`
   width: 31.5rem;
   background-color: ${theme.colors.grey1};
   border-radius: 0.6rem;
-  top: 15rem;
+  top: 19.8rem;
   height: 12rem;
   overflow-y: auto;
   @keyframes dropdown {

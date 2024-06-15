@@ -83,7 +83,7 @@ const RecommendedRecipe = () => {
                         <InfoSection>
                             <TextSection>
                                 <Text font={"title1"}>{data.recipeName}</Text>
-                                <Text font={"body2"}>{data.introduce}</Text>
+                                <Text font={"body1"}>{data.introduce}</Text>
                             </TextSection>
                             <IconSection>
                                 <svg onClick={handleShareClick} style={{ cursor: "pointer" }} xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="20">
@@ -96,11 +96,19 @@ const RecommendedRecipe = () => {
                         </InfoSection>
                         <IngredientsSection>
                             <Text font={"title3"}>재료</Text>
-                            <Ingredients>{data.ingredients}</Ingredients>
+                            <Ingredients>
+                                <Text font={"body1"}>
+                                    {data.ingredients}
+                                </Text>
+                            </Ingredients>
                         </IngredientsSection>
                         <RecipeSection>
                             <Text font={"title3"}>레시피</Text>
-                            <RecipeDetail>{data.recipeDetails}</RecipeDetail>
+                            <RecipeDetail>
+                                <Text font={"body1"}>
+                                    {data.recipeDetails}
+                                </Text>
+                            </RecipeDetail>
                         </RecipeSection>
                         <VideoSection>
                             <Text font={"title3"}>추천 영상</Text>
@@ -130,7 +138,7 @@ const Header = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    height: 4rem;
+    height: 5rem;
     background: white;
     transition: top 0.1s;
     padding: 0 1rem;
@@ -149,6 +157,7 @@ const Img = styled.img`
     height: 22rem;
     background: rgba(0, 0, 0, 0.1);
     object-fit: cover;
+    border-radius: 1rem;
 `;
 
 const InfoSection = styled.div`
@@ -161,7 +170,6 @@ const InfoSection = styled.div`
 const TextSection = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
     padding: 1rem 0;
 `;
 
@@ -182,9 +190,7 @@ const IngredientsSection = styled.div`
 `;
 
 const Ingredients = styled.pre`
-    line-height: 2.5;
     padding: 0 1rem;
-    color: rgba(0, 0, 0, 0.5);
 `;
 
 const RecipeSection = styled.div`
@@ -202,7 +208,6 @@ const RecipeDetail = styled.pre`
     line-height: 3;
     white-space: pre-wrap;
     word-wrap: break-word;
-    color: rgba(0, 0, 0, 0.5);
 `;
 
 const VideoSection = styled.div`

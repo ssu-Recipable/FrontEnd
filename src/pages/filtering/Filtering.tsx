@@ -2,12 +2,14 @@ import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { theme } from "@/styles/theme";
 
 const Filtering = () => {
     const foodCategories = ["한식", "양식", "일식", "중식", "디저트"];
     const skills = ["초급자", "중급자", "고급자"];
+
+    const navigate = useNavigate();
 
     const [selectedSkill, setSelectedSkill] = useState<string|null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -48,6 +50,10 @@ const Filtering = () => {
         setNonPreffered(nonPreferred.filter(Filter => Filter != text))
     }
 
+    const handleBackClick = () => {
+        navigate(-1);
+    };
+
     console.log(selectedCategories);
     console.log(selectedSkill);
     console.log(nonPreferred);
@@ -55,12 +61,17 @@ const Filtering = () => {
     return (
         <>
             <Wrapper>
+                <div style={{width: "100%", marginTop: "1rem"}}>
+                    <svg onClick={handleBackClick} style={{cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clipRule="evenodd" />
+                    </svg>
+                </div>
                 <TitleSection>
                     <div style={{marginBottom: "0.5rem"}}>
                         <Text font={"title1"}>원하시는 레시피에 대해 알려주세요</Text>
                     </div>
-                    <div style={{marginLeft: "0.5rem"}}>
-                        <Text font={"body2"} color={`${theme.colors.grey2}`}>필수적으로 선택하지 않으셔도 됩니다</Text>
+                    <div>
+                        <Text font={"body2"} color={`${theme.colors.grey1}`}>필수적으로 선택하지 않으셔도 됩니다</Text>
                     </div>
                 </TitleSection>
                 <FilteringSection>
@@ -120,7 +131,9 @@ const Filtering = () => {
                 </FilteringSection>
                 <Link to={`/recommendedRecipes`}>
                     <div style={{margin: "3rem 0"}}>
-                        <Button typeState={"completeBtn"}>레시피 추천받기</Button>
+                        <Button typeState={"completeBtn"}>
+                            <Text font={"button2"}>레시피 추천받기</Text>
+                        </Button>
                     </div>
                 </Link>          
             </Wrapper>
@@ -137,7 +150,7 @@ const Wrapper = styled.div`
 `;
 
 const TitleSection = styled.div`
-    margin-top: 7rem;
+    margin-top: 4rem;
     margin-bottom: 3rem;
     margin-left: 1rem;
     width: 100%;  

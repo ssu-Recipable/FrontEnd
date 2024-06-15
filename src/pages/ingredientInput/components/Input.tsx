@@ -30,7 +30,9 @@ const Input = ({ inputIngredient, setInputIngredient }: InputType) => {
 
 const InputContainer = styled.div`
   margin-top: 2rem;
-  margin-bottom: 10rem;
+  margin-bottom: 4rem;
+  width: 100%;
+  padding: 0 1rem;
 `;
 const InputBox = styled.div`
   position: relative;

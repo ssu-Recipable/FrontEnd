@@ -187,9 +187,13 @@ const RecommendedRecipes = () => {
                 </Item>
             </RecipesSection>
             <ButtonSection>
-                <Button typeState={"completeBtn"} onClick={createNewRecipes}>다른 레시피를 알고 싶어요</Button>
+                <Button typeState={"completeBtn"} onClick={createNewRecipes}>
+                    <Text font={"button2"}>다른 레시피를 알고 싶어요</Text>
+                </Button>
                 <Link to={"/main"}>
-                    <Button typeState={"disproveBtn"}>레시피 추천 그만두기</Button>
+                    <Button typeState={"disproveBtn"}>
+                        <Text font={"button2"}>레시피 추천 그만두기</Text>
+                    </Button>
                 </Link>
             </ButtonSection>
         </Wrapper>
@@ -208,7 +212,7 @@ const Wrapper = styled.div`
 `;
 
 const TitleSection = styled.div`
-    margin-top: 7rem;
+    margin-top: 5rem;
     margin-bottom: 3rem;
     margin-left: 2rem;
     width: 100%;  

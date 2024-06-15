@@ -8,7 +8,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { ResultScan } from "@/utils/apis/ScanReceiptAPI";
 import { UploadFile } from "@/types/ScanReceiptType";
-import Spinner from "@/assets/images/LoadingSpinnerReceipt.gif";
+import Spinner from "@/assets/gif/Loading.gif"
 import { useSetRecoilState } from "recoil";
 import { ingredientDataListState } from "@/recoil/atom";
 
@@ -83,42 +83,42 @@ const ScanReceipt = () => {
   }, [imageFile]);
 
   return (
-    <ScanReceiptContainer>
-      {isLoading ? (
+      isLoading ? (
         <>
           <Loading>
-            <LoadImg src={Spinner} alt="로딩중" width="100%" />
-            <LoadContent>
-              <Text font={"title3"}>
-                영수증을 분석하고 있습니다.. 잠시만 기다려주세요..
-              </Text>
-            </LoadContent>
+            <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <Text font={"title3"}>영수증을 분석하고 있습니다.</Text>
+                    <img src={Spinner} alt="로딩" width="30%" />
+            </div>
           </Loading>
         </>
-      ) : null}
-      <TitleSection>
+      ) : 
+      <ScanReceiptContainer>
         <MoveBack onClick={movePreviousPage}>
           <IoIosArrowBack size={20} />
         </MoveBack>
-        <Text font={"title1"}>영수증 사진을 업로드해주세요</Text>
-      </TitleSection>
-      {showImage}
-      <Text font={"body2"} color={theme.colors.grey1}>
-        사진이 선명하지 않으면 분석 결과가 이상할 수 있습니다!
-      </Text>
-      <form encType="multipart/form-data">
-        <input
-          type="file"
-          accept="image/jpg, image/jpeg, image/png"
-          ref={fileInputRef}
-          onChange={uploadFile}
-          style={{ display: "none" }}
-        ></input>
-        <button type="button" onClick={handleClickFileInput}></button>
-      </form>
-      <Button typeState={"completeBtn"} onClick={receiveReceipt}>
-        <Text font={"button1"}>영수증 분석하기</Text>
-      </Button>
+        <TitleSection>
+          <Text font={"title1"}>영수증 사진을 업로드해주세요</Text>
+        </TitleSection>
+        {showImage}
+        <Text font={"body2"} color={theme.colors.grey1}>
+          사진이 선명하지 않으면 분석 결과가 정확하지 않을 수 있습니다.
+        </Text>
+          <form encType="multipart/form-data">
+            <input
+              type="file"
+              accept="image/jpg, image/jpeg, image/png"
+              ref={fileInputRef}
+              onChange={uploadFile}
+              style={{ display: "none" }}
+            />
+            <button type="button" onClick={handleClickFileInput}></button>
+          </form>
+        <div style={{marginTop: "5rem"}}>
+        <Button typeState={"completeBtn"} onClick={receiveReceipt}>
+          <Text font={"button1"}>영수증 분석하기</Text>
+        </Button>
+      </div>
     </ScanReceiptContainer>
   );
 };
@@ -128,7 +128,7 @@ const ScanReceiptContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 12rem;
+  width: 100%;
 `;
 
 const TitleSection = styled.div`
@@ -140,9 +140,9 @@ const TitleSection = styled.div`
 
 const MoveBack = styled.span`
   cursor: pointer;
-  position: absolute;
-  left: 0;
-  bottom: 0.6rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 9rem;
 `;
 
 const NoSelecetedImage = styled.div`
@@ -153,15 +153,18 @@ const NoSelecetedImage = styled.div`
   background-color: ${theme.colors.grey2};
   span {
     position: absolute;
-    top: 11rem;
-    right: 12.6rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
+  cursor: pointer;
 `;
 
 const ShowFileImage = styled.img`
   width: 30rem;
   height: 27rem;
   margin: 2rem 0;
+  object-fit: cover;
 `;
 
 const Loading = styled.div`
@@ -169,13 +172,7 @@ const Loading = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 37.5rem;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  z-index: 9999;
-  background-color: ${theme.colors.grey1};
-  opacity: 0.8;
+  width: 100%;
 `;
 
 const LoadImg = styled.img`

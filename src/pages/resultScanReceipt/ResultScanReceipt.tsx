@@ -76,11 +76,11 @@ const ResultScanReceipt = () => {
           <TextSection>
             <Text font={"title3"}>재료 저장 완료!</Text>
             <Text font={"body1"}>
-              냉장고를 확인하시고 싶으면 잠시만 기다려주세요!
+              냉장고를 확인하시고 싶으면 잠시만 기다려주세요.
             </Text>
           </TextSection>
           <Button typeState={"completeBtn"} onClick={gotoRecipeRecommend}>
-            <Text font={"button1"}>레시피 추천 받으러 가기!</Text>
+            <Text font={"button1"}>레시피 추천 받으러 가기</Text>
           </Button>
         </SuccessMessage>
       ) : (
@@ -90,7 +90,7 @@ const ResultScanReceipt = () => {
           </TitleSection>
           <ListContainer>
             <IngredientList
-              isEdit={true}
+              isEdit={false}
               onRemove={handleRemoveIngredient}
               ingredientList={ingredientList}
             />
@@ -110,7 +110,7 @@ const ResultScanContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 12rem;
+  margin-top: 5rem;
 `;
 
 const TitleSection = styled.div`
@@ -120,13 +120,13 @@ const TitleSection = styled.div`
 `;
 
 const ListContainer = styled.div`
-  margin-top: 3rem;
-  height: 30rem;
-  overflow-y: auto;
+  margin: 0 4rem;
+  margin-top: 5rem;
 `;
 
 const ButtonSection = styled(TitleSection)`
-  margin-top: 5rem;
+  margin-top: 6rem;
+  margin-bottom: 3rem;
 `;
 
 const SuccessMessage = styled.div`

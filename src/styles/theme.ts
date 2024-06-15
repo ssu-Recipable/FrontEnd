@@ -71,7 +71,7 @@ const fonts = {
     family: 'Spoqa Han Sans Neo',
     weight: 400,
     size: 1.1,
-    lineHeight: 0.4,
+    lineHeight: 1.3,
   }),
 
   button1: FONT({

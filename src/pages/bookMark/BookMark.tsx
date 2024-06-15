@@ -47,6 +47,7 @@ const BookMark = () => {
                 {item.introduce}
               </Text>
             </TextSection>
+
           </BookMarkBox>
         ))
       ) : (
@@ -62,7 +63,8 @@ const BookMark = () => {
 };
 
 const BookMarkContainer = styled.div`
-  margin-top: 5rem;
+  margin: 1rem 0;
+  width: 100%;
 `;
 
 const TitleSection = styled.div`
@@ -70,6 +72,7 @@ const TitleSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
 `;
 
 const MoveBack = styled.span`
@@ -83,21 +86,17 @@ const BookMarkBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-bottom: 0.1rem solid ${theme.colors.grey2};
-  box-shadow: 0.1rem 0.1rem 0.1rem ${theme.colors.grey1};
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  margin-bottom: 1rem;
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.25),
-      0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.22);
-  }
+  align-items: center; 
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  padding: 0 1rem;
 `;
 
 const RecipeImg = styled.img`
   width: 10rem;
   height: 8rem;
+  border-radius: 1rem;
+  object-fit: cover;
 `;
 
 const TextSection = styled.div`
@@ -105,7 +104,7 @@ const TextSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin: 0 1.5rem;
 `;
 
 const EmptyWrapper = styled.div`
@@ -113,7 +112,7 @@ const EmptyWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10rem;
+  padding-top: 25rem; 
 `;
 
 const Loading = styled.div`

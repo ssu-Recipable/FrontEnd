@@ -86,7 +86,7 @@ const ChooseIngredients = () => {
                 {category.refrigeratorDetailList?.length !== 0 ? (
                   <>
                     <Category>
-                      <Text font={"body1"}>{category.categoryName}</Text>
+                      <Text font={"title3"}>{category.categoryName}</Text>
                       <Text font={"body2"} color={"gray"}>
                         {category.detailContent}
                       </Text>
@@ -157,7 +157,7 @@ const ChooseIngredients = () => {
         </SelectAll>
         <div style={{ marginBottom: "3rem" }}>
           <Button typeState={"completeBtn"} onClick={handleCompleteClick}>
-            재료 선택 완료
+            <Text font={"button2"}>재료 선택 완료</Text>
           </Button>
         </div>
       </Wrapper>
@@ -178,7 +178,7 @@ const CategorySection = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 0 1rem;
-  margin-bottom: 8rem;
+  margin-bottom: 5rem;
 `;
 
 const Category = styled.div`
@@ -218,6 +218,7 @@ const IngredientImg = styled.img<IngredientProps>`
   &:hover {
     opacity: 1;
   }
+  object-fit: cover;
 `;
 
 const DefaultImg = styled.img<IngredientProps>`

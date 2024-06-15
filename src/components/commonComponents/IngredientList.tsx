@@ -39,7 +39,6 @@ const IngredientItem = styled.div`
   align-items: center;
   width: 100%;
   height: 5rem;
-  border-bottom: 1px solid ${theme.colors.grey2};
   div {
     width: 5rem;
   }
