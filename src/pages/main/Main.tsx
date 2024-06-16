@@ -13,7 +13,6 @@ import Text from "@/components/commonComponents/Text";
 import { MainDataResponse } from "@/types/MainType";
 import { theme } from "@/styles/theme";
 import { useNavigate } from "react-router-dom";
-import DefaultImage from "@/assets/images/MainLogo.jpeg";
 import EmptyImg from "@/assets/images/default_ingredients.png"
 
 const Main = () => {
