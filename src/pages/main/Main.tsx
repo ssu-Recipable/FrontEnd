@@ -58,9 +58,7 @@ const Main = () => {
       <Header />
       <RecommendRecipeWrapper>
         <Text font={"title1"}>{data?.data.todayRecipe.recipeName}</Text>
-        <Text font={"body1"}>
-          {data?.data.todayRecipe.introduce}
-        </Text>
+        <Text font={"body1"}>{data?.data.todayRecipe.introduce}</Text>
         {data?.data?.todayRecipe?.recipeImg ? (
           <RecImg
             onClick={() =>
@@ -80,8 +78,7 @@ const Main = () => {
         )}
       </RecommendRecipeWrapper>
       <RecentSearchRecipeWrapper>
-        <Text font={"title3"}>최근 조회한 레시피</Text>
-
+        <Text font={"title3"}>최근 검색한 레시피</Text>
         {data?.data.recentRecipes && data.data.recentRecipes.length > 0 ? (
           <RecipeWrapper>
             {data.data.recentRecipes.map((data) => (
@@ -91,11 +88,6 @@ const Main = () => {
               >
                 <div style={{ position: "relative" }}>
                   <RecipeImg src={data.recipeImg} alt="menu image" />
-                  {/*
-                  <HoverOverlay>
-                    <HoverText>{data.introduce}</HoverText>
-                  </HoverOverlay>
-                  */}
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <Text font={"body1"}>
@@ -109,7 +101,7 @@ const Main = () => {
           </RecipeWrapper>
         ) : (
           <EmptyWrapper>
-            <Text font={"title4"}>최근 조회한 레시피가 없습니다.</Text>
+            <Text font={"title4"}>최근 검색한 레시피가 없습니다.</Text>
             <Text font={"body2"}>
               식재료를 등록하고 레시피를 추천 받아보세요!
             </Text>
