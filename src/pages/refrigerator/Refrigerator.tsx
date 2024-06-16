@@ -16,7 +16,7 @@ const Refrigerator = () => {
             <RefrigeratorHeader />
             <Wrapper>
                 <CategorySection>
-                    {data?.map((category, index) => {
+                    {data? data.map((category, index) => {
                         return <>
                             {category.refrigeratorDetailList?.length !== 0?
                                 <>
@@ -40,7 +40,10 @@ const Refrigerator = () => {
                                 : null
                             }
                         </>
-                    })}
+                    })
+                    :<div style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+                        <Text font={"body1"}>저장된 재료가 없습니다.</Text>
+                    </div>}
                 </CategorySection>
 
                 <Footer>

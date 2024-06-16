@@ -70,6 +70,7 @@ const ChooseIngredients = () => {
 
   useEffect(() => {
     if (ingredients.length === 0) {
+      sessionStorage.removeItem("filtering");
       sessionStorage.removeItem("recipes");
     }
   }, []);
@@ -82,7 +83,7 @@ const ChooseIngredients = () => {
       <Wrapper>
         <CategorySection>
           <>
-            {data?.map((category, index) => (
+            {data? data.map((category, index) => (
               <>
                 {category.refrigeratorDetailList?.length !== 0 ? (
                   <>
@@ -136,7 +137,10 @@ const ChooseIngredients = () => {
                   </>
                 ) : null}
               </>
-            ))}
+            ))
+          :<div style={{height: "50rem", display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <Text font={"body1"}>저장된 재료가 없습니다.</Text>
+      </div>}
           </>
         </CategorySection>
         <SelectAll>
