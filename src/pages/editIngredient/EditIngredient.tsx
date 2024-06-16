@@ -10,8 +10,7 @@ import {
   ViewIngredientApi,
 } from "@/utils/apis/IngredientApi";
 import { UpdateIngredientRequest } from "@/types/IngredientType";
-
-const categories: string[] = ["야채류", "과일", "김치"];
+import { CategoryList } from "@/components/commonComponents/CategoryList";
 
 const EditIngredient = () => {
   const { id } = useParams<{ id: string }>() as { id: string };
@@ -148,7 +147,7 @@ const EditIngredient = () => {
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
             >
-              {categories.map((item) => (
+              {CategoryList.map((item) => (
                 <option value={item}>{item}</option>
               ))}
             </Select>
@@ -243,6 +242,7 @@ const Select = styled.select`
   font-size: 1.2rem;
   outline: none;
   border-radius: 0.5rem;
+  box-sizing: border-box;
 `;
 
 const Textarea = styled.textarea`
