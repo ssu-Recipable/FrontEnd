@@ -29,7 +29,6 @@ export const ingredientDataListState = atom<AddIngredientType[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-
 export const ingredientsState = atom<string[]>({
   key: 'ingredientsState',
   default: getSessionStorage('ingredients') || [],
@@ -37,6 +36,23 @@ export const ingredientsState = atom<string[]>({
     ({onSet}) => {
       onSet(newValue => {
         setSessionStorage('ingredients', newValue);
+      })
+    }
+  ]
+})
+
+interface Filtering {
+  category: string[],
+  nonPreferred: string[]
+}
+
+export const filteringState = atom<Filtering>({
+  key: 'filteringState',
+  default: getSessionStorage('filtering') || [],
+  effects_UNSTABLE: [
+    ({onSet}) => {
+      onSet(newValue => {
+        setSessionStorage('filtering', newValue);
       })
     }
   ]

@@ -1,20 +1,23 @@
 import styled from "styled-components";
 import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { theme } from "@/styles/theme";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { filteringState, ingredientsState } from "@/recoil/atom";
 
 const Filtering = () => {
     const foodCategories = ["한식", "양식", "일식", "중식", "디저트"];
-    const skills = ["초급자", "중급자", "고급자"];
 
     const navigate = useNavigate();
 
-    const [selectedSkill, setSelectedSkill] = useState<string|null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [inputText, setInputText] = useState<string>('');
     const [nonPreferred, setNonPreffered] = useState<string[]>([]);
+
+    const ingredients = useRecoilValue(ingredientsState);
+    const [filtering, setFiltering] = useRecoilState(filteringState);
 
     const handleCategoryClick = (category: string) => {
         const index = selectedCategories?.indexOf(category);
@@ -25,10 +28,6 @@ const Filtering = () => {
         } else {
             setSelectedCategories([...selectedCategories, category]);
         }
-    }
-
-    const handleSkillClick = (skill: string) => {
-        setSelectedSkill(skill === selectedSkill? null: skill)
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,18 +53,26 @@ const Filtering = () => {
         navigate(-1);
     };
 
-    console.log(selectedCategories);
-    console.log(selectedSkill);
-    console.log(nonPreferred);
+    const handleRecommendClick = () => {
+        const filtering = {
+            category: selectedCategories,
+            nonPreferred: nonPreferred,
+        }
+        setFiltering(filtering);
+        navigate('/recommendedRecipes');
+    }
+
+    useEffect(() => {
+        if(ingredients.length === 0){
+            navigate('/chooseIngredients');
+        }
+    }, [ingredients]);
+
+    console.log(filtering);
 
     return (
         <>
             <Wrapper>
-                <div style={{width: "100%", marginTop: "1rem"}}>
-                    <svg onClick={handleBackClick} style={{cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clipRule="evenodd" />
-                    </svg>
-                </div>
                 <TitleSection>
                     <div style={{marginBottom: "0.5rem"}}>
                         <Text font={"title1"}>원하시는 레시피에 대해 알려주세요</Text>
@@ -93,24 +100,7 @@ const Filtering = () => {
                         </ItemList>
                     </Filter>
                     <Filter>
-                        <Text font={"title3"}>2. 요리 숙련도</Text>
-                        <ItemList>
-                            {skills.map((skill) => 
-                                <Item onClick={() => handleSkillClick(skill)}>
-                                    <Text font={"body1"}>{skill}</Text>
-                                    {
-                                        selectedSkill === skill ? 
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" fill="black">
-                                                <path d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" />
-                                            </svg>
-                                        : null
-                                    } 
-                                </Item>
-                            )}
-                        </ItemList>
-                    </Filter>
-                    <Filter>
-                        <Text font={"title3"}>3. 비선호 재료</Text>
+                        <Text font={"title3"}>2. 비선호 재료</Text>
                         <InputSection>
                             <Input type="text" value={inputText} onChange={handleInputChange}/>
                             <Button typeState={"confirmBtn"} onClick={handleAddNonPreffered}>확인</Button>
@@ -118,7 +108,7 @@ const Filtering = () => {
                         <ul style={{padding: "0 1rem"}}>
                             {nonPreferred.map((Filter, index) => (
                                 <Li>
-                                    <li key={index}>
+                                    <li key={index} style={{fontSize:"1.2rem"}}>
                                         {Filter}
                                     </li>
                                     <svg onClick={() => handleNonPrefferedClick(Filter)} style={{ cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="gray">
@@ -129,13 +119,16 @@ const Filtering = () => {
                         </ul>
                     </Filter>
                 </FilteringSection>
-                <Link to={`/recommendedRecipes`}>
-                    <div style={{margin: "3rem 0"}}>
-                        <Button typeState={"completeBtn"}>
-                            <Text font={"button2"}>레시피 추천받기</Text>
-                        </Button>
-                    </div>
-                </Link>          
+                <div onClick={handleBackClick} style={{margin: "3rem 0 1rem 0"}}>
+                    <Button typeState={"disproveBtn"}>
+                        <Text font={"button2"}>이전으로</Text>
+                    </Button>
+                </div>
+                <div onClick={handleRecommendClick} style={{margin: "0 0 3rem 0"}}>
+                    <Button typeState={"completeBtn"}>
+                        <Text font={"button2"}>레시피 추천받기</Text>
+                    </Button> 
+                </div>  
             </Wrapper>
         </>
     );
@@ -150,10 +143,11 @@ const Wrapper = styled.div`
 `;
 
 const TitleSection = styled.div`
-    margin-top: 4rem;
+    margin-top: 5rem;
     margin-bottom: 3rem;
     margin-left: 1rem;
-    width: 100%;  
+    width: 100%;
+    padding: 0 0.5rem;
 `;
 
 const FilteringSection = styled.div`

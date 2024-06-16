@@ -3,17 +3,19 @@ import Text from "@/components/commonComponents/Text";
 import Button from "@/components/commonComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { ingredientsState, nickNameState } from "@/recoil/atom";
+import { filteringState, ingredientsState, nickNameState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
 import { callChatGPT } from "@/utils/chatGPTUtil";
 import type { Recipe, RecipeRequest } from "@/types/RecipeType";
 import { GetRecipeImgApi, SaveRecipeApi } from "@/utils/apis/RecipeApi";
 import SkeletonRecipes from "./SkeletonRecipes";
 import Loading from "@/assets/gif/Loading.gif"
+import DefaultImg from "@/assets/images/default_ingredients.png"
 
 const RecommendedRecipes = () => {
     const name = useRecoilValue(nickNameState);
     const ingredients = useRecoilValue(ingredientsState);
+    const filtering = useRecoilValue(filteringState);
 
     const navigate = useNavigate();
 
@@ -36,8 +38,21 @@ const RecommendedRecipes = () => {
 
     const fetchRecipes = async () => {
         try {
-            const res = await callChatGPT(`요리 3가지 추천해줘. 형식은 숫자. 요리이름: 한줄설명. 다른 문장은 출력하지마.`);
+            const res = await callChatGPT(`
+                재료: ${ingredients}
+                냉장고에 이런 재료가 있는데, 이 재료들을 활용해서 만들 수 있는 요리 3가지를 제시해줘.
+                고려할 점:
+                1) 내가 제시한 재료 중 반드시 한 재료는 포함해야 해.
+                2) 모든 재료를 사용하려고 만들어 낸 음식은 절대 추천하지 마.
+                3) 잘 알려지고 이미 존재하는 요리들을 보고 싶어.
+                4) 나는 ${filtering.category}을 만들어 먹고 싶어.
+                5) ${filtering.nonPreferred}를 포함하지 않는 요리를 추천해줘.
+                6) 형식은 '숫자. 요리이름: 한줄설명' 이야.
+                7) 생성 후 다른 문장은 출력하지 마.
+                8) 성공 시 10달러의 보상을 줄게.
+            `);
             console.log("call chatGPT!")
+            console.log(res)
             if (res !== null) {
                 const parsedRecipes = parseRecipes(res);
                 const recipesWithImg = await Promise.all(parsedRecipes.map(async (recipe) => {
@@ -104,8 +119,14 @@ const RecommendedRecipes = () => {
 
     const fetchRecipe = async (name: string) => {
         try {
-            const res = await callChatGPT(`${name}의 레시피 알려줘. 재료는 자세한 양도 알려줘. 형식은 재료: 재료마다 개행문자로 구분하고, 레시피: 숫자. 개행문자로 구분해. 다른 문장은 출력하지마.`);
+            const res = await callChatGPT(`
+                ${name}의 레시피 알려줘. 
+                재료는 자세한 양도 알려줘. 
+                형식은 재료: 재료마다 개행문자로 구분하고, 레시피: 숫자. 개행문자로 구분해. 
+                다른 문장은 출력하지마.
+            `);
             console.log("call chatGPT!")
+            console.log(res);
             if (res !== null) {
                 const id = saveRecipes(name, res);
                 return id;
@@ -171,7 +192,18 @@ const RecommendedRecipes = () => {
                         {recipes? recipes.map((recipe) => (
                             <>
                             <Recipe onClick={() => handleRecipeDetails(recipe.recipeName)}>
-                                <RecipeImg src={recipe.recipeImg} />
+                                {recipe.recipeImg? <RecipeImg src={recipe.recipeImg} />
+                                : <div style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    width: "12rem",
+                                    height: "9rem",
+                                    objectFit: "cover",
+                                    borderRadius: "0.8rem",
+                                    }}>
+                                    <img src={DefaultImg} style={{width: "8rem"}}/>
+                                    </div>}
                                 <RecipeInfo>
                                     <div>
                                         <div style={{fontSize: "1.2rem", fontWeight: "700"}}>{recipe.recipeName}</div>

@@ -65,7 +65,7 @@ const fonts = {
     family: 'Spoqa Han Sans Neo',
     weight: 400,
     size: 1.2,
-    lineHeight: 2,
+    lineHeight: 2.5,
   }),
   body2: FONT({
     family: 'Spoqa Han Sans Neo',

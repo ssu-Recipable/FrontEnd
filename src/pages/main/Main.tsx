@@ -14,6 +14,7 @@ import { MainDataResponse } from "@/types/MainType";
 import { theme } from "@/styles/theme";
 import { useNavigate } from "react-router-dom";
 import DefaultImage from "@/assets/images/MainLogo.jpeg";
+import EmptyImg from "@/assets/images/default_ingredients.png"
 
 const Main = () => {
   const setNickName = useSetRecoilState(nickNameState);
@@ -70,13 +71,20 @@ const Main = () => {
             alt="Recommend Recipe!"
           />
         ) : (
-          <RecImg
-            onClick={() =>
-              showDetail(data?.data.todayRecipe.recipeId as number)
-            }
-            src={DefaultImage}
-            alt="Recommend Recipe!"
-          />
+          <div style={{
+            position: "relative",
+            cursor: "pointer",
+            width: "100%",
+            height: "18rem",
+            objectFit: "cover",
+            borderRadius: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "1rem",
+          }}>
+            <img src={EmptyImg} style={{width: "12rem"}}/>
+            </div>
         )}
       </RecommendRecipeWrapper>
       <RecentSearchRecipeWrapper>
@@ -90,7 +98,18 @@ const Main = () => {
                 onClick={() => showDetail(data.recipeId as number)}
               >
                 <div style={{ position: "relative" }}>
-                  <RecipeImg src={data.recipeImg} alt="menu image" />
+                  {data.recipeImg? <RecipeImg src={data.recipeImg} alt="menu image" />
+                  : <div style={{
+                    width: "10rem",
+                    height: "10rem",
+                    objectFit: "cover",
+                    borderRadius: "1rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}>
+                    <img src={EmptyImg} style={{width: "5rem"}}/>
+                    </div>}
                   {/*
                   <HoverOverlay>
                     <HoverText>{data.introduce}</HoverText>
@@ -99,8 +118,8 @@ const Main = () => {
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <Text font={"body1"}>
-                    {data.recipeName.length > 11
-                      ? `${data.recipeName.slice(0, 11)}...`
+                    {data.recipeName.length > 9
+                      ? `${data.recipeName.slice(0, 9)}...`
                       : data.recipeName}
                   </Text>
                 </div>

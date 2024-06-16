@@ -50,6 +50,7 @@ const ChooseIngredients = () => {
       alert("재료를 하나 이상 선택해주세요.");
     } else {
       setIngredients(selectedIngredients);
+      sessionStorage.removeItem("filtering");
       sessionStorage.removeItem("recipes");
       navigate("/filtering");
     }
