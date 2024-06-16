@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Logo from "@/assets/images/Recipable_Logo2.png"
+import Logo from "@/assets/images/logoR.png"
 
 const Header = () => {
   const navigate = useNavigate();
