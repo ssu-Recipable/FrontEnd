@@ -143,6 +143,7 @@ const Header = styled.div`
     position: relative;
     height: 5rem;
     background: white;
+    margin-top: 1rem;
 `;
 
 const Wrapper = styled.div`

@@ -19,6 +19,11 @@ const Main = () => {
   const setNickName = useSetRecoilState(nickNameState);
   const navigate = useNavigate();
 
+  const today = new Date();
+  const formattedDate = `${today.getFullYear()}년 ${
+    today.getMonth() + 1
+  }월 ${today.getDate()}일`;
+
   const gotoRefrigerator = () => {
     navigate("/refrigerator");
   };
@@ -56,10 +61,14 @@ const Main = () => {
   return (
     <MainContainer>
       <Header />
+      <div style={{display: "flex", flexDirection: "column", marginTop: "1rem"}}>
+          <Text font={"title2"} color={theme.colors.grey1}>
+            {formattedDate}
+          </Text>
+          <Text font={"head2"}>오늘의 레시피</Text>
+        </div>
       <RecommendRecipeWrapper>
-        <Text font={"title1"}>{data?.data.todayRecipe.recipeName}</Text>
-        <Text font={"body1"}>{data?.data.todayRecipe.introduce}</Text>
-        {data?.data?.todayRecipe?.recipeImg ? (
+      {data?.data?.todayRecipe?.recipeImg ? (
           <RecImg
             onClick={() =>
               showDetail(data?.data.todayRecipe.recipeId as number)
@@ -79,10 +88,14 @@ const Main = () => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "1rem",
+            marginBottom: "1rem",
           }}>
             <img src={EmptyImg} style={{width: "12rem"}}/>
             </div>
         )}
+        <Text font={"title3"}>{data?.data.todayRecipe.recipeName}</Text>
+        <Text font={"body1"}>{data?.data.todayRecipe.introduce}</Text>
+        
       </RecommendRecipeWrapper>
       <RecentSearchRecipeWrapper>
         <Text font={"title3"}>최근 조회한 레시피</Text>
@@ -150,7 +163,6 @@ const MainContainer = styled.main`
 `;
 
 const RecommendRecipeWrapper = styled.section`
-  margin-top: 1.3rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid ${theme.colors.grey2};
 `;
@@ -168,6 +180,7 @@ const RecImg = styled.img`
   object-fit: cover;
   margin-top: 1rem;
   border-radius: 1rem;
+  margin-bottom: 1rem;
 `;
 
 /**
