@@ -87,20 +87,10 @@ const Tos = () => {
         <Text font={"body1"} color={theme.colors.grey3}>
           만 14세 이상 회원가입 가능합니다.
         </Text>
-        <Text font={"body1"} color={theme.colors.grey3}>
-          해당 내용은{" "}
-          <span
-            style={{
-              cursor: "pointer",
-              paddingBottom: "0.23rem",
-              paddingInline: "0.3rem",
-              color: `${theme.colors.blue}`,
-            }}
-          >
-            이용약관 및 정책
-          </span>
+        <InfoText>
+          해당 내용은 <span>이용약관 및 정책 </span>
           에서도 확인이 가능합니다.
-        </Text>
+        </InfoText>
       </TosInfoSection>
       <Button
         typeState={
@@ -156,6 +146,20 @@ const CheckTosSection = styled.div`
 
 const TosInfoSection = styled.div`
   margin-bottom: 8rem;
+`;
+
+const InfoText = styled.div`
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 3.4rem;
+  color: ${theme.colors.grey3};
+  span {
+    color: ${theme.colors.blue};
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 export default Tos;
