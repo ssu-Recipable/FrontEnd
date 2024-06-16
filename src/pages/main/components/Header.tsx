@@ -16,11 +16,11 @@ const Header = () => {
         {formattedDate}
       </Text>*/}
       <section style={{display: "flex", flexDirection: "column"}}>
-      <div style={{width: "100%", borderBottom: "1px solid rgba(0,0,0,0.1)"}}>
+      <div style={{width: "100%", }}>
       <Link to={"/main"}>
         <img src={Logo} style={{ height: "3.4rem", marginBottom: "1rem", marginTop: "1rem"}}/>
       </Link>
-      <span onClick={gotoMyPage} style={{position: "absolute", top: "3%", right: "0"}}>
+      <span onClick={gotoMyPage} style={{position: "absolute", top: "2.3%", right: "0"}}>
           <FaUserCircle size={28} color={theme.colors.grey2} />
       </span>
       </div>
