@@ -95,6 +95,7 @@ const RecommendedRecipes = () => {
                             recipeDetails: recipeDetails,
                             query: name + "레시피",
                         }
+                        try {
                         const res = await SaveRecipeApi(recipeRequest);
                         console.log(res.data.data.recipeVideoResponses);
                         recipeId = res.data.data.recipeId;
@@ -106,6 +107,11 @@ const RecommendedRecipes = () => {
                             RecipeVideoList: res.data.data.recipeVideoResponses,
                             recipeId: res.data.data.recipeId,
                         })
+                        } catch(e) {
+                            window.alert(e);
+                            setIsLoading(false);
+                            navigate("/recommendedRecipes");
+                        }
                     } else {
                         updatedRecipes.push(recipe);
                     }
@@ -122,7 +128,8 @@ const RecommendedRecipes = () => {
             const res = await callChatGPT(`
                 ${name}의 레시피 알려줘. 
                 재료는 자세한 양도 알려줘. 
-                형식은 재료: 재료마다 개행문자로 구분하고, 레시피: 숫자. 개행문자로 구분해. 
+                형식은 재료: 재료마다 개행문자로 구분하고, 레시피: 숫자. 개행문자로 구분해.
+                레시피는 500자 이내로 알려줘.
                 다른 문장은 출력하지마.
             `);
             console.log("call chatGPT!")
@@ -192,7 +199,7 @@ const RecommendedRecipes = () => {
                         {recipes? recipes.map((recipe) => (
                             <>
                             <Recipe onClick={() => handleRecipeDetails(recipe.recipeName)}>
-                                {recipe.recipeImg? <RecipeImg src={recipe.recipeImg} />
+                                {recipe.recipeImg? <RecipeImg src={recipe.recipeImg}/>
                                 : <div style={{
                                     display: "flex",
                                     justifyContent: "center",
