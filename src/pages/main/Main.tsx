@@ -4,7 +4,7 @@ import Advertise from "./components/Advertise";
 import { IoMenu } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import TestLogo2 from "@/assets/images/Recipable_CircleLogo.png";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoadMainData, RequestUserInfo } from "@/utils/apis/UserInfoAPI";
 import { useSetRecoilState } from "recoil";
 import { nickNameState } from "@/recoil/atom";
@@ -18,6 +18,15 @@ import EmptyImg from "@/assets/images/default_ingredients.png"
 const Main = () => {
   const setNickName = useSetRecoilState(nickNameState);
   const navigate = useNavigate();
+
+  const mainContainerRef = useRef<HTMLDivElement>(null);
+  const [footerWidth, setFooterWidth] = useState("43rem");
+  useEffect(() => {
+    if (mainContainerRef.current) {
+      const width = mainContainerRef.current.clientWidth;
+      setFooterWidth(`${width}px`);
+    }
+  }, []);
 
   const today = new Date();
   const formattedDate = `${today.getFullYear()}년 ${
@@ -59,7 +68,7 @@ const Main = () => {
   }
 
   return (
-    <MainContainer>
+    <MainContainer ref={mainContainerRef}>
       <Header />
       <div style={{display: "flex", flexDirection: "column", marginTop: "1rem"}}>
           <Text font={"title2"} color={theme.colors.grey1}>
@@ -140,7 +149,7 @@ const Main = () => {
         )}
       </RecentSearchRecipeWrapper>
       <Advertise />
-      <FooterWrapper>
+      <FooterWrapper footerwidth={footerWidth}>
         <SubMenuBox onClick={gotoRefrigerator}>
           <IoMenu size={25} />
           <Text font={"title4"}>냉장고</Text>
@@ -269,9 +278,13 @@ const Loading = styled.div`
   opacity: 0.3;
 `;
 
-const FooterWrapper = styled.footer`
+interface FooterProps {
+  footerwidth: string;
+}
+
+const FooterWrapper =  styled.footer<FooterProps>`
   position: fixed;
-  width: 39rem;
+  width: ${({ footerwidth }) => footerwidth};;
   height: 8rem;
   bottom: 0;
   display: flex;
