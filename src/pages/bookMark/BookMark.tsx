@@ -85,7 +85,7 @@ const MoveBack = styled.span`
 const BookMarkBox = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center; 
   margin-bottom: 1.5rem;
   cursor: pointer;
@@ -100,7 +100,7 @@ const RecipeImg = styled.img`
 `;
 
 const TextSection = styled.div`
-  width: 24rem;
+  width: calc(100% - 13rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
