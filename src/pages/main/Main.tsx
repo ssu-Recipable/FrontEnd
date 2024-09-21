@@ -4,7 +4,7 @@ import Advertise from "./components/Advertise";
 import { IoMenu } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import TestLogo2 from "@/assets/images/Recipable_CircleLogo.png";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { LoadMainData, RequestUserInfo } from "@/utils/apis/UserInfoAPI";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { footerWidthState, nickNameState } from "@/recoil/atom";
@@ -29,8 +29,8 @@ const Main = () => {
     }
   };
 
-  useEffect(() => {
-    const timeoutId = setTimeout(updateFooterWidth, 100);
+  useLayoutEffect(() => {
+    const timeoutId = setTimeout(updateFooterWidth, 200);
 
     window.addEventListener("resize", updateFooterWidth);
 
