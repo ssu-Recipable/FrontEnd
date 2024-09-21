@@ -6,8 +6,8 @@ import { FaStar } from "react-icons/fa";
 import TestLogo2 from "@/assets/images/Recipable_CircleLogo.png";
 import { useEffect, useRef, useState } from "react";
 import { LoadMainData, RequestUserInfo } from "@/utils/apis/UserInfoAPI";
-import { useSetRecoilState } from "recoil";
-import { nickNameState } from "@/recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { footerWidthState, nickNameState } from "@/recoil/atom";
 import { useQuery } from "@tanstack/react-query";
 import Text from "@/components/commonComponents/Text";
 import { MainDataResponse } from "@/types/MainType";
@@ -20,12 +20,24 @@ const Main = () => {
   const navigate = useNavigate();
 
   const mainContainerRef = useRef<HTMLDivElement>(null);
-  const [footerWidth, setFooterWidth] = useState("43rem");
-  useEffect(() => {
+  const [footerWidth, setFooterWidth] = useRecoilState(footerWidthState);
+  const updateFooterWidth = () => {
+    console.log(mainContainerRef.current);
     if (mainContainerRef.current) {
       const width = mainContainerRef.current.clientWidth;
       setFooterWidth(`${width}px`);
     }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(updateFooterWidth, 100);
+
+    window.addEventListener("resize", updateFooterWidth);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", updateFooterWidth);
+    };
   }, []);
 
   const today = new Date();
@@ -118,8 +130,8 @@ const Main = () => {
                 <div style={{ position: "relative" }}>
                 {data.recipeImg? <RecipeImg src={data.recipeImg} alt="menu image" />
                   : <div style={{
-                    width: "12rem",
-                    height: "12rem",
+                    width: "10rem",
+                    height: "10rem",
                     objectFit: "cover",
                     borderRadius: "1rem",
                     display: "flex",
@@ -131,8 +143,8 @@ const Main = () => {
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <Text font={"body1"}>
-                    {data.recipeName.length > 9
-                      ? `${data.recipeName.slice(0, 9)}...`
+                    {data.recipeName.length > 8
+                      ? `${data.recipeName.slice(0, 8)}...`
                       : data.recipeName}
                   </Text>
                 </div>
@@ -149,7 +161,7 @@ const Main = () => {
         )}
       </RecentSearchRecipeWrapper>
       <Advertise />
-      <FooterWrapper footerwidth={footerWidth}>
+      <FooterWrapper $footerWidth={footerWidth}>
         <SubMenuBox onClick={gotoRefrigerator}>
           <IoMenu size={25} />
           <Text font={"title4"}>냉장고</Text>
@@ -237,7 +249,8 @@ const RecentSearchRecipeWrapper = styled.section`
 const RecipeWrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  gap: 0.3rem;
   align-items: center;
   margin-top: 1rem;
 `;
@@ -258,8 +271,8 @@ const RecipeBoxWrapper = styled.div`
 `;
 
 const RecipeImg = styled.img`
-  width: 12rem;
-  height: 12rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
   border-radius: 1rem;
 `;
@@ -278,13 +291,9 @@ const Loading = styled.div`
   opacity: 0.3;
 `;
 
-interface FooterProps {
-  footerwidth: string;
-}
-
-const FooterWrapper =  styled.footer<FooterProps>`
+const FooterWrapper = styled.footer<{ $footerWidth: string }>`
   position: fixed;
-  width: ${({ footerwidth }) => footerwidth};;
+  width: ${({ $footerWidth }) => $footerWidth};
   height: 8rem;
   bottom: 0;
   display: flex;

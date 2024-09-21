@@ -57,3 +57,8 @@ export const filteringState = atom<Filtering>({
     }
   ]
 })
+
+export const footerWidthState = atom({
+  key: 'footerWidthState',
+  default: '',
+});
