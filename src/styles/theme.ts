@@ -20,70 +20,70 @@ const fonts = {
   head1: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 700,
-    size: 2.5,
+    size: 2.7,
     lineHeight: 3.4,
   }),
   head2: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 700,
-    size: 1.9,
+    size: 2.1,
     lineHeight: 3,
   }),
 
   title1: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 700,
-    size: 1.9,
+    size: 2.1,
     lineHeight: 3.4,
   }),
   title2: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 400,
-    size: 1.9,
+    size: 2.1,
     lineHeight: 2.8,
   }),
   title3: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 700,
-    size: 1.4,
+    size: 1.6,
     lineHeight: 2.8,
   }),
   title4: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 700,
-    size: 1.1,
+    size: 1.3,
     lineHeight: 2.6,
   }),
   title5: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 400,
-    size: 1.3,
+    size: 1.5,
     lineHeight: 3.4,
   }),
 
   body1: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 400,
-    size: 1.2,
+    size: 1.4,
     lineHeight: 2.5,
   }),
   body2: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 400,
-    size: 1.1,
+    size: 1.0,
     lineHeight: 1.3,
   }),
 
   button1: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 600,
-    size: 1.3,
+    size: 1.5,
     lineHeight: 2,
   }),
   button2: FONT({
     family: 'Spoqa Han Sans Neo',
     weight: 600,
-    size: 1.1,
+    size: 1.3,
     lineHeight: 2,
   }),
 };

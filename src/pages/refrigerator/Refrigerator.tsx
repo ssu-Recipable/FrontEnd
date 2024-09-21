@@ -29,7 +29,12 @@ const Refrigerator = () => {
                                                 <Ingredient>
                                                     {ingredient.ingredientImage? <IngredientImg src={ingredient.ingredientImage} /> : <DefaultImg src={DefaultIngredientImg} />}
                                                     <Text font={"body1"}>{ingredient.ingredientName}</Text>
-                                                    <Text font={"body2"} color={"gray"}>{ingredient.expiredRemaining? (ingredient.expiredRemaining >= 0 ? `D-${ingredient.expiredRemaining}` : null) : null}</Text>
+                                                    <Text font={"body2"} color={"gray"}>
+                                                        {ingredient.expiredRemaining? ingredient.expiredRemaining <= 0
+                                                            ? `D+${Math.abs(ingredient.expiredRemaining)}`
+                                                            : `D-${ingredient.expiredRemaining}`
+                                                        : null}
+                                                    </Text>
                                                 </Ingredient>
                                             </Link>)
                                         }
@@ -49,7 +54,7 @@ const Refrigerator = () => {
                 <Footer>
                     <Link to={"/addIngredient"}>
                         <AddButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="white" stroke-width="2" width="40" height="40">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="white" strokeWidth="2" width="40" height="40">
                                 <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                             </svg>
                         </AddButton>

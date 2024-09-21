@@ -18,7 +18,7 @@ const MobileWrapper = styled.div`
   padding-right: 2rem;
   padding-left: 2rem;
 
-  max-width: var(--app-max-width, 37.5rem);
+  max-width: var(--app-max-width, 43rem);
   min-height: calc(var(--vh, 1vh) * 100);
 `;
 
@@ -31,7 +31,7 @@ function App() {
 
     const windowWidth =
       window.innerWidth || document.documentElement.clientWidth;
-    const maxWidth = Math.min(37.5, windowWidth);
+    const maxWidth = Math.min(43, windowWidth);
     document.documentElement.style.setProperty(
       "--app-max-width",
       `${maxWidth}rem`

@@ -100,7 +100,7 @@ const RecipeImg = styled.img`
 `;
 
 const TextSection = styled.div`
-  width: 20rem;
+  width: 24rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

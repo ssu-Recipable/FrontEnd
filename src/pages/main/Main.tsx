@@ -109,8 +109,8 @@ const Main = () => {
                 <div style={{ position: "relative" }}>
                 {data.recipeImg? <RecipeImg src={data.recipeImg} alt="menu image" />
                   : <div style={{
-                    width: "10rem",
-                    height: "10rem",
+                    width: "12rem",
+                    height: "12rem",
                     objectFit: "cover",
                     borderRadius: "1rem",
                     display: "flex",
@@ -172,7 +172,7 @@ const RecImg = styled.img`
   cursor: pointer;
   object-fit: contain;
   width: 100%;
-  height: 18rem;
+  height: 22rem;
   background-color: rgba(224, 224, 224, 0.2);
   &:hover {
     transform: scale(1.01);
@@ -228,9 +228,8 @@ const RecentSearchRecipeWrapper = styled.section`
 const RecipeWrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  gap: 1.7rem;
   margin-top: 1rem;
 `;
 
@@ -250,8 +249,8 @@ const RecipeBoxWrapper = styled.div`
 `;
 
 const RecipeImg = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: 12rem;
   object-fit: cover;
   border-radius: 1rem;
 `;
@@ -272,7 +271,7 @@ const Loading = styled.div`
 
 const FooterWrapper = styled.footer`
   position: fixed;
-  width: 33.5rem;
+  width: 39rem;
   height: 8rem;
   bottom: 0;
   display: flex;

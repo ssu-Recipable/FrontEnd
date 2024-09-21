@@ -66,7 +66,7 @@ const DownArrow = styled.span`
 const Select = styled.div<{ $isCategorySelected: boolean }>``;
 const DropDownArea = styled.div`
   position: absolute;
-  width: 31.5rem;
+  width: 37rem;
   background-color: ${theme.colors.grey1};
   border-radius: 0.6rem;
   top: 19.8rem;

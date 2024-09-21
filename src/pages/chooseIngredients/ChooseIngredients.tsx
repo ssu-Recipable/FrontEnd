@@ -119,7 +119,9 @@ const ChooseIngredients = () => {
                             </Text>
                             <Text font={"body2"} color={"gray"}>
                               {ingredient.expiredRemaining
-                                ? `D-${ingredient.expiredRemaining}`
+                                ? ingredient.expiredRemaining <= 0
+                                ? `D+${Math.abs(ingredient.expiredRemaining)}`
+                                : `D-${ingredient.expiredRemaining}`
                                 : null}
                             </Text>
                           </Ingredient>

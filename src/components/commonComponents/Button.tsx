@@ -49,10 +49,11 @@ const buttonCSS = {
     ${buttonDefaultCSS.basicCss};
     background-color: ${({ theme }) => theme.colors.main2};
     color: ${({ theme }) => theme.colors.black};
-    width: 4.7rem;
-    height: 2rem;
+    width: 5rem;
+    height: 2.5rem;
     padding: 1.2rem;
     border-radius: 2rem;
+    font-weight: 700;
   `,
   defaultBtn: css`
     ${buttonDefaultCSS.basicCss};

@@ -14,7 +14,7 @@ export const callChatGPT = async (content: string) => {
           content: content
         },
       ],
-      model: "gpt-4",
+      model: "gpt-4o",
     });
     //console.log(chatCompletion.choices[0].message.content);
     return chatCompletion.choices[0].message.content;

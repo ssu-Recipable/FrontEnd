@@ -42,14 +42,13 @@ const RecommendedRecipes = () => {
                 재료: ${ingredients}
                 냉장고에 이런 재료가 있는데, 이 재료들을 활용해서 만들 수 있는 요리 3가지를 제시해줘.
                 고려할 점:
-                1) 내가 제시한 재료 중 반드시 한 재료는 포함해야 해.
-                2) 잘 알려지고 이미 존재하는 요리들을 보고 싶어. 
-                3) 모든 재료를 사용하려고 만들어 낸 음식은 절대 추천하지 마.
-                4) 나는 ${filtering.category}을 만들어 먹고 싶어.
-                5) ${filtering.nonPreferred}를 포함하지 않는 요리를 추천해줘.
+                1) 제시한 재료 중 최소 한 가지는 반드시 포함.
+                2) 이미 잘 알려진 요리만 추천.  
+                3) 모든 재료를 억지로 사용한 요리는 추천하지 말 것.
+                4) 나는 ${filtering.category}을(를) 원해.
+                5) ${filtering.nonPreferred}는 제외하고 추천.
                 6) 형식은 '숫자. 요리이름: 한 줄 설명' 이야. 한 줄 설명은 한 문장이고 간략해야해.
-                7) 생성 후 다른 문장은 출력하지 마.
-                8) 성공 시 10달러의 보상을 줄게.
+                7) 성공 시 10달러의 보상 있음. 다른 문장은 출력하지 마.
             `);
             console.log("call chatGPT!")
             console.log(res)
@@ -198,7 +197,7 @@ const RecommendedRecipes = () => {
                     <RecipesList>
                         {recipes? recipes.map((recipe) => (
                             <>
-                            <Recipe onClick={() => handleRecipeDetails(recipe.recipeName)}>
+                            <Recipe key={recipe.recipeId} onClick={() => handleRecipeDetails(recipe.recipeName)}>
                                 {recipe.recipeImg? <RecipeImg src={recipe.recipeImg}/>
                                 : <div style={{
                                     display: "flex",

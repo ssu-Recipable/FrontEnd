@@ -111,8 +111,8 @@ const Filtering = () => {
                                     <li key={index} style={{fontSize:"1.2rem"}}>
                                         {Filter}
                                     </li>
-                                    <svg onClick={() => handleNonPrefferedClick(Filter)} style={{ cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="gray">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    <svg onClick={() => handleNonPrefferedClick(Filter)} style={{ cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="gray">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                                     </svg>
                                 </Li>
                             ))}
@@ -182,6 +182,7 @@ const InputSection = styled.div`
 
 const Input = styled.input`
     width: 24rem;
+    flex-grow: 1;
     border-radius: 1rem;
     padding: 0.5rem;
     font-size: 1.2rem;
